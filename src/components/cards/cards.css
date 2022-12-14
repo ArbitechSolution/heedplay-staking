@@ -1,0 +1,84 @@
+.cards-container {
+  background: linear-gradient(311deg, #121212, #0c0c0c);
+  width: 100%;
+}
+.onebox {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  padding: 0 8px;
+  background: linear-gradient(132deg, #0e0e0e, #0b0a0a);
+  display: flex;
+  flex-direction: column;
+}
+.outbox {
+  width: 344px;
+  height: 100%;
+  padding: 2px;
+  border-radius: 12px;
+  background: linear-gradient(
+    135deg,
+    rgba(149, 127, 93, 0.19),
+    rgba(226, 202, 169, 0.58) 46%,
+    rgba(237, 213, 180, 0.13) 68%,
+    rgba(131, 102, 77, 0.21)
+  );
+}
+.card-title {
+  width: 135px;
+  height: 31px;
+  background: linear-gradient(311deg, rgba(242, 215, 140, 0), #f3da92);
+  -webkit-backdrop-filter: blur(0);
+  backdrop-filter: blur(0);
+  font-weight: 700;
+  color: #111010;
+  line-height: 31px;
+  text-align: center;
+  margin-left: -10px;
+}
+.out_top_box {
+  width: 100%;
+  height: 136px;
+  margin-top: 13px;
+  border-radius: 5px;
+  padding: 2px;
+  background: linear-gradient(
+    135deg,
+    rgba(234, 206, 129, 0.16),
+    #d4ba74 53%,
+    rgba(188, 164, 101, 0.15)
+  );
+}
+.top_box {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(132deg, #0e0e0e, #0b0a0a);
+  border-radius: 5px;
+  padding: 11px 10px;
+}
+.imgTLogo {
+  width: 66px;
+}
+.text-staked,
+.doller-staked,
+.value-staked {
+  font-weight: 700;
+  color: #ced3d9;
+  line-height: 22px;
+  display: flex;
+  justify-content: start;
+}
+.text-staked {
+  font-size: 16px;
+}
+
+.doller-staked {
+  font-size: 12px;
+}
+.value-staked {
+  font-size: 30px;
+}
+.text-pool {
+  font-size: 16px;
+  color: #ced3d9;
+}
