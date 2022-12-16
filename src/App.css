@@ -39,3 +39,13 @@
 .font18 {
   font-size: 18px;
 }
+.btn-custom {
+  cursor: pointer;
+  background: #232229;
+  border: 1px solid #4f4e53;
+  border-radius: 8px;
+  margin-right: 17px;
+  padding: 5px 15px;
+  font-weight: 700 !important;
+  color: #ced3d9;
+}

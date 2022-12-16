@@ -1,0 +1,39 @@
+.stakedDetail-container {
+  background: linear-gradient(311deg, #121212, #0c0c0c);
+  height: 400px;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.stakedDetail-heading {
+  font-weight: 500;
+  color: #ced3d9;
+  line-height: 22px;
+  font-size: 16px;
+  text-align: left;
+}
+
+.boxStakedDetail {
+  border: 1px solid green;
+  width: 60%;
+  background: linear-gradient(311deg, #121212, #0c0c0c);
+  box-shadow: 0 20px 20px 0 rgb(0 0 0 / 39%);
+  border-radius: 12px;
+  border: 1px solid rgba(68, 67, 67, 0.47);
+  padding: 50px;
+}
+
+.boldText {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0px 5px;
+  color: #eccf83;
+}
+@media (max-width: 768px) {
+  .boxStakedDetail {
+    width: 100%;
+    padding: 10px;
+  }
+}

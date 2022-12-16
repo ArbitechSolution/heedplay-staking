@@ -2,7 +2,7 @@ import React from "react";
 import "./staking.css";
 const Staking = () => {
   return (
-    <div className="container-fluid bgStaking-image">
+    <div className="container-fluid bgStaking-image ">
       <div className="row ">
         <span className="d-flex text-captilize text-heading">Staking</span>
       </div>

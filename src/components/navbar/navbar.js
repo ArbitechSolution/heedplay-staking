@@ -3,10 +3,11 @@ import { useLocation } from "react-router-dom";
 import logoGolden from "../../Assets/images/LogoGolden-01.png";
 import { HashLink } from "react-router-hash-link";
 import "./navbar.css";
-const CustomNavbar = () => {
+import { loadWeb3 } from "../../Api/connectivity";
+const CustomNavbar = (props) => {
   const [iscolor, setIsColor] = useState("Create Accounts");
   const { pathname } = useLocation();
-
+  const account = props?.account;
   const changePath = () => {
     if (pathname) {
       if (pathname == "/staking") {
@@ -23,6 +24,10 @@ const CustomNavbar = () => {
         setIsColor("user");
       }
     }
+  };
+  const handleConnect = async () => {
+    let acc = await loadWeb3();
+    props?.setAccount(acc);
   };
   useEffect(() => {
     changePath();
@@ -112,7 +117,22 @@ const CustomNavbar = () => {
                     </HashLink>
                   </li>
                 </ul>
-                <button className="btn-connect">Connect</button>
+                <button
+                  className="btn-custom"
+                  onClick={() => {
+                    handleConnect();
+                  }}
+                >
+                  {account === "No Wallet"
+                    ? "Connect"
+                    : account === "Connect"
+                    ? "Connect"
+                    : account === "Wrong Network"
+                    ? account
+                    : account.substring(0, 4) +
+                      "..." +
+                      account.substring(account.length - 4)}
+                </button>
               </div>
             </div>
           </nav>

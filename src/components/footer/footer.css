@@ -1,0 +1,33 @@
+.footer-img {
+  width: 140px;
+}
+.footer-container {
+  background: linear-gradient(311deg, #121212, #0c0c0c);
+  width: 100%;
+}
+.footer-text-headeing {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 23px;
+  color: #eccf83;
+}
+.footer-text {
+  margin: 14px 0;
+  cursor: pointer;
+  letter-spacing: 0.52px;
+  color: #dbdada;
+  font-size: 14px;
+}
+.footer-col {
+  display: flex;
+  justify-content: left;
+  flex-direction: column;
+  align-items: start;
+}
+@media (max-width: 767.98px) {
+  .footer-col {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+  }
+}

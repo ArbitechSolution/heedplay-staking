@@ -81,4 +81,78 @@
 .text-pool {
   font-size: 16px;
   color: #ced3d9;
+  text-decoration: none;
+}
+a:hover {
+  color: #ced3d9;
+}
+.value-afterPool {
+  font-weight: 700;
+  font-size: 20px;
+  color: #ced3d9;
+  line-height: 22px;
+  display: flex;
+  justify-content: start;
+}
+.img-small {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+.btn-inner {
+  cursor: pointer;
+  width: 109px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  border: 1px solid #918256 !important;
+  background: transparent;
+  padding: 5px 15px;
+  font-weight: 700 !important;
+  color: #ced3d9;
+}
+.inner-doller {
+  color: #8f8e8e !important;
+}
+.sr-para,
+.sr-para2 {
+  font-weight: 500;
+  color: #fff;
+  line-height: 22px;
+  font-size: 12px;
+}
+.sr-para {
+  font-size: 12px;
+}
+.sr-para2 {
+  font-size: 14px;
+}
+@media (max-width: 1024px) {
+  .value-staked {
+    font-size: 25px;
+  }
+  .text-pool {
+    font-size: 13px;
+  }
+}
+@media (max-width: 768px) {
+  .value-staked {
+    font-size: 22px;
+  }
+  .text-pool {
+    font-size: 12px;
+  }
+}
+.input-field {
+  width: 100px !important;
+  border: 1px solid #918256 !important;
+  background: transparent;
+  padding: 5px 15px;
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
 }
