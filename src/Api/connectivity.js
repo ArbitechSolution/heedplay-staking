@@ -82,14 +82,7 @@ export const loadWeb3 = async () => {
             isItConnected = true;
             net_id = netId;
             break;
-          case "137":
-            isItConnected = true;
-            net_id = netId;
-            break;
-          case "80001":
-            isItConnected = true;
-            net_id = netId;
-            break;
+
           default:
             handleNetworkSwitch("bsc");
             isItConnected = false;

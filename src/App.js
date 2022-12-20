@@ -7,7 +7,10 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 function App() {
   const [account, setAccount] = useState("Connect");
-
+  const [totalStake, setTotalStaked] = useState("0.00");
+  const [totalEarned, setTotalEarned] = useState("0.00");
+  const [roiReleased, setRoireleased] = useState("0.00");
+  const [directs, setdirects] = useState("0.00");
   return (
     <div className="App">
       <ToastContainer />
@@ -15,11 +18,37 @@ function App() {
       <Routes>
         <Route
           path="/staking"
-          element={<Staking account={account} setAccount={setAccount} />}
+          element={
+            <Staking
+              directs={directs}
+              account={account}
+              totalStake={totalStake}
+              totalEarned={totalEarned}
+              roiReleased={roiReleased}
+              setAccount={setAccount}
+              setdirects={setdirects}
+              setTotalEarned={setTotalEarned}
+              setTotalStaked={setTotalStaked}
+              setRoireleased={setRoireleased}
+            />
+          }
         />
         <Route
           path="/"
-          element={<Staking account={account} setAccount={setAccount} />}
+          element={
+            <Staking
+              directs={directs}
+              account={account}
+              totalStake={totalStake}
+              totalEarned={totalEarned}
+              roiReleased={roiReleased}
+              setAccount={setAccount}
+              setdirects={setdirects}
+              setTotalEarned={setTotalEarned}
+              setTotalStaked={setTotalStaked}
+              setRoireleased={setRoireleased}
+            />
+          }
         />
       </Routes>
     </div>

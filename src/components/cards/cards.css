@@ -156,3 +156,10 @@ input[type="number"]::-webkit-inner-spin-button {
   appearance: none;
   margin: 0;
 }
+.input-field-2 {
+  width: 400px !important;
+  border: 1px solid #918256 !important;
+  background: transparent;
+  padding: 5px 15px;
+  color: #ced3d9 !important;
+}

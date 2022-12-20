@@ -8,7 +8,7 @@ const StakingPage = (props) => {
   return (
     <div className="">
       <Staking />
-      <Staked />
+      <Staked props={props} />
       <Cards props={props} />
       <StakedDetails />
       <Footer />

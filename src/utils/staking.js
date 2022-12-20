@@ -1,4 +1,4 @@
-export const stkaingAddress = "0xF74042D8d593d559f90D9Cd52c5BcC1b3140cC4a";
+export const stkaingAddress = "0xc2e21EAAC9D8602ab541584964EbC3c73ab44d51";
 export const stakingAbi = [
   { inputs: [], stateMutability: "nonpayable", type: "constructor" },
   {
@@ -426,7 +426,7 @@ export const stakingAbi = [
     type: "function",
   },
 ];
-export const tokenAddress = "0x45C98d6e6B45B2288f19FB70DA2Da436CF9B1f9D";
+export const tokenAddress = "0x830173177a19A45c861A5709D3eA5987d94C84A1";
 export const tokenAbi = [
   { inputs: [], stateMutability: "nonpayable", type: "constructor" },
   {
@@ -470,13 +470,6 @@ export const tokenAbi = [
     type: "event",
   },
   {
-    inputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-    name: "Arr",
-    outputs: [{ internalType: "address", name: "", type: "address" }],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
     inputs: [
       { internalType: "address", name: "owner", type: "address" },
       { internalType: "address", name: "spender", type: "address" },
@@ -484,13 +477,6 @@ export const tokenAbi = [
     name: "allowance",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [{ internalType: "address", name: "_ule", type: "address" }],
-    name: "approval",
-    outputs: [],
-    stateMutability: "nonpayable",
     type: "function",
   },
   {
