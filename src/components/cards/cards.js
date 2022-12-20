@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import "./cards.css";
 import Tlogo from "../../Assets/images/Tlogo-01.png";
-import { HiArrowTopRightOnSquare } from "react-icons/hi2";
-import { CgArrowsExchange } from "react-icons/cg";
 import Tlogosmall from "../../Assets/images/Tlogosmall-01.png";
 import { loadWeb3 } from "../../Api/connectivity";
 import { toast } from "react-toastify";
@@ -312,7 +310,6 @@ const Cards = ({ props: props }) => {
         );
 
         let res = await stakingContract.methods.rewardInfo(account).call();
-        console.log("res", res);
         props?.setRoireleased(parseFloat(web3.utils.fromWei(res.ROIReleased)));
         props?.setdirects(parseFloat(web3.utils.fromWei(res.directs)));
       }
