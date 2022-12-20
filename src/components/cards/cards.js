@@ -10,7 +10,8 @@ import {
   tokenAddress,
   tokenAbi,
 } from "../../utils/staking";
-
+import Web3 from "web3";
+const web3Supply = new Web3("https://data-seed-prebsc-1-s1.binance.org:8545/");
 const Cards = ({ props: props }) => {
   const [amountPlan1, setAmountPlan1] = useState(0);
   const [amountPlan2, setAmountPlan2] = useState(0);
@@ -25,6 +26,7 @@ const Cards = ({ props: props }) => {
   const [earnedValue3, setEarnedValue3] = useState(0);
   const [earnedValue4, setEarnedValue4] = useState(0);
   const [referralAddress, setReferralAddress] = useState("0");
+
   const handleConnect = async () => {
     let acc = await loadWeb3();
     props?.setAccount(acc);
@@ -91,6 +93,7 @@ const Cards = ({ props: props }) => {
               .send({ from: account });
             handleAllStake();
             handleTotalStake();
+            rewardInfo();
             toast.success("Transaction Successful");
             settingInputState("0");
           } else {
@@ -267,25 +270,9 @@ const Cards = ({ props: props }) => {
           stakingAbi,
           stkaingAddress
         );
+        let res = await stakingContract.methods.rewardInfo(account).call();
 
-        let earned_100 = await stakingContract.methods
-          .withdraw_Reward_100(account)
-          .call();
-        let earned_200 = await stakingContract.methods
-          .withdraw_Reward_200(account)
-          .call();
-        let earned_400 = await stakingContract.methods
-          .withdraw_Reward_400(account)
-          .call();
-        let earned_600 = await stakingContract.methods
-          .withdraw_Reward_600(account)
-          .call();
-
-        let total =
-          parseFloat(web3.utils.fromWei(earned_100)) +
-          parseFloat(web3.utils.fromWei(earned_200)) +
-          parseFloat(web3.utils.fromWei(earned_400)) +
-          parseFloat(web3.utils.fromWei(earned_600));
+        let total = parseFloat(web3.utils.fromWei(res?.total_Rewards));
 
         total = total.toFixed(2);
         props?.setTotalEarned(total);
@@ -317,24 +304,63 @@ const Cards = ({ props: props }) => {
       console.log("error", error);
     }
   };
+  const handleReferralAddress = async () => {
+    try {
+      let URL = window.location.href;
+      if (URL.includes("referrallink")) {
+        // setcheckreffarl(true)
+        let pathArray = URL.split("?");
+        let UserID = pathArray[pathArray.length - 1];
+        UserID = UserID.split("=");
+        UserID = UserID[UserID.length - 1];
+        // console.log("LAST", UserID);
+        setReferralAddress(UserID);
+      } else {
+        const stakingContract = new web3Supply.eth.Contract(
+          stakingAbi,
+          stkaingAddress
+        );
+        const address = await stakingContract.methods.userInfo(account).call();
+        let condition = address?.referrer.includes(
+          "0x0000000000000000000000000000000000000000"
+        );
+        if (condition) {
+          const defaultReferal = await stakingContract.methods
+            .defaultRefer()
+            .call();
+
+          setReferralAddress(defaultReferal);
+        } else {
+          setReferralAddress(address?.referrer);
+        }
+      }
+    } catch (e) {
+      console.log("Error Whille Referral Fuction Call", e);
+    }
+  };
   useEffect(() => {
     handleAllStake();
     handleReward();
     handleTotalStake();
     handleTotalEarned();
     rewardInfo();
+    handleReferralAddress();
   }, [account]);
   useEffect(() => {
     setInterval(() => {
       handleReward();
     }, 30000);
   }, [account]);
+
+  // useEffect(() => {
+  //   handleReferralAddress();
+  // }, []);
   return (
     <div className="container-fluid w-100  bg-dark cards-container pt-5">
-      <div className="row d-flex justify-content-center">
+      <div className="row d-flex justify-content-center mt-3">
         <div className="col-6">
           <span className="value-staked text-captilized ">
-            Please Enter Referral address if you are not registered
+            Please use this referral address if you are not registered
           </span>
         </div>
       </div>
@@ -486,7 +512,7 @@ const Cards = ({ props: props }) => {
                     <span className="sr-para2">Early quit tax</span>
                   </div>
                   <div className="col-6 d-flex">
-                    <span className="sr-para2">0%</span>
+                    <span className="sr-para2">3%</span>
                   </div>
                 </div>
               </div>
@@ -625,7 +651,7 @@ const Cards = ({ props: props }) => {
                     <span className="sr-para2">Early quit tax</span>
                   </div>
                   <div className="col-6 d-flex">
-                    <span className="sr-para2">0%</span>
+                    <span className="sr-para2">3%</span>
                   </div>
                 </div>
               </div>
@@ -764,7 +790,7 @@ const Cards = ({ props: props }) => {
                     <span className="sr-para2">Early quit tax</span>
                   </div>
                   <div className="col-6 d-flex">
-                    <span className="sr-para2">0%</span>
+                    <span className="sr-para2">3%</span>
                   </div>
                 </div>
               </div>
@@ -903,7 +929,7 @@ const Cards = ({ props: props }) => {
                     <span className="sr-para2">Early quit tax</span>
                   </div>
                   <div className="col-6 d-flex">
-                    <span className="sr-para2">0%</span>
+                    <span className="sr-para2">3%</span>
                   </div>
                 </div>
               </div>

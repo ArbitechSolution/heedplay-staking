@@ -113,7 +113,7 @@ const CustomNavbar = (props) => {
                       }`}
                       to="/user"
                     >
-                      User Center
+                      Air Drop
                     </HashLink>
                   </li>
                 </ul>

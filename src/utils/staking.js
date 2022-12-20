@@ -1,4 +1,4 @@
-export const stkaingAddress = "0xc2e21EAAC9D8602ab541584964EbC3c73ab44d51";
+export const stkaingAddress = "0xAcBeCD2C12fFd522C3C3c62A76A99CF906dC39cC";
 export const stakingAbi = [
   { inputs: [], stateMutability: "nonpayable", type: "constructor" },
   {
@@ -295,6 +295,7 @@ export const stakingAbi = [
     outputs: [
       { internalType: "uint256", name: "directs", type: "uint256" },
       { internalType: "uint256", name: "ROIReleased", type: "uint256" },
+      { internalType: "uint256", name: "total_Rewards", type: "uint256" },
     ],
     stateMutability: "view",
     type: "function",

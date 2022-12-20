@@ -43,4 +43,14 @@
   .staked-subheading {
     font-size: 25px;
   }
+  .input-field-3 {
+    width: 300px;
+  }
+}
+.input-field-3 {
+  width: 600px !important;
+  border: 1px solid #918256 !important;
+  background: transparent;
+  padding: 5px 15px;
+  color: #ced3d9 !important;
 }
