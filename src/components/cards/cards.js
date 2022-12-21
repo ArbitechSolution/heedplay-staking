@@ -94,6 +94,7 @@ const Cards = ({ props: props }) => {
             handleAllStake();
             handleTotalStake();
             rewardInfo();
+            handleReferralAddress();
             toast.success("Transaction Successful");
             settingInputState("0");
           } else {
@@ -328,7 +329,6 @@ const Cards = ({ props: props }) => {
           const defaultReferal = await stakingContract.methods
             .defaultRefer()
             .call();
-
           setReferralAddress(defaultReferal);
         } else {
           setReferralAddress(address?.referrer);
@@ -357,8 +357,8 @@ const Cards = ({ props: props }) => {
   // }, []);
   return (
     <div className="container-fluid w-100  bg-dark cards-container pt-5">
-      <div className="row d-flex justify-content-center mt-3">
-        <div className="col-6">
+      <div className="row d-flex justify-content-center mt-5">
+        <div className="col-12 d-flex justify-content-center">
           <span className="value-staked text-captilized ">
             Please use this referral address if you are not registered
           </span>
@@ -380,10 +380,10 @@ const Cards = ({ props: props }) => {
         </div>
       </div>
       <div className="row d-flex justify-content-center">
-        <div className="col-lg-6 col-sm-12 d-flex justify-content-center mt-5">
+        <div className="col-xl-3 col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center mt-5">
           <div className="card outbox">
             <div className="card-body onebox">
-              <h5 className="card-title text-uppercase">st pool</h5>
+              <h5 className="card-title text-uppercase">HPG Pool</h5>
               <div className="out_top_box">
                 <div className="top_box">
                   <div className="row d-flex">
@@ -413,7 +413,7 @@ const Cards = ({ props: props }) => {
                   <div className="col-6">
                     <div className="row d-flex flex-column ">
                       <div className="col mt-2">
-                        <span className="text-staked">Available</span>
+                        <span className="text-staked">Amount</span>
                       </div>
                       <div className="col mt-2 d-flex">
                         <img src={Tlogosmall} alt="" className="img-small" />
@@ -433,14 +433,14 @@ const Cards = ({ props: props }) => {
                       </div>
                     </div>
                   </div>
-                  <div className="col-6 d-flex justify-content-center align-items-center">
+                  <div className="col-6 d-flex justify-content-center align-items-center mt-2">
                     <button
                       className=" btn-inner"
                       onClick={() =>
                         handleStake(amountPlan1, 300, setAmountPlan1)
                       }
                     >
-                      Stake ST
+                      Stake HPG
                     </button>
                   </div>
                 </div>
@@ -519,10 +519,10 @@ const Cards = ({ props: props }) => {
             </div>
           </div>
         </div>
-        <div className="col-lg-6 col-sm-12 d-flex justify-content-center mt-5">
+        <div className="col-xl-3 col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center mt-5">
           <div className="card outbox">
             <div className="card-body onebox">
-              <h5 className="card-title text-uppercase">st pool</h5>
+              <h5 className="card-title text-uppercase">HPG Pool</h5>
               <div className="out_top_box">
                 <div className="top_box">
                   <div className="row d-flex">
@@ -552,7 +552,7 @@ const Cards = ({ props: props }) => {
                   <div className="col-6">
                     <div className="row d-flex flex-column ">
                       <div className="col mt-2">
-                        <span className="text-staked">Available</span>
+                        <span className="text-staked">Amount</span>
                       </div>
                       <div className="col mt-2 d-flex">
                         <img src={Tlogosmall} alt="" className="img-small" />
@@ -572,14 +572,14 @@ const Cards = ({ props: props }) => {
                       </div>
                     </div>
                   </div>
-                  <div className="col-6 d-flex justify-content-center align-items-center">
+                  <div className="col-6 d-flex justify-content-center align-items-center mt-2">
                     <button
                       className=" btn-inner"
                       onClick={() =>
                         handleStake(amountPlan2, 600, setAmountPlan2)
                       }
                     >
-                      Stake ST
+                      Stake HPG
                     </button>
                   </div>
                 </div>
@@ -658,10 +658,10 @@ const Cards = ({ props: props }) => {
             </div>
           </div>
         </div>
-        <div className="col-lg-6 col-sm-12 d-flex justify-content-center mt-5">
+        <div className="col-xl-3 col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center mt-5">
           <div className="card outbox">
             <div className="card-body onebox">
-              <h5 className="card-title text-uppercase">st pool</h5>
+              <h5 className="card-title text-uppercase">HPG Pool</h5>
               <div className="out_top_box">
                 <div className="top_box">
                   <div className="row d-flex">
@@ -691,7 +691,7 @@ const Cards = ({ props: props }) => {
                   <div className="col-6">
                     <div className="row d-flex flex-column ">
                       <div className="col mt-2">
-                        <span className="text-staked">Available</span>
+                        <span className="text-staked">Amount</span>
                       </div>
                       <div className="col mt-2 d-flex">
                         <img src={Tlogosmall} alt="" className="img-small" />
@@ -711,14 +711,14 @@ const Cards = ({ props: props }) => {
                       </div>
                     </div>
                   </div>
-                  <div className="col-6 d-flex justify-content-center align-items-center">
+                  <div className="col-6 d-flex justify-content-center align-items-center mt-2">
                     <button
                       className=" btn-inner"
                       onClick={() =>
                         handleStake(amountPlan3, 900, setAmountPlan3)
                       }
                     >
-                      Stake ST
+                      Stake HPG
                     </button>
                   </div>
                 </div>
@@ -797,10 +797,10 @@ const Cards = ({ props: props }) => {
             </div>
           </div>
         </div>
-        <div className="col-lg-6 col-sm-12 d-flex justify-content-center mt-5">
+        <div className="col-xl-3 col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center mt-5">
           <div className="card outbox">
             <div className="card-body onebox">
-              <h5 className="card-title text-uppercase">st pool</h5>
+              <h5 className="card-title text-uppercase">HPG Pool</h5>
               <div className="out_top_box">
                 <div className="top_box">
                   <div className="row d-flex">
@@ -830,7 +830,7 @@ const Cards = ({ props: props }) => {
                   <div className="col-6">
                     <div className="row d-flex flex-column ">
                       <div className="col mt-2">
-                        <span className="text-staked">Available</span>
+                        <span className="text-staked">Amount</span>
                       </div>
                       <div className="col mt-2 d-flex">
                         <img src={Tlogosmall} alt="" className="img-small" />
@@ -850,14 +850,14 @@ const Cards = ({ props: props }) => {
                       </div>
                     </div>
                   </div>
-                  <div className="col-6 d-flex justify-content-center align-items-center">
+                  <div className="col-6 d-flex justify-content-center align-items-center mt-2">
                     <button
-                      className=" btn-inner"
+                      className="btn-inner"
                       onClick={() =>
                         handleStake(amountPlan4, 1200, setAmountPlan4)
                       }
                     >
-                      Stake ST
+                      Stake HPG
                     </button>
                   </div>
                 </div>

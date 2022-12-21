@@ -111,7 +111,7 @@ const CustomNavbar = (props) => {
                       className={`nav-link ${
                         iscolor == "user" ? "active" : ""
                       }`}
-                      to="/user"
+                      to="/airdrop"
                     >
                       Air Drop
                     </HashLink>

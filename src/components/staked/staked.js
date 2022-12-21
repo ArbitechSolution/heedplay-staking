@@ -17,40 +17,21 @@ const Staked = ({ props }) => {
   };
   const handleReferralAddress = async () => {
     try {
-      let URL = window.location.href;
-      if (URL.includes("referrallink")) {
-        // setcheckreffarl(true)
-        let pathArray = URL.split("?");
-        let UserID = pathArray[pathArray.length - 1];
-        UserID = UserID.split("=");
-        UserID = UserID[UserID.length - 1];
-        // console.log("LAST", UserID);
-        setReferralAddress(UserID);
+      const stakingContract = new web3Supply.eth.Contract(
+        stakingAbi,
+        stkaingAddress
+      );
+      const address = await stakingContract.methods.userInfo(account).call();
+      console.log(address);
+      if (address?.totalDeposit <= 0) {
+        setReferralAddress(window.location.href);
       } else {
-        const stakingContract = new web3Supply.eth.Contract(
-          stakingAbi,
-          stkaingAddress
+        setReferralAddress(
+          `${window.location.origin}${window.location.pathname}?referrallink=${account}`
         );
-        const address = await stakingContract.methods.userInfo(account).call();
-        let condition = address?.referrer.includes(
-          "0x0000000000000000000000000000000000000000"
-        );
-        if (condition) {
-          const defaultReferal = await stakingContract.methods
-            .defaultRefer()
-            .call();
-
-          setReferralAddress(
-            `${window.location.href}?referrallink=${defaultReferal}`
-          );
-        } else {
-          setReferralAddress(
-            `${window.location.href}?referrallink=${address?.referrer}`
-          );
-        }
       }
     } catch (e) {
-      console.log("Error Whille Referral Fuction Call", e);
+      console.log("Error While Referral Fuction Call", e);
     }
   };
   useEffect(() => {
@@ -64,8 +45,8 @@ const Staked = ({ props }) => {
   }, [account]);
   console.log("referal", referralAddress);
   return (
-    <div className="container-fluid bg-dark staked-container pt-5">
-      <div className="row box">
+    <div className="container-fluid bg-dark staked-container pt-5 pb-5">
+      <div className="row box mb-5">
         <div className="col-sm-12 col-lg-3 staked-column">
           <span className="d-flex text-captilize staked-heading">
             Total Staked
@@ -97,13 +78,13 @@ const Staked = ({ props }) => {
         </div>
         <div className="col-sm-12 col-lg-12 mt-5">
           <div className="row d-flex justify-content-center">
-            <div className="col-6 d-flex justify-content-center">
+            <div className="col-12 d-flex justify-content-center">
               <span className="value-staked text-captilized ">
                 Referral link
               </span>
             </div>
           </div>
-          <div className="row d-flex justify-content-space mt-4">
+          <div className="row d-flex justify-content-center mt-4">
             <div className="col-12 d-flex justify-content-center align-items-center">
               <input
                 type="text"
@@ -119,7 +100,7 @@ const Staked = ({ props }) => {
                   referralAddress ==
                   "0x0000000000000000000000000000000000000000"
                     ? `${window.location.href}`
-                    : `${window.location.href}?referrallink=${account}`
+                    : referralAddress
                 }
               >
                 <AiOutlineCopy className="text-white fs-4" />

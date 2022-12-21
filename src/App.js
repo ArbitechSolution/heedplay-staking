@@ -5,6 +5,7 @@ import Staking from "./pages/staking";
 import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import CommingPage from "./pages/comming-soon";
 function App() {
   const [account, setAccount] = useState("Connect");
   const [totalStake, setTotalStaked] = useState("0.00");
@@ -16,6 +17,11 @@ function App() {
       <ToastContainer />
       <CustomNavbar setAccount={setAccount} account={account} />
       <Routes>
+        <Route path="/bond" element={<CommingPage />} />
+        <Route path="/nft" element={<CommingPage />} />
+        <Route path="/market" element={<CommingPage />} />
+        <Route path="/game" element={<CommingPage />} />
+        <Route path="/airdrop" element={<CommingPage />} />
         <Route
           path="/staking"
           element={

@@ -101,7 +101,7 @@ a:hover {
 }
 .btn-inner {
   cursor: pointer;
-  width: 109px;
+  width: 120px;
   height: 40px;
   display: flex;
   justify-content: center;
@@ -139,7 +139,7 @@ a:hover {
 }
 @media (max-width: 768px) {
   .value-staked {
-    font-size: 22px;
+    font-size: 18px;
   }
   .text-pool {
     font-size: 12px;
@@ -150,6 +150,7 @@ a:hover {
   border: 1px solid #918256 !important;
   background: transparent;
   padding: 5px 15px;
+  height: 38px;
 }
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
@@ -162,4 +163,5 @@ input[type="number"]::-webkit-inner-spin-button {
   background: transparent;
   padding: 5px 15px;
   color: #ced3d9 !important;
+  height: 38px;
 }

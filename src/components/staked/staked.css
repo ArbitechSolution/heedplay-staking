@@ -1,6 +1,6 @@
 .staked-container {
   background: linear-gradient(311deg, #121212, #0c0c0c);
-  height: 400px;
+  height: auto;
   display: flex;
   width: 100%;
   justify-content: center;
