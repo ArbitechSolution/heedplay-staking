@@ -6,6 +6,7 @@ import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CommingPage from "./pages/comming-soon";
+import AirDrop from "./pages/AirDrop";
 function App() {
   const [account, setAccount] = useState("Connect");
   const [totalStake, setTotalStaked] = useState("0.00");
@@ -21,7 +22,7 @@ function App() {
         <Route path="/nft" element={<CommingPage />} />
         <Route path="/market" element={<CommingPage />} />
         <Route path="/game" element={<CommingPage />} />
-        <Route path="/airdrop" element={<CommingPage />} />
+        <Route path="/airdrop" element={<AirDrop  account={account}/>} />
         <Route
           path="/staking"
           element={

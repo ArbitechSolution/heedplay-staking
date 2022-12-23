@@ -1,5 +1,5 @@
 import React from "react";
-import CommingSoon from "../components/cards/coming-soon/coming-soon";
+import CommingSoon from "../components/coming-soon/coming-soon";
 import Footer from "../components/footer/footer";
 
 const CommingPage = () => {

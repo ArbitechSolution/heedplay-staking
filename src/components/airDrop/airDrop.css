@@ -1,0 +1,33 @@
+.airDrop-contianer {
+  width: 100% !important;
+  height: 70vh !important;
+}
+.text-comming {
+  color: #fff;
+  font-size: 40px;
+}
+.boxStakedDetail1 {
+  border: 1px solid green;
+  width: 50%;
+  height: auto;
+  background: linear-gradient(311deg, #121212, #0c0c0c);
+  box-shadow: 0 20px 20px 0 rgb(0 0 0 / 39%);
+  border-radius: 12px;
+  border: 1px solid #918256 !important;
+  padding: 10px;
+  display: inline-block;
+}
+.btn-inner-air1 {
+  cursor: pointer;
+  /* width: 120px; */
+  height: 40px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  border: 1px solid #918256 !important;
+  background: transparent;
+  padding: 15px 25px;
+  font-weight: 700 !important;
+  color: #ced3d9;
+}
