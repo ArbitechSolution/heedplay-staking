@@ -1,0 +1,8 @@
+.sponser-container {
+  background: linear-gradient(311deg, #121212, #0c0c0c);
+  height: auto;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
