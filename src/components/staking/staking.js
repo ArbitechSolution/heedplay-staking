@@ -9,7 +9,7 @@ const Staking = () => {
       <div className="row ">
         <span className="d-flex text-para">
           Sacred Farms offer multiple farming opportunities to you. Get double
-          rewards by staking your HPG tokens in return for additional SR tokens
+          rewards by staking your HPG tokens in return for additional HPG tokens
           and earning high income.
         </span>
       </div>

@@ -492,7 +492,7 @@ const Cards = ({ props: props }) => {
                   <div className="col-6">
                     <div className="row d-flex flex-column ">
                       <div className="col mt-2">
-                        <span className="text-staked">SR Earned</span>
+                        <span className="text-staked">HPG Earned</span>
                       </div>
                       <div className="col mt-2 d-flex">
                         <img src={Tlogosmall} alt="" className="img-small" />
@@ -610,7 +610,7 @@ const Cards = ({ props: props }) => {
                   <div className="col-6">
                     <div className="row d-flex flex-column ">
                       <div className="col mt-2">
-                        <span className="text-staked">SR Earned</span>
+                        <span className="text-staked">HPG Earned</span>
                       </div>
                       <div className="col mt-2 d-flex">
                         <img src={Tlogosmall} alt="" className="img-small" />
@@ -728,7 +728,7 @@ const Cards = ({ props: props }) => {
                   <div className="col-6">
                     <div className="row d-flex flex-column ">
                       <div className="col mt-2">
-                        <span className="text-staked">SR Earned</span>
+                        <span className="text-staked">HPG Earned</span>
                       </div>
                       <div className="col mt-2 d-flex">
                         <img src={Tlogosmall} alt="" className="img-small" />
@@ -846,7 +846,7 @@ const Cards = ({ props: props }) => {
                   <div className="col-6">
                     <div className="row d-flex flex-column ">
                       <div className="col mt-2">
-                        <span className="text-staked">SR Earned</span>
+                        <span className="text-staked">HPG Earned</span>
                       </div>
                       <div className="col mt-2 d-flex">
                         <img src={Tlogosmall} alt="" className="img-small" />
