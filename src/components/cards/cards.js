@@ -26,7 +26,7 @@ const Cards = ({ props: props }) => {
   const [earnedValue3, setEarnedValue3] = useState(0);
   const [earnedValue4, setEarnedValue4] = useState(0);
   const [referralAddress, setReferralAddress] = useState("0");
-
+  const [balance, setBalance] = useState("0.00");
   const handleConnect = async () => {
     let acc = await loadWeb3();
     props?.setAccount(acc);
@@ -77,7 +77,7 @@ const Cards = ({ props: props }) => {
           let tokenBalance = await tokenContract.methods
             .balanceOf(account)
             .call();
-
+          setBalance(parseFloat(web3.utils.fromWei(tokenBalance)).toFixed(3));
           let amountPlan = web3.utils.toWei(amountForplan);
           if (parseFloat(amountPlan) <= parseFloat(tokenBalance)) {
             const stakingContract = new web3.eth.Contract(
@@ -338,6 +338,26 @@ const Cards = ({ props: props }) => {
       console.log("Error Whille Referral Fuction Call", e);
     }
   };
+  const handleBalance = async () => {
+    try {
+      if (account == "No Wallet") {
+        console.log("Not Connected");
+      } else if (account == "Wrong Network") {
+        console.log("Wrong Network");
+      } else if (account == "Connect") {
+        console.log("Not Connected");
+      } else {
+        const web3 = window.web3;
+        const tokenContract = new web3.eth.Contract(tokenAbi, tokenAddress);
+        let tokenBalance = await tokenContract.methods
+          .balanceOf(account)
+          .call();
+        setBalance(parseFloat(web3.utils.fromWei(tokenBalance)).toFixed(3));
+      }
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
   useEffect(() => {
     handleAllStake();
     handleReward();
@@ -345,6 +365,7 @@ const Cards = ({ props: props }) => {
     handleTotalEarned();
     rewardInfo();
     handleReferralAddress();
+    handleBalance();
   }, [account]);
   useEffect(() => {
     setInterval(() => {
@@ -376,6 +397,12 @@ const Cards = ({ props: props }) => {
           <button className=" btn-inner" onClick={() => handleRegister()}>
             Register
           </button>
+        </div>
+      </div>
+      <div className="row d-flex justify-content-space mt-4">
+        <div className="col-12 d-flex justify-content-center align-items-center">
+          <span className="card-title text-">Balance</span>
+          <span className="value-staked ms-5">{balance}</span>
         </div>
       </div>
       <div className="row d-flex justify-content-center">
@@ -425,14 +452,9 @@ const Cards = ({ props: props }) => {
                           }}
                         ></input>
                       </div>
-                      <div className="col mt-2">
-                        <span className="doller-staked inner-doller">
-                          $ 0.00
-                        </span>
-                      </div>
                     </div>
                   </div>
-                  <div className="col-6 d-flex justify-content-center align-items-center mt-2">
+                  <div className="col-6 d-flex justify-content-center align-items-end mt-2">
                     <button
                       className=" btn-inner"
                       onClick={() =>
@@ -453,14 +475,9 @@ const Cards = ({ props: props }) => {
                         <img src={Tlogosmall} alt="" className="img-small" />
                         <span className="value-afterPool">{stakedValue1}</span>
                       </div>
-                      <div className="col mt-2">
-                        <span className="doller-staked inner-doller">
-                          $ 0.00
-                        </span>
-                      </div>
                     </div>
                   </div>
-                  <div className="col-6 d-flex justify-content-center align-items-center">
+                  <div className="col-6 d-flex justify-content-center align-items-end">
                     <button
                       className=" btn-inner"
                       onClick={() => {
@@ -481,14 +498,9 @@ const Cards = ({ props: props }) => {
                         <img src={Tlogosmall} alt="" className="img-small" />
                         <span className="value-afterPool">{earnedValue1}</span>
                       </div>
-                      <div className="col mt-2">
-                        <span className="doller-staked inner-doller">
-                          $ 0.00
-                        </span>
-                      </div>
                     </div>
                   </div>
-                  <div className="col-6 d-flex justify-content-center align-items-center">
+                  <div className="col-6 d-flex justify-content-center align-items-end">
                     <button
                       className=" btn-inner"
                       onClick={() => {
@@ -499,19 +511,13 @@ const Cards = ({ props: props }) => {
                     </button>
                   </div>
                 </div>
-                <div className="row d-flex mt-3">
-                  <div className="col-12 d-flex">
-                    <span className="sr-para">
-                      SR can be claimed after SR launched on DEX.
-                    </span>
-                  </div>
-                </div>
+
                 <div className="row d-flex mt-3">
                   <div className="col-6 d-flex">
-                    <span className="sr-para2">Early quit tax</span>
+                    <span className="sr-para2">Minimal deposit</span>
                   </div>
                   <div className="col-6 d-flex">
-                    <span className="sr-para2">3%</span>
+                    <span className="sr-para2">10 HPG</span>
                   </div>
                 </div>
               </div>
@@ -564,14 +570,9 @@ const Cards = ({ props: props }) => {
                           }}
                         ></input>
                       </div>
-                      <div className="col mt-2">
-                        <span className="doller-staked inner-doller">
-                          $ 0.00
-                        </span>
-                      </div>
                     </div>
                   </div>
-                  <div className="col-6 d-flex justify-content-center align-items-center mt-2">
+                  <div className="col-6 d-flex justify-content-center align-items-end mt-2">
                     <button
                       className=" btn-inner"
                       onClick={() =>
@@ -592,14 +593,9 @@ const Cards = ({ props: props }) => {
                         <img src={Tlogosmall} alt="" className="img-small" />
                         <span className="value-afterPool">{stakedValue2}</span>
                       </div>
-                      <div className="col mt-2">
-                        <span className="doller-staked inner-doller">
-                          $ 0.00
-                        </span>
-                      </div>
                     </div>
                   </div>
-                  <div className="col-6 d-flex justify-content-center align-items-center">
+                  <div className="col-6 d-flex justify-content-center align-items-end">
                     <button
                       className=" btn-inner"
                       onClick={() => {
@@ -620,14 +616,9 @@ const Cards = ({ props: props }) => {
                         <img src={Tlogosmall} alt="" className="img-small" />
                         <span className="value-afterPool">{earnedValue2}</span>
                       </div>
-                      <div className="col mt-2">
-                        <span className="doller-staked inner-doller">
-                          $ 0.00
-                        </span>
-                      </div>
                     </div>
                   </div>
-                  <div className="col-6 d-flex justify-content-center align-items-center">
+                  <div className="col-6 d-flex justify-content-center align-items-end">
                     <button
                       className=" btn-inner"
                       onClick={() => {
@@ -638,19 +629,13 @@ const Cards = ({ props: props }) => {
                     </button>
                   </div>
                 </div>
-                <div className="row d-flex mt-3">
-                  <div className="col-12 d-flex">
-                    <span className="sr-para">
-                      SR can be claimed after SR launched on DEX.
-                    </span>
-                  </div>
-                </div>
+
                 <div className="row d-flex mt-3">
                   <div className="col-6 d-flex">
-                    <span className="sr-para2">Early quit tax</span>
+                    <span className="sr-para2">Minimal deposit</span>
                   </div>
                   <div className="col-6 d-flex">
-                    <span className="sr-para2">3%</span>
+                    <span className="sr-para2">10 HPG</span>
                   </div>
                 </div>
               </div>
@@ -703,14 +688,9 @@ const Cards = ({ props: props }) => {
                           }}
                         ></input>
                       </div>
-                      <div className="col mt-2">
-                        <span className="doller-staked inner-doller">
-                          $ 0.00
-                        </span>
-                      </div>
                     </div>
                   </div>
-                  <div className="col-6 d-flex justify-content-center align-items-center mt-2">
+                  <div className="col-6 d-flex justify-content-center align-items-end mt-2">
                     <button
                       className=" btn-inner"
                       onClick={() =>
@@ -731,14 +711,9 @@ const Cards = ({ props: props }) => {
                         <img src={Tlogosmall} alt="" className="img-small" />
                         <span className="value-afterPool">{stakedValue3}</span>
                       </div>
-                      <div className="col mt-2">
-                        <span className="doller-staked inner-doller">
-                          $ 0.00
-                        </span>
-                      </div>
                     </div>
                   </div>
-                  <div className="col-6 d-flex justify-content-center align-items-center">
+                  <div className="col-6 d-flex justify-content-center align-items-end">
                     <button
                       className=" btn-inner"
                       onClick={() => {
@@ -759,14 +734,9 @@ const Cards = ({ props: props }) => {
                         <img src={Tlogosmall} alt="" className="img-small" />
                         <span className="value-afterPool">{earnedValue3}</span>
                       </div>
-                      <div className="col mt-2">
-                        <span className="doller-staked inner-doller">
-                          $ 0.00
-                        </span>
-                      </div>
                     </div>
                   </div>
-                  <div className="col-6 d-flex justify-content-center align-items-center">
+                  <div className="col-6 d-flex justify-content-center align-items-end">
                     <button
                       className=" btn-inner"
                       onClick={() => {
@@ -777,19 +747,13 @@ const Cards = ({ props: props }) => {
                     </button>
                   </div>
                 </div>
-                <div className="row d-flex mt-3">
-                  <div className="col-12 d-flex">
-                    <span className="sr-para">
-                      SR can be claimed after SR launched on DEX.
-                    </span>
-                  </div>
-                </div>
+
                 <div className="row d-flex mt-3">
                   <div className="col-6 d-flex">
-                    <span className="sr-para2">Early quit tax</span>
+                    <span className="sr-para2">Minimal deposit</span>
                   </div>
                   <div className="col-6 d-flex">
-                    <span className="sr-para2">3%</span>
+                    <span className="sr-para2">10 HPG</span>
                   </div>
                 </div>
               </div>
@@ -840,16 +804,11 @@ const Cards = ({ props: props }) => {
                           onChange={(e) => {
                             handleAmountplan(e, setAmountPlan4);
                           }}
-                        ></input>{" "}
-                      </div>
-                      <div className="col mt-2">
-                        <span className="doller-staked inner-doller">
-                          $ 0.00
-                        </span>
+                        ></input>
                       </div>
                     </div>
                   </div>
-                  <div className="col-6 d-flex justify-content-center align-items-center mt-2">
+                  <div className="col-6 d-flex justify-content-center align-items-end mt-2">
                     <button
                       className="btn-inner"
                       onClick={() =>
@@ -870,14 +829,9 @@ const Cards = ({ props: props }) => {
                         <img src={Tlogosmall} alt="" className="img-small" />
                         <span className="value-afterPool">{stakedValue4}</span>
                       </div>
-                      <div className="col mt-2">
-                        <span className="doller-staked inner-doller">
-                          $ 0.00
-                        </span>
-                      </div>
                     </div>
                   </div>
-                  <div className="col-6 d-flex justify-content-center align-items-center">
+                  <div className="col-6 d-flex justify-content-center align-items-end">
                     <button
                       className=" btn-inner"
                       onClick={() => {
@@ -898,14 +852,9 @@ const Cards = ({ props: props }) => {
                         <img src={Tlogosmall} alt="" className="img-small" />
                         <span className="value-afterPool">{earnedValue4}</span>
                       </div>
-                      <div className="col mt-2">
-                        <span className="doller-staked inner-doller">
-                          $ 0.00
-                        </span>
-                      </div>
                     </div>
                   </div>
-                  <div className="col-6 d-flex justify-content-center align-items-center">
+                  <div className="col-6 d-flex justify-content-center align-items-end">
                     <button
                       className=" btn-inner"
                       onClick={() => {
@@ -916,19 +865,13 @@ const Cards = ({ props: props }) => {
                     </button>
                   </div>
                 </div>
-                <div className="row d-flex mt-3">
-                  <div className="col-12 d-flex">
-                    <span className="sr-para">
-                      SR can be claimed after SR launched on DEX.
-                    </span>
-                  </div>
-                </div>
+
                 <div className="row d-flex mt-3">
                   <div className="col-6 d-flex">
-                    <span className="sr-para2">Early quit tax</span>
+                    <span className="sr-para2">Minimal deposit</span>
                   </div>
                   <div className="col-6 d-flex">
-                    <span className="sr-para2">3%</span>
+                    <span className="sr-para2">10 HPG</span>
                   </div>
                 </div>
               </div>

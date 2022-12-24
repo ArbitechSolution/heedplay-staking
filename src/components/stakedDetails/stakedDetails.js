@@ -7,7 +7,7 @@ const StakedDetails = () => {
         <div className="col-lg-12 ">
           <p className=" text-captilize stakedDetail-heading mt-3">
             Total income: based on your tarrif plan (
-            <b className="boldText">from 5% to 8% daily</b>)
+            <b className="boldText">from 0.25% to 0.55% daily</b>)
           </p>
           <p className="  stakedDetail-heading mt-3">
             Basic interest rate:
@@ -15,7 +15,7 @@ const StakedDetails = () => {
             new deposits
           </p>
           <p className=" text-captilize stakedDetail-heading mt-3">
-            Minimal deposit: <span className="boldText">0.05 HPG</span>, no
+            Minimal deposit: <span className="boldText">10 HPG</span>, no
             maximal limit
           </p>
           <p className=" text-captilize stakedDetail-heading mt-3">

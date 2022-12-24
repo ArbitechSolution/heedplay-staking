@@ -42,7 +42,6 @@ const Staked = ({ props }) => {
   useEffect(() => {
     handleReferralAddress();
   }, [account]);
-  console.log("referal", referralAddress);
   return (
     <div className="container-fluid bg-dark staked-container pt-5 pb-5">
       <div className="row box mb-5">
@@ -51,7 +50,7 @@ const Staked = ({ props }) => {
             Total Staked
           </span>
           <span className="d-flex  staked-subheading">
-            $ {props?.totalStake}
+            {props?.totalStake} HPG
           </span>
         </div>
         <div className="col-sm-12 col-lg-3 staked-column">
@@ -72,7 +71,7 @@ const Staked = ({ props }) => {
             You Earned
           </span>
           <span className="d-flex  staked-subheading">
-            $ {props?.totalEarned}
+            {props?.totalEarned} HPG
           </span>
         </div>
         <div className="col-sm-12 col-lg-12 mt-5">
