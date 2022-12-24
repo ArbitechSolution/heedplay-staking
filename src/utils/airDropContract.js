@@ -1,4 +1,4 @@
-export const airDropAddress = "0xe699206eb7CD700561E736525cFca9A83709f3f6";
+export const airDropAddress = "0x0093b5D57029d273F3Ad3B4908702970BEfC25c5";
 export const airDropAbi = [
   { inputs: [], stateMutability: "nonpayable", type: "constructor" },
   {

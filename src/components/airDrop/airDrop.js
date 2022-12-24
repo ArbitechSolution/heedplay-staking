@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./airDrop.css";
-import { accounts } from "../../utils/airDrop";
+// import { accounts } from "../../utils/airDrop";
 import { toast } from "react-toastify";
 import {
   airDropAddress,
@@ -14,52 +14,7 @@ const AirDrop = ({ props: props }) => {
   const [claimed, setClaimed] = useState("0.00");
   const [withdrawl, setWithdrawl] = useState("0.00");
   const [owner, setOwner] = useState(false);
-  const handleAirDrop = async () => {
-    try {
-      if (account == "No Wallet") {
-        console.log("Not Connected");
-      } else if (account == "Wrong Network") {
-        console.log("Wrong Network");
-      } else if (account == "Connect") {
-        console.log("Not Connected");
-      } else {
-        let array = [];
-        let length;
-        let count = true;
-        accounts?.map((value, index) => {
-          if (value.status == true && count == true) {
-            length = index + 2;
-            count = false;
-          }
-        });
-        // accounts?.map((value, index) => {
-        //   if (value.status == true) {
-        //     for (let i = length - 2; i < length; i++) {
-        //       console.log("index", index, length, value);
-        //       array.push(value.Account);
-        //       value.status = false;
-        //     }
-        //   }
-        // });
-        for (let i = length - 2; i < length; i++) {
-          console.log("index", length);
-          array.push(accounts[i].Account);
-          accounts[i].status = false;
-        }
-        console.log("array", array, accounts);
-        // const web3 = window.web3;
-        // const airDropContract = new web3.eth.Contract(
-        //   airDropAbi,
-        //   airDropAddress
-        // );
-        // await airDropContract.methods.TokensDrop(array).send({ from: account });
-        toast.success("Transaction Successful");
-        handleGetValues();
-      }
-    } catch (err) {
-      console.log("error while air drop");
-    }
-  };
+
   const handleGetValues = async () => {
     try {
       if (account == "No Wallet") {
@@ -183,7 +138,7 @@ const AirDrop = ({ props: props }) => {
     <div className="container-fluid bg-dark airDrop-contianer d-flex justify-content-center align-items-center flex-column">
       <div className="row">
         <div className="col-12">
-          <h1 className="text-light">Air Drop </h1>
+          <h1 className="text-light">Air Drop Staking</h1>
         </div>
       </div>
 
@@ -211,7 +166,7 @@ const AirDrop = ({ props: props }) => {
           </div>
         </div>
         <div className="col-12 align-items-center mt-5">
-          {owner && (
+          {/* {owner && (
             <div className="row d-flex justify-content-around ">
               <div className=" col-4 ">
                 <input type="text" className="input-field-2"></input>
@@ -227,7 +182,7 @@ const AirDrop = ({ props: props }) => {
                 </button>
               </div>
             </div>
-          )}
+          )} */}
 
           <div className="row d-flex justify-content-around mt-5">
             <div className=" col-4 ">

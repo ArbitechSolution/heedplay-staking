@@ -22,7 +22,6 @@ const Staked = ({ props }) => {
         stkaingAddress
       );
       const address = await stakingContract.methods.userInfo(account).call();
-      console.log(address);
       if (address?.totalDeposit <= 0) {
         setReferralAddress(window.location.href);
       } else {
