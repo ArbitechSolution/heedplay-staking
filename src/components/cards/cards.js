@@ -351,7 +351,6 @@ const Cards = ({ props: props }) => {
       handleReward();
     }, 30000);
   }, [account]);
-
   // useEffect(() => {
   //   handleReferralAddress();
   // }, []);
