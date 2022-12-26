@@ -272,7 +272,6 @@ const Cards = ({ props: props }) => {
           stkaingAddress
         );
         let res = await stakingContract.methods.rewardInfo(account).call();
-
         let total = parseFloat(web3.utils.fromWei(res?.total_Rewards));
 
         total = total.toFixed(2);
@@ -426,7 +425,7 @@ const Cards = ({ props: props }) => {
                         </div>
                         <div className="col mt-2">
                           <span className="doller-staked">
-                            Reward 0.25 % per day
+                            Reward 0.2 % per day
                           </span>
                         </div>
                       </div>

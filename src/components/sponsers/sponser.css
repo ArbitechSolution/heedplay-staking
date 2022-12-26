@@ -6,3 +6,11 @@
   justify-content: center;
   align-items: center;
 }
+.imgSponser {
+  max-width: 200px !important;
+  height: auto;
+}
+.imgSponser2 {
+  max-width: 200px !important;
+  height: 50px;
+}
