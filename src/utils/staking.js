@@ -1,4 +1,4 @@
-export const stkaingAddress = "0xAcBeCD2C12fFd522C3C3c62A76A99CF906dC39cC";
+export const stkaingAddress = "0xc8A6F31724F27a04b72Fb25e4fc0E28DB34B5439";
 export const stakingAbi = [
   { inputs: [], stateMutability: "nonpayable", type: "constructor" },
   {
@@ -295,7 +295,6 @@ export const stakingAbi = [
     outputs: [
       { internalType: "uint256", name: "directs", type: "uint256" },
       { internalType: "uint256", name: "ROIReleased", type: "uint256" },
-      { internalType: "uint256", name: "total_Rewards", type: "uint256" },
     ],
     stateMutability: "view",
     type: "function",
@@ -427,7 +426,7 @@ export const stakingAbi = [
     type: "function",
   },
 ];
-export const tokenAddress = "0x830173177a19A45c861A5709D3eA5987d94C84A1";
+export const tokenAddress = "0xF1A71A3234c7da88ECC79866c3A5c0b8f5740F95";
 export const tokenAbi = [
   { inputs: [], stateMutability: "nonpayable", type: "constructor" },
   {
@@ -471,6 +470,13 @@ export const tokenAbi = [
     type: "event",
   },
   {
+    inputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    name: "Arr",
+    outputs: [{ internalType: "address", name: "", type: "address" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [
       { internalType: "address", name: "owner", type: "address" },
       { internalType: "address", name: "spender", type: "address" },
@@ -478,6 +484,13 @@ export const tokenAbi = [
     name: "allowance",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "address", name: "_hpg", type: "address" }],
+    name: "approval",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
