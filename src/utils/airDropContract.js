@@ -1,4 +1,4 @@
-export const airDropAddress = "0x0093b5D57029d273F3Ad3B4908702970BEfC25c5";
+export const airDropAddress = "0xaFA16AE8D25D2F9d3B9BDa976926eFF94FF82fFE";
 export const airDropAbi = [
   { inputs: [], stateMutability: "nonpayable", type: "constructor" },
   {
@@ -105,7 +105,7 @@ export const airDropAbi = [
     type: "function",
   },
 ];
-export const airDropTokenAddress = "0xa4991a918f8459DCB9DCc707a13655Ac07a8b02E";
+export const airDropTokenAddress = "0x8296Db56059BC3c8296f1b3B7093aB8448750643";
 export const airDropTokenAbi = [
   { inputs: [], stateMutability: "nonpayable", type: "constructor" },
   {
