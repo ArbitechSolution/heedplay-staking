@@ -42,8 +42,6 @@ const Footer = () => {
             <div className="col-12 footer-col ">
               <span className="footer-text ">Sacred Realm</span>
               <span className="footer-text">Help Center</span>
-              <span className="footer-text">ST $ 0</span>
-              <span className="footer-text">SR $ 0.00</span>
             </div>
           </div>
         </div>
