@@ -1,0 +1,123 @@
+.bglevel-image{
+    background-image: url("../../Assets/images/BackgroundTlogo-01.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100% !important;
+  height: 400px;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.text-level{
+        font-size: 35px;
+        font-weight: 800;
+        color: #eccf83;
+        line-height: 41px;
+        text-transform: capitalize;
+        color: linear-gradient(180deg, #f7e9b9, #f0ce75);
+}
+.btn-arrow{
+    background-color: #eccf83 ;
+    border: #eccf83  1px solid;
+    width: 50px;
+    height: 50px;
+    color: #111111;
+    font-size: 20px;
+    border-radius: 5px;
+}
+
+.btn-arrow:hover{
+    color: #eccf83;
+    background-color: #111111;
+}
+.level-input{
+    width: 200px;
+height: 50px;
+border-radius: 5px;
+background-color: #111111;
+border: #111111 1px solid;
+color: #f0ce75;
+}
+/* ::placeholder{
+    color: #f0ce75;
+} */
+
+.box1{
+    width: 80%;
+    height: 50px;
+    background: linear-gradient(311deg, #121212, #0c0c0c);
+    box-shadow: 0 20px 20px 0 rgb(0 0 0 / 39%);
+    border-radius: 12px;
+    border: 1px solid rgba(68, 67, 67, 0.47);
+    padding: 20px;
+}
+
+.pagination{
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+}
+.page-link{
+    color:#111111;
+    background-color: #eccf83;
+    border-color: #111111;
+
+}
+
+.page-link,
+.page-link:focus,
+.disabled > .page-link {
+  border: none !important;
+  border-color: none !important;
+  background-color: none !important;
+}
+.page-link:focus {
+  z-index: 3;
+  color: #fff !important;
+  background-color: #000000;
+  outline: 0;
+  box-shadow: none !important;
+}
+.page-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 35px;
+  height: 35px;
+  border-radius: 50px;
+  margin: 5px;
+  color: #000;
+  font-weight: 500;
+}
+.page-item:first-child .page-link,
+.page-item:last-child .page-link {
+  width: 35px;
+  border-radius: 50px;
+  margin: 5px;
+  color: #eccf83;
+  font-weight: 500;
+}
+.page-item:first-child:focus-visible .page-link {
+  color: #fff;
+  background-color: #a2a2a2;
+}
+.page-item .active {
+  color: #eccf83;
+  background-color: #111111;
+}
+.active > .page-link {
+  color: #000;
+  background-color: transparent;
+}
+.disabled .page-link {
+  color: #000 !important  ;
+  background-color: #a2a2a2 !important;
+}
+.page-item .arrow {
+  color: #111111 !important;
+  background-color: #eccf83;
+}
+.currentColor{
+    color:black !important;
+}

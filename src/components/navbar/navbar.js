@@ -23,6 +23,9 @@ const CustomNavbar = (props) => {
       } else if (pathname == "/user") {
         setIsColor("user");
       }
+      else if (pathname == "/level"){
+        setIsColor("level")
+      }
     }
   };
   const handleConnect = async () => {
@@ -76,6 +79,26 @@ const CustomNavbar = (props) => {
                       to="/staking"
                     >
                       Staking
+                    </HashLink>
+                    {/* <ul className="dropdown-menu">
+                      <li>
+                        <HashLink className="dropdown-item" to="">
+                          Info
+                        </HashLink>
+                      </li>
+                      <li>
+                        <HashLink className="dropdown-item" to="">
+                          IFO
+                        </HashLink>
+                      </li>
+                    </ul> */}
+                  </li>
+                  <li className="nav-item font18">
+                    <HashLink
+                      className={`nav-link ${iscolor == "level" ? "active" : ""}`}
+                      to="/level"
+                    >
+                      Level Detail
                     </HashLink>
                   </li>
                   <li className="nav-item font18">
