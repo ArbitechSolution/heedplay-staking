@@ -141,7 +141,13 @@ const AirDrop = ({ props: props }) => {
           <h1 className="text-light">Air Drop Staking</h1>
         </div>
       </div>
-
+      <div className="row d-flex flex-column  g-0">
+        <div className="col mt-2 g-0">
+          <span className="text-staked text-white">
+            Staked for 365 Days and Reward is 0.2 % per day
+          </span>
+        </div>
+      </div>
       <div className="row boxStakedDetail1 d-flex justify-content-center my-5">
         <div className="col-12 align-items-center mt-5">
           <div className="row d-flex justify-content-around ">
@@ -149,19 +155,19 @@ const AirDrop = ({ props: props }) => {
               <span className="text-pool">
                 <b>Total Staked</b>
               </span>
-              <span className="text-pool">{staked}</span>
+              <span className="text-pool text-white">{staked}</span>
             </div>
             <div className="col-sm-12 col-md-4 d-flex flex-column">
               <span className="text-pool">
                 <b>Total Claimed</b>
               </span>
-              <span className="text-pool">{claimed}</span>
+              <span className="text-pool text-white">{claimed}</span>
             </div>
             <div className="col-sm-12 col-md-4 d-flex flex-column">
               <span className="text-pool">
                 <b>Total Withdrawl</b>
               </span>
-              <span className="text-pool">{withdrawl}</span>
+              <span className="text-pool text-white">{withdrawl}</span>
             </div>
           </div>
         </div>

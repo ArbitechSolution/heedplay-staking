@@ -1,4 +1,4 @@
-export const stkaingAddress = "0x4ADB7573A61601eBD02d5c629Dd9213f2b2bD02a";
+export const stkaingAddress = "0xC28c350eaa8f0f393f06e0D6EdBfFE59DB3E1e64";
 export const stakingAbi = [
   { inputs: [], stateMutability: "nonpayable", type: "constructor" },
   {
@@ -121,6 +121,98 @@ export const stakingAbi = [
   {
     inputs: [],
     name: "Percents_600",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "address", name: "users", type: "address" }],
+    name: "UpdateROI",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "address", name: "users", type: "address" },
+      { internalType: "uint256", name: "levels", type: "uint256" },
+    ],
+    name: "UpdateROIInfo",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "address", name: "", type: "address" },
+      { internalType: "uint256", name: "", type: "uint256" },
+    ],
+    name: "UserAdress",
+    outputs: [{ internalType: "address", name: "", type: "address" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "address", name: "", type: "address" },
+      { internalType: "uint256", name: "", type: "uint256" },
+    ],
+    name: "UserDepoisteamount",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "address", name: "", type: "address" },
+      { internalType: "uint256", name: "", type: "uint256" },
+    ],
+    name: "_totalUser",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "address", name: "", type: "address" },
+      { internalType: "uint256", name: "", type: "uint256" },
+    ],
+    name: "_totalUserAmount",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "address", name: "", type: "address" },
+      { internalType: "address", name: "", type: "address" },
+    ],
+    name: "_userAddressVerforDirects",
+    outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "address", name: "", type: "address" },
+      { internalType: "address", name: "", type: "address" },
+      { internalType: "uint256", name: "", type: "uint256" },
+    ],
+    name: "_userAddressVerification",
+    outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "address", name: "", type: "address" }],
+    name: "countUser",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "address", name: "", type: "address" }],
+    name: "countUser1",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
@@ -294,9 +386,15 @@ export const stakingAbi = [
     name: "rewardInfo",
     outputs: [
       { internalType: "uint256", name: "directs", type: "uint256" },
-      { internalType: "uint256", name: "ROIReleased", type: "uint256" },
       { internalType: "uint256", name: "total_Rewards", type: "uint256" },
     ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "address", name: "", type: "address" }],
+    name: "rewardReceived",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
   },
@@ -326,15 +424,15 @@ export const stakingAbi = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "totalUser",
+    inputs: [{ internalType: "address", name: "user1", type: "address" }],
+    name: "totalDeposite",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
   },
   {
-    inputs: [{ internalType: "address", name: "", type: "address" }],
-    name: "totalreward_100",
+    inputs: [],
+    name: "totalUser",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
@@ -363,6 +461,23 @@ export const stakingAbi = [
     type: "function",
   },
   {
+    inputs: [{ internalType: "address", name: "_user", type: "address" }],
+    name: "updateReferral",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "address", name: "", type: "address" },
+      { internalType: "uint256", name: "", type: "uint256" },
+    ],
+    name: "userCount",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [{ internalType: "address", name: "", type: "address" }],
     name: "userInfo",
     outputs: [
@@ -370,6 +485,7 @@ export const stakingAbi = [
       { internalType: "uint256", name: "start", type: "uint256" },
       { internalType: "uint256", name: "maxDeposit", type: "uint256" },
       { internalType: "uint256", name: "totalDeposit", type: "uint256" },
+      { internalType: "uint256", name: "totalDepositAmount", type: "uint256" },
       { internalType: "uint256", name: "teamNum", type: "uint256" },
       { internalType: "uint256", name: "directsNum", type: "uint256" },
       { internalType: "uint256", name: "maxDirectDeposit", type: "uint256" },
@@ -384,9 +500,38 @@ export const stakingAbi = [
   },
   {
     inputs: [
+      { internalType: "address", name: "", type: "address" },
+      { internalType: "uint256", name: "", type: "uint256" },
+      { internalType: "uint256", name: "", type: "uint256" },
+    ],
+    name: "userReferral",
+    outputs: [{ internalType: "address", name: "", type: "address" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "address", name: "", type: "address" },
+      { internalType: "address", name: "", type: "address" },
+      { internalType: "uint256", name: "", type: "uint256" },
+    ],
+    name: "userReferralVerification",
+    outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
       { internalType: "uint256", name: "withdrwa_cardTime", type: "uint256" },
     ],
     name: "withdraw",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "withdrawDirectsandROI",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -427,7 +572,7 @@ export const stakingAbi = [
     type: "function",
   },
 ];
-export const tokenAddress = "0xF1A71A3234c7da88ECC79866c3A5c0b8f5740F95";
+export const tokenAddress = "0x5163CB4B3402c70fA1814448D6343C2215c6A716";
 export const tokenAbi = [
   { inputs: [], stateMutability: "nonpayable", type: "constructor" },
   {
@@ -488,7 +633,7 @@ export const tokenAbi = [
     type: "function",
   },
   {
-    inputs: [{ internalType: "address", name: "_hpg", type: "address" }],
+    inputs: [{ internalType: "address", name: "_ule", type: "address" }],
     name: "approval",
     outputs: [],
     stateMutability: "nonpayable",

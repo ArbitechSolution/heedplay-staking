@@ -15,6 +15,7 @@
   border: 1px solid rgba(68, 67, 67, 0.47);
   padding: 50px;
 }
+
 .staked-column {
   display: flex;
   justify-content: center;
@@ -25,10 +26,11 @@
 
 .staked-heading {
   font-weight: 500;
-  color: #ced3d9;
+  color: #eccf83;
   line-height: 22px;
   font-size: 24px;
 }
+
 .staked-subheading {
   font-weight: 800;
   color: #ced3d9;
@@ -53,4 +55,20 @@
   background: transparent;
   padding: 5px 15px;
   color: #ced3d9 !important;
+}
+
+.btnDetails {
+  text-decoration: none;
+  cursor: pointer;
+  width: 140px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  border: 1px solid #918256 !important;
+  background: transparent;
+  padding: 5px 15px;
+  font-weight: 700 !important;
+  color: #ced3d9;
 }

@@ -2,128 +2,110 @@ import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { IoCaretBackSharp, IoCaretForwardSharp } from "react-icons/io5";
 
-const array = [
-  { title: "Common", id: "#1001",  },
-  { title: "Uncommon", id: "#1002", },
-  { title: "Rare", id: "#1003", },
-  { title: "Epic", id: "#1004",  },
-  { title: "Legendary", id: "#1005",  },
-  { title: "My Thic", id: "#1006",  },
-  { title: "Common", id: "#1001",},
-  { title: "Uncommon", id: "#1002",  },
-  { title: "Rare", id: "#1003",  },
-];
-const items = [...array];
-
-function Items({ currentItems }) {
-
+function Items({ currentItems, title }) {
   return (
-<div className="container">
-    <div className="row d-flex justify-content-center">
-    <div className="col-xl-10 col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center mt-5">
+    <div className="container">
+      <div className="row d-flex justify-content-center">
+        <div className="col-xl-10 col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center mt-5">
           <div className="card outbox w-100">
             <div className="card-body onebox">
-              <h5 className="card-title text-uppercase">Level Detail</h5>
-              <div className="row d-flex justify-content-center mt-5 mb-3">
-              <div className="col-md-2">
-              <div className=" text-level mb-2">
-                No
+              <h5 className="card-titleWith text-uppercase text-start ps-1">
+                {title}
+              </h5>
+              <div className="row d-flex justify-content-center mt-2">
+                <div className="col-md-1">
+                  <div className=" text-level mb-2">No</div>
+                </div>
+                <div className="col-md-3">
+                  <div className=" text-level mb-2">Address</div>
+                </div>
+                <div className="col-md-2">
+                  <div className=" text-level mb-2">Reward </div>
+                </div>
+
+                <div className="col-md-3">
+                  <div className=" text-level mb-2">Current Deposit</div>
+                </div>
+                <div className="col-md-3">
+                  <div className=" text-level mb-2">Total Deposit</div>
+                </div>
               </div>
-              </div>
-              <div className="col-md-4">
-              <div className=" text-level mb-2">
-                Address
-              </div>
-              </div>
-              <div className="col-md-4">
-              <div className=" text-level mb-2">
-              Deposit
-              </div>
-              </div>
-              </div>
-              <div className="row d-flex justify-content-center mt-5 mb-3">
-              <div className="col-md-2">
-              <div className=" text-level mb-2">
-                No
-              </div>
-              </div>
-              <div className="col-md-4">
-              <div className=" text-level mb-2">
-                Address
-              </div>
-              </div>
-              <div className="col-md-4">
-              <div className=" text-level mb-2">
-              Deposit
-              </div>
-              </div>
-              </div>
-              </div>
+              {currentItems?.length != 0 ? (
+                currentItems?.map((item, index) => {
+                  return (
+                    <div
+                      className="row d-flex justify-content-center mt-1 mb-2"
+                      key={index}
+                    >
+                      <div className="col-md-1">
+                        <span className="text-details mb-2">{index + 1}</span>
+                      </div>
+                      <div className="col-md-3">
+                        <span className="text-details mb-2">
+                          {item?.address &&
+                            item?.address.substring(0, 4) +
+                              "..." +
+                              item?.address.substring(item?.address.length - 4)}
+                        </span>
+                      </div>
+                      <div className="col-md-2">
+                        <span className="text-details mb-2">
+                          {item?.reward}
+                        </span>
+                      </div>
+                      <div className="col-md-3">
+                        <div className=" text-details mb-2">
+                          {item?.currentDeposit}
+                        </div>
+                      </div>
+                      <div className="col-md-3">
+                        <div className=" text-details mb-2">
+                          {item?.totalDeposit}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })
+              ) : (
+                <></>
+              )}
             </div>
           </div>
         </div>
-        </div>
-    //   {currentItems &&
-    //     currentItems.map((item) => (
-    //       <div className="col-xl-4 col-lg-6 col-sm-12 col-md-12 d-flex justify-content-center">
-    //         <div className="row d-flex justify-content-center">
-    //           <div className="col-10 col-md-10 col-lg-10 pic-bg-nft ">
-    //             {/* <img
-    //               src={item.pic}
-    //               className="img-fluid mt-2 rounded mobileNftTransfer"
-    //               alt=""
-    //             /> */}
-    //           </div>
-    //           <div className="col-10 col-md-10 col-lg-10 d-flex justify-content-center mt-4">
-    //             <span className="text-uppercase nftImgTitle ">
-    //               {item.title}
-    //             </span>
-    //           </div>
-    //           <div className="col-10 col-md-10 col-lg-10 d-flex justify-content-center mt-2">
-    //             {item.id}
-    //           </div>
-    //         </div>
-    //       </div>
-    //     ))}
+      </div>
+    </div>
   );
 }
 
-function PaginatedItems({ itemsPerPage }) {
-  // We start with an empty list of items.
+function PaginatedItems({ itemsPerPage, levelAddressDetail, title }) {
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
-  // Here we use item offsets; we could also use page offsets
-  // following the API or data you're working with.
   const [itemOffset, setItemOffset] = useState(0);
-
   useEffect(() => {
-    // Fetch items from another resources.
     const endOffset = itemOffset + itemsPerPage;
     let sliced;
-    for (var i = 0; i < items.length; i++) {
-      sliced = items.slice(itemOffset, endOffset);
+    for (var i = 0; i < levelAddressDetail?.length; i++) {
+      sliced = levelAddressDetail.slice(itemOffset, endOffset);
     }
 
     setCurrentItems(sliced);
-    setPageCount(Math.ceil(items.length / itemsPerPage));
-  }, [itemOffset, itemsPerPage]);
+    setPageCount(Math.ceil(levelAddressDetail?.length / itemsPerPage));
+  }, [itemOffset, itemsPerPage, levelAddressDetail]);
 
-  // Invoke when user click to request another page.
   const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % items.length;
-    console.log(
-      `User requested page number ${event.selected}, which is offset ${newOffset}`
-    );
+    const newOffset =
+      (event.selected * itemsPerPage) % levelAddressDetail?.length;
+
     setItemOffset(newOffset);
   };
 
   return (
     <>
-      <Items currentItems={currentItems} />
+      <Items currentItems={currentItems} title={title} />
       <ReactPaginate
         nextLabel={<IoCaretForwardSharp />}
         onPageChange={handlePageClick}
-        pageRangeDisplayed={1}
+        pageRangeDisplayed={3}
         marginPagesDisplayed={1}
         pageCount={pageCount}
         previousLabel={<IoCaretBackSharp />}

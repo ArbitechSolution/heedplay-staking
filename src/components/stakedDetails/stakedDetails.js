@@ -15,7 +15,7 @@ const StakedDetails = () => {
             new deposits
           </p>
           <p className=" text-captilize stakedDetail-heading mt-3">
-            Minimal deposit: <span className="boldText">10 HPG</span>, no
+            Minimal deposit: <span className="boldText">100 HPG</span>, no
             maximal limit
           </p>
           <p className=" text-captilize stakedDetail-heading mt-3">

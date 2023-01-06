@@ -26,7 +26,6 @@ const Cards = ({ props: props }) => {
   const [earnedValue3, setEarnedValue3] = useState(0);
   const [earnedValue4, setEarnedValue4] = useState(0);
   const [referralAddress, setReferralAddress] = useState("0");
-  const [balance, setBalance] = useState("0.00");
   const handleConnect = async () => {
     let acc = await loadWeb3();
     props?.setAccount(acc);
@@ -51,8 +50,9 @@ const Cards = ({ props: props }) => {
             stkaingAddress
           );
           await stakingContract.methods.withdraw(time).send({ from: account });
-          handleReward();
-          handleTotalEarned();
+          await handleReward();
+          await handleTotalEarned();
+          await handleBalance();
           toast.success("Transaction Successful");
         } else {
           toast.info("You don't have any Reward yet!");
@@ -77,7 +77,9 @@ const Cards = ({ props: props }) => {
           let tokenBalance = await tokenContract.methods
             .balanceOf(account)
             .call();
-          setBalance(parseFloat(web3.utils.fromWei(tokenBalance)).toFixed(3));
+          props?.setBalance(
+            parseFloat(web3.utils.fromWei(tokenBalance)).toFixed(3)
+          );
           let amountPlan = web3.utils.toWei(amountForplan);
           if (parseFloat(amountPlan) <= parseFloat(tokenBalance)) {
             const stakingContract = new web3.eth.Contract(
@@ -129,6 +131,7 @@ const Cards = ({ props: props }) => {
           handleAllStake();
           handleTotalEarned();
           handleTotalStake();
+          handleBalance();
           toast.success("Transaction Successful");
         } else {
           toast.info("Please staked first!");
@@ -271,9 +274,8 @@ const Cards = ({ props: props }) => {
           stakingAbi,
           stkaingAddress
         );
-        let res = await stakingContract.methods.rewardInfo(account).call();
-        let total = parseFloat(web3.utils.fromWei(res?.total_Rewards));
-
+        let res = await stakingContract.methods.rewardReceived(account).call();
+        let total = parseFloat(web3.utils.fromWei(res));
         total = total.toFixed(2);
         props?.setTotalEarned(total);
       }
@@ -297,8 +299,12 @@ const Cards = ({ props: props }) => {
         );
 
         let res = await stakingContract.methods.rewardInfo(account).call();
-        props?.setRoireleased(parseFloat(web3.utils.fromWei(res.ROIReleased)));
         props?.setdirects(parseFloat(web3.utils.fromWei(res.directs)));
+        let total = parseFloat(web3.utils.fromWei(res.total_Rewards));
+        total = total.toFixed(2);
+        props?.setTotalEarned(total);
+        let affiliate = await stakingContract.methods.UpdateROI(account).call();
+        props?.setRoireleased(parseFloat(web3.utils.fromWei(affiliate)));
       }
     } catch (error) {
       console.log("error", error);
@@ -351,7 +357,9 @@ const Cards = ({ props: props }) => {
         let tokenBalance = await tokenContract.methods
           .balanceOf(account)
           .call();
-        setBalance(parseFloat(web3.utils.fromWei(tokenBalance)).toFixed(3));
+        props?.setBalance(
+          parseFloat(web3.utils.fromWei(tokenBalance)).toFixed(3)
+        );
       }
     } catch (error) {
       console.log("error", error);
@@ -375,7 +383,7 @@ const Cards = ({ props: props }) => {
   //   handleReferralAddress();
   // }, []);
   return (
-    <div className="container-fluid w-100  bg-dark cards-container pt-5">
+    <div className="container-fluid w-100  bg-dark cards-container pt-2">
       <div className="row d-flex justify-content-center mt-5">
         <div className="col-12 d-flex justify-content-center">
           <span className="value-staked text-captilized ">
@@ -401,7 +409,7 @@ const Cards = ({ props: props }) => {
       <div className="row d-flex justify-content-space mt-4">
         <div className="col-12 d-flex justify-content-center align-items-center">
           <span className="card-title text-">Balance</span>
-          <span className="value-staked ms-5">{balance}</span>
+          <span className="value-staked ms-5">{props?.balance}</span>
         </div>
       </div>
       <div className="row d-flex justify-content-center">
@@ -516,7 +524,7 @@ const Cards = ({ props: props }) => {
                     <span className="sr-para2">Minimal deposit</span>
                   </div>
                   <div className="col-6 d-flex">
-                    <span className="sr-para2">10 HPG</span>
+                    <span className="sr-para2">100 HPG</span>
                   </div>
                 </div>
               </div>
@@ -634,7 +642,7 @@ const Cards = ({ props: props }) => {
                     <span className="sr-para2">Minimal deposit</span>
                   </div>
                   <div className="col-6 d-flex">
-                    <span className="sr-para2">10 HPG</span>
+                    <span className="sr-para2">100 HPG</span>
                   </div>
                 </div>
               </div>
@@ -752,7 +760,7 @@ const Cards = ({ props: props }) => {
                     <span className="sr-para2">Minimal deposit</span>
                   </div>
                   <div className="col-6 d-flex">
-                    <span className="sr-para2">10 HPG</span>
+                    <span className="sr-para2">100 HPG</span>
                   </div>
                 </div>
               </div>
@@ -870,7 +878,7 @@ const Cards = ({ props: props }) => {
                     <span className="sr-para2">Minimal deposit</span>
                   </div>
                   <div className="col-6 d-flex">
-                    <span className="sr-para2">10 HPG</span>
+                    <span className="sr-para2">100 HPG</span>
                   </div>
                 </div>
               </div>

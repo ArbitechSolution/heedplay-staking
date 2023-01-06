@@ -1,5 +1,5 @@
-import React from 'react'
-import "./levelDetail.css"
+import React from "react";
+import "./levelDetail.css";
 
 function levelDetail() {
   return (
@@ -14,13 +14,8 @@ function levelDetail() {
           and earning high income.
         </span>
       </div>
-      <div className="row">
-        <a href="#" className=" d-flex text-link">
-          Learn how to start
-        </a>
-      </div>
     </div>
   );
 }
 
-export default levelDetail
+export default levelDetail;

@@ -22,9 +22,8 @@ const CustomNavbar = (props) => {
         setIsColor("game");
       } else if (pathname == "/user") {
         setIsColor("user");
-      }
-      else if (pathname == "/level"){
-        setIsColor("level")
+      } else if (pathname == "/level") {
+        setIsColor("level");
       }
     }
   };
@@ -93,14 +92,14 @@ const CustomNavbar = (props) => {
                       </li>
                     </ul> */}
                   </li>
-                  <li className="nav-item font18">
+                  {/* <li className="nav-item font18">
                     <HashLink
                       className={`nav-link ${iscolor == "level" ? "active" : ""}`}
                       to="/level"
                     >
                       Level Detail
                     </HashLink>
-                  </li>
+                  </li> */}
                   <li className="nav-item font18">
                     <HashLink
                       className={`nav-link ${iscolor == "nft" ? "active" : ""}`}
