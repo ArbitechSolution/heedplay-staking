@@ -14,7 +14,7 @@ const AirDrop = ({ props: props }) => {
   const [claimed, setClaimed] = useState("0.00");
   const [withdrawl, setWithdrawl] = useState("0.00");
   const [owner, setOwner] = useState(false);
-
+  const [balance, setBalance] = useState(0);
   const handleGetValues = async () => {
     try {
       if (account == "No Wallet") {
@@ -71,6 +71,7 @@ const AirDrop = ({ props: props }) => {
           });
           toast.success("Transaction Successful");
           handleGetValues();
+          getBalance();
         } else {
           toast.info("You don't have any Reward yet!");
         }
@@ -97,6 +98,7 @@ const AirDrop = ({ props: props }) => {
           await airDropContract.methods.unstake().send({ from: account });
           toast.success("Transaction Successful");
           handleGetValues();
+          getBalance();
         } else {
           toast.info("You dont have any staked amount");
         }
@@ -130,8 +132,32 @@ const AirDrop = ({ props: props }) => {
       console.log("error while getting Owner");
     }
   };
+  const getBalance = async () => {
+    try {
+      if (account == "No Wallet") {
+        console.log("Not Connected");
+      } else if (account == "Wrong Network") {
+        console.log("Wrong Network");
+      } else if (account == "Connect") {
+        console.log("Not Connected");
+      } else {
+        const web3 = window.web3;
+        const airDropContract = new web3.eth.Contract(
+          airDropTokenAbi,
+          airDropTokenAddress
+        );
+        let bal = await airDropContract.methods.balanceOf(account).call();
+        bal = web3.utils.fromWei(bal);
+        bal = parseFloat(bal).toFixed(5);
+        setBalance(bal);
+      }
+    } catch (err) {
+      console.log("error while getting balance");
+    }
+  };
   useEffect(() => {
     handleGetValues();
+    getBalance();
     getOwner();
   }, [account]);
   return (
@@ -151,23 +177,29 @@ const AirDrop = ({ props: props }) => {
       <div className="row boxStakedDetail1 d-flex justify-content-center my-5">
         <div className="col-12 align-items-center mt-5">
           <div className="row d-flex justify-content-around ">
-            <div className="col-sm-12 col-md-4  d-flex flex-column">
+            <div className="col-sm-12 col-md-3  d-flex flex-column">
               <span className="text-pool">
                 <b>Total Staked</b>
               </span>
               <span className="text-pool text-white">{staked}</span>
             </div>
-            <div className="col-sm-12 col-md-4 d-flex flex-column">
+            <div className="col-sm-12 col-md-3 d-flex flex-column">
               <span className="text-pool">
                 <b>Total Claimed</b>
               </span>
               <span className="text-pool text-white">{claimed}</span>
             </div>
-            <div className="col-sm-12 col-md-4 d-flex flex-column">
+            <div className="col-sm-12 col-md-3 d-flex flex-column">
               <span className="text-pool">
                 <b>Total Withdrawl</b>
               </span>
               <span className="text-pool text-white">{withdrawl}</span>
+            </div>
+            <div className="col-sm-12 col-md-3 d-flex flex-column">
+              <span className="text-pool">
+                <b>Account Balance</b>
+              </span>
+              <span className="text-pool text-white">{balance}</span>
             </div>
           </div>
         </div>

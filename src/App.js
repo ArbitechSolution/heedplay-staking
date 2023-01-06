@@ -28,7 +28,10 @@ function App() {
         <Route path="/market" element={<CommingPage />} />
         <Route path="/game" element={<CommingPage />} />
         <Route path="/level" element={<Level account={account} />} />
-        <Route path="/airdrop" element={<AirDrop account={account} />} />
+        <Route
+          path="/airdrop"
+          element={<AirDrop account={account} balance={balance} />}
+        />
         <Route path="/directs" element={<DirectIncome account={account} />} />
         <Route
           path="/staking"
