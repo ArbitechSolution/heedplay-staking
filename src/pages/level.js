@@ -172,14 +172,14 @@ function LevelPage(props) {
         {/* <LevelPlace userCount={userCount} totalRoi={totalRoi} /> */}
         <div className="container-fluid staked-container ">
           <div className="row  d-flex justify-content-between boxLevel mb-5">
-            <div className="col-sm-12 col-lg-3 staked-column">
+            <div className="col-sm-12 col-lg-6 staked-column">
               <span className="d-flex text-captilize staked-heading sub">
                 Total User
               </span>
               <span className="d-flex  staked-subheading">{userCount}</span>
             </div>
 
-            <div className="col-sm-12 col-lg-3 staked-column">
+            <div className="col-sm-12 col-lg-6 staked-column">
               <span className="d-flex text-captilize staked-heading sub">
                 Affiliate Reward
               </span>
