@@ -36,14 +36,14 @@
   color: #ced3d9;
   line-height: 41px;
   margin-top: 25px;
-  font-size: 35px;
+  font-size: 30px;
 }
 @media (max-width: 768px) {
   .staked-heading {
     font-size: 20px;
   }
   .staked-subheading {
-    font-size: 25px;
+    font-size: 22px;
   }
   .input-field-3 {
     width: 300px;

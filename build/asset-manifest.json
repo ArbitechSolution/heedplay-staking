@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.c3a18ea2.css",
-    "main.js": "/static/js/main.cd84f498.js",
+    "main.css": "/static/css/main.555f5841.css",
+    "main.js": "/static/js/main.dd75586f.js",
     "static/js/787.1309feee.chunk.js": "/static/js/787.1309feee.chunk.js",
     "static/media/BackgroundTlogo-01.png": "/static/media/BackgroundTlogo-01.30bcfbb89df016746770.png",
     "static/media/LogoGolden-01.png": "/static/media/LogoGolden-01.1e7b25902b4f0cc6703d.png",
@@ -11,12 +11,12 @@
     "static/media/footer.ca581494.png": "/static/media/footer.ca581494.ca581494fb47e71a326f.png",
     "static/media/Coinbase_logo.png": "/static/media/Coinbase_logo.f8e6c7b9100d0af7651d.png",
     "index.html": "/index.html",
-    "main.c3a18ea2.css.map": "/static/css/main.c3a18ea2.css.map",
-    "main.cd84f498.js.map": "/static/js/main.cd84f498.js.map",
+    "main.555f5841.css.map": "/static/css/main.555f5841.css.map",
+    "main.dd75586f.js.map": "/static/js/main.dd75586f.js.map",
     "787.1309feee.chunk.js.map": "/static/js/787.1309feee.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.c3a18ea2.css",
-    "static/js/main.cd84f498.js"
+    "static/css/main.555f5841.css",
+    "static/js/main.dd75586f.js"
   ]
 }

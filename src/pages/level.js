@@ -44,8 +44,8 @@ function LevelPage(props) {
           .UpdateROIInfo(account, levelNumber)
           .call();
         roi = web3.utils.fromWei(roi);
+        roi = parseFloat(roi).toFixed(3);
         setTotalRoi(roi);
-
         await usersDetails(users);
       }
     } catch (error) {
