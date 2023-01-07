@@ -1,4 +1,4 @@
-export const stkaingAddress = "0xADF60131014da36094b034930bCca1f9251aB327";
+export const stkaingAddress = "0x5f9b9CD315a0111Ce28B56e2cB99329f25892356";
 export const stakingAbi = [
   { inputs: [], stateMutability: "nonpayable", type: "constructor" },
   {
