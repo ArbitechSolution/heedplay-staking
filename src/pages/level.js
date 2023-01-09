@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Footer from "../components/footer/footer";
 import LevelDetail from "../components/level-detail/levelDetail";
-import Level from "../components/level-detail/level";
-import LevelPlace from "../components/level-detail/LevelPlace";
 import LevelCard from "../components/level-detail/LevelCard";
 import { stakingAbi, stkaingAddress } from "../utils/staking";
 import { FiArrowRight } from "react-icons/fi";
 import { FiArrowLeft } from "react-icons/fi";
+import { HashLink } from "react-router-hash-link";
+
+import { IoMdArrowBack} from "react-icons/io";
 
 function LevelPage(props) {
   const account = props?.account;
@@ -131,22 +132,31 @@ function LevelPage(props) {
     // }, 1000);
   }, [account, levelNumber]);
   return (
-    <>
+    <div >
       <div>
         <LevelDetail />
       </div>
       <div style={{ background: "linear-gradient(311deg, #121212, #0c0c0c)" }}>
+      <div className="container" >
         {/* <Level
           levelNumber={levelNumber}
           decrement={decrement}
           increment={increment}
         /> */}
-        <div className="row">
-          <div className="col-md-12 mt-5">
+        <div className="row level-overflow">
+          <div className="col-md-12 mt-5 ">
             <div className="row d-flex justify-content-center">
-              <div className="col-md-6  mb-5">
+              <div className="col-md-12  mb-5">
                 <h3 className="text-level">level</h3>
+                <div className="button-left">
+                  <button className="btn-arrow">
+                  <HashLink className="arrow-color" to="/">
+                  <IoMdArrowBack />
+                  </HashLink>
+                  </button>
+                </div>
                 <div className="d-flex justify-content-center gap-2">
+               
                   <button
                     className="btn-arrow"
                     onClick={() => {
@@ -164,14 +174,17 @@ function LevelPage(props) {
                   >
                     <FiArrowRight />
                   </button>
+
+                  
                 </div>
               </div>
             </div>
           </div>
         </div>
         {/* <LevelPlace userCount={userCount} totalRoi={totalRoi} /> */}
-        <div className="container-fluid staked-container ">
-          <div className="row  d-flex justify-content-between boxLevel mb-5">
+        <div className="container staked-container ">
+          <div className="row d-flex justify-content-center boxLevel mb-5">
+
             <div className="col-sm-12 col-lg-6 staked-column">
               <span className="d-flex text-captilize staked-heading sub">
                 Total User
@@ -181,13 +194,13 @@ function LevelPage(props) {
 
             <div className="col-sm-12 col-lg-6 staked-column">
               <span className="d-flex text-captilize staked-heading sub">
-                Affiliate Reward
+                Your Affiliate Reward
               </span>
               <span className="d-flex  staked-subheading">{totalRoi} HPG</span>
             </div>
           </div>
         </div>
-        <div className="row mt-5 mb-5">
+        <div className="row level-overflow mt-5 mb-5">
           <div className="col-12 col-lg-12 col-sm-12 d-none d-xl-block">
             <LevelCard
               itemsPerPage={10}
@@ -210,9 +223,11 @@ function LevelPage(props) {
             />
           </div>
         </div>
+       
         <Footer />
       </div>
-    </>
+    </div>
+    </div>
   );
 }
 

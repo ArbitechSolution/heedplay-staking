@@ -177,3 +177,10 @@ input[type="number"]::-webkit-inner-spin-button {
   color: #ced3d9 !important;
   height: 38px;
 }
+
+
+@media (max-width:425px){
+  .input-field-2{
+    width: 150px !important;
+  }
+}

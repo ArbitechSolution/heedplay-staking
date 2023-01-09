@@ -3,7 +3,8 @@ import "./levelDetail.css";
 
 function levelDetail() {
   return (
-    <div className="container-fluid bglevel-image">
+    <div className="bglevel-image">
+    <div className="container">
       <div className="row ">
         <span className="d-flex text-captilize text-heading">Level Detail</span>
       </div>
@@ -14,6 +15,7 @@ function levelDetail() {
           and earning high income.
         </span>
       </div>
+    </div>
     </div>
   );
 }

@@ -37,11 +37,11 @@ const Staked = ({ props }) => {
   const handleWithdrawDirects = async () => {
     try {
       if (account == "No Wallet") {
-        console.log("Not Connected");
+        toast.info("Not Connected");
       } else if (account == "Wrong Network") {
-        console.log("Wrong Network");
+        toast.info("Wrong Network");
       } else if (account == "Connect") {
-        console.log("Not Connected");
+        toast.info("Not Connected");
       } else {
         const web3 = window.web3;
         const stakingContract = new web3.eth.Contract(
@@ -100,8 +100,11 @@ const Staked = ({ props }) => {
     handleReferralAddress();
   }, [account]);
   return (
-    <div className="container-fluid bg-dark staked-container pt-5">
-      <div className="row box mb-5">
+    <div className="bg-dark staked-container">
+    <div className="container pt-5">
+    <div className="row d-flex justify-content-center ">
+    <div className="col-md-12 ">
+      <div className="row  box mb-5">
         <div className="col-sm-12 col-lg-3 staked-column">
           <span className="d-flex text-captilize staked-heading ">
             Total Staked
@@ -111,12 +114,12 @@ const Staked = ({ props }) => {
           </span>
         </div>
         <div className="col-sm-12 col-lg-3 staked-column">
-          <span className="d-flex text-captilize staked-heading">Directs</span>
+          <span className="d-flex text-captilize staked-heading"> Your Directs Bonus</span>
           <span className="d-flex  staked-subheading">{props?.directs}</span>
         </div>
         <div className="col-sm-12 col-lg-3 staked-column">
           <span className="d-flex text-captilize staked-heading">
-            Affiliate Reward
+            Your Affiliate Reward
           </span>
           <span className="d-flex  staked-subheading">
             {props?.roiReleased}
@@ -125,7 +128,7 @@ const Staked = ({ props }) => {
 
         <div className="col-sm-12 col-lg-3 staked-column ">
           <span className="d-flex text-captilize staked-heading">
-            Total Earned
+           Your  Total Earned
           </span>
           <span className="d-flex  staked-subheading">
             {props?.totalEarned} HPG
@@ -137,19 +140,26 @@ const Staked = ({ props }) => {
           </span>
         </div>
         <div className="row d-flex justify-content-center mt-1">
-          <div className="col-12 d-flex justify-content-center align-items-center mt-2 ">
+          <div className="col-md-12 d-flex justify-content-around align-items-center mt-2 ">
+          <div className="gap-2">
+
             <button
               className="btnDetails me-1 ms-1"
               onClick={() => handleWithdrawDirects()}
             >
               Withdraw
             </button>
-            <HashLink className=" btnDetails me-1 ms-1" to="/level">
+            <button className=" btnDetails me-1 ms-1">
+            <HashLink className="btnLInk"  to="/level">
               Level Detail
             </HashLink>
-            <HashLink className=" btnDetails  ms-1" to="/directs">
+            </button>
+            <button className=" btnDetails me-1 ms-1">
+            <HashLink className="btnLInk" to="/directs">
               Directs Detail
             </HashLink>
+            </button>
+          </div>
           </div>
         </div>
         <div className="col-sm-12 col-lg-12 mt-5">
@@ -185,6 +195,9 @@ const Staked = ({ props }) => {
           </div>
         </div>
       </div>
+      </div>
+      </div>
+    </div>
     </div>
   );
 };

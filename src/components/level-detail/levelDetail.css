@@ -8,6 +8,7 @@
   justify-content: space-around;
   align-items: flex-start;
   flex-direction: column;
+  overflow: hidden;
 }
 .text-level {
   font-size: 20px;
@@ -126,12 +127,14 @@
 }
 .boxLevel {
   border: 1px solid green;
-  width: 50%;
+  width: 100%;
   background: linear-gradient(311deg, #121212, #0c0c0c);
   box-shadow: 0 20px 20px 0 rgb(0 0 0 / 39%);
   border-radius: 12px;
   border: 1px solid rgba(68, 67, 67, 0.47);
   padding: 50px;
+  display: flex;
+  justify-content: center;
 }
 
 .text-details {
@@ -148,4 +151,14 @@
   .text-level {
     font-size: 14px;
   }
+}
+
+
+.level-overflow{
+  overflow: hidden !important;
+}
+
+
+.button-left{
+  float: left;
 }

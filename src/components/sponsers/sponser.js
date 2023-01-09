@@ -6,8 +6,9 @@ import Coinbase_logo from "../../Assets/images/Coinbase_logo.png";
 import horizontal_white from "../../Assets/images/horizontal_white.png";
 const Sponser = () => {
   return (
-    <div className="container-fluid bg-dark sponser-container pt-5 pb-5 d-flex flex-column ">
-      <span className="value-staked mb-4">SPONSORS</span>
+<div className="bg-dark sponser-container">
+    <div className="container  pt-5 pb-5 d-flex flex-column ">
+      <h3 className=" text-center  text-sponsors mb-4">SPONSORS</h3>
       <div className="row">
         <div className="col-12">
           <img className="img-fluid" src={sponser} alt="sponsers"></img>
@@ -32,6 +33,7 @@ const Sponser = () => {
           ></img>
         </div>
       </div>
+    </div>
     </div>
   );
 };

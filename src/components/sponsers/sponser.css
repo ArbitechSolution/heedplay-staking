@@ -14,3 +14,25 @@
   max-width: 200px !important;
   height: 50px;
 }
+
+
+@media (max-width:425px) {
+  .imgSponser {
+  width: 100px !important;
+    height: auto;
+  }
+
+  .imgSponser2 {
+    margin-top: 0% !important;
+    width: 100px !important;
+    height: 50px;
+  }
+  
+}
+
+.text-sponsors{
+  text-align: center !important;
+  font-weight: 700;
+    color: #eccf83;
+    line-height: 22px;
+}

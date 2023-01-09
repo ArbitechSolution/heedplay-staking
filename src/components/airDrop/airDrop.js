@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./airDrop.css";
+import { HashLink } from "react-router-hash-link";
+
+import { IoMdArrowBack} from "react-icons/io";
 // import { accounts } from "../../utils/airDrop";
 import { toast } from "react-toastify";
 import {
@@ -174,6 +177,15 @@ const AirDrop = ({ props: props }) => {
           </span>
         </div>
       </div>
+      <div className="col-md-10">
+        <div className="button-left">
+                  <button className="btn-arrow">
+                  <HashLink className="arrow-color" to="/">
+                  <IoMdArrowBack />
+                  </HashLink>
+                  </button>
+                </div>
+        </div>
       <div className="row boxStakedDetail1 d-flex justify-content-center my-5">
         <div className="col-12 align-items-center mt-5">
           <div className="row d-flex justify-content-around ">
@@ -185,13 +197,13 @@ const AirDrop = ({ props: props }) => {
             </div>
             <div className="col-sm-12 col-md-3 d-flex flex-column">
               <span className="text-pool">
-                <b>Total Claimed</b>
+                <b>Total WithDraw</b>
               </span>
               <span className="text-pool text-white">{claimed}</span>
             </div>
             <div className="col-sm-12 col-md-3 d-flex flex-column">
               <span className="text-pool">
-                <b>Total Withdrawl</b>
+                <b>Total Reward</b>
               </span>
               <span className="text-pool text-white">{withdrawl}</span>
             </div>

@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import Footer from "../components/footer/footer";
 import { stakingAbi, stkaingAddress } from "../utils/staking";
 import PaginatedItems from "../components/level-detail/levelCardDirects";
+import "./pages.css"
+import { HashLink } from "react-router-hash-link";
+
+import { IoMdArrowBack} from "react-icons/io";
 
 function DirectIncome(props) {
   const account = props?.account;
@@ -66,11 +70,16 @@ function DirectIncome(props) {
     handleDetails();
   }, [account]);
   return (
-    <>
-      <div style={{ background: "linear-gradient(311deg, #121212, #0c0c0c)" }}>
-        <div className="container-fluid staked-container ">
-          <div className="row  d-flex justify-content-between boxDirects  mt-3">
-            <div className="col-sm-12 col-lg-6 staked-column">
+    <div style={{ background: "linear-gradient(311deg, #121212, #0c0c0c)" }}>
+      <div className="container">
+        <div className="row d-flex justify-content-center">
+        <div className="col-md-12 mt-5 mb-5">
+        <div className="row d-flex justify-content-center">
+
+        
+          <div className="row  d-flex justify-content-between boxDirects">
+          
+            <div className="col-sm-12 col-lg-6 staked-column ">
               <span className="d-flex text-captilize staked-heading sub">
                 Total User
               </span>
@@ -80,7 +89,18 @@ function DirectIncome(props) {
               <span className="d-flex directs-subheading">{userCount}</span>
             </div>
           </div>
+          </div>
         </div>
+        <div className="col-md-9">
+        <div className="button-left">
+                  <button className="btn-arrow">
+                  <HashLink className="arrow-color" to="/">
+                  <IoMdArrowBack />
+                  </HashLink>
+                  </button>
+                </div>
+        </div>
+        
         <div className="row  mb-5">
           <div className="col-12 col-lg-12 col-sm-12 d-none d-xl-block">
             <PaginatedItems
@@ -106,7 +126,8 @@ function DirectIncome(props) {
         </div>
         <Footer />
       </div>
-    </>
+    </div>
+    </div>
   );
 }
 
