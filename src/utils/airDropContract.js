@@ -1,4 +1,4 @@
-export const airDropAddress = "0xaFA16AE8D25D2F9d3B9BDa976926eFF94FF82fFE";
+export const airDropAddress = "0x9e85FE6F3e37240EAB57f1b2856ABf836C5eE869";
 export const airDropAbi = [
   { inputs: [], stateMutability: "nonpayable", type: "constructor" },
   {
@@ -31,15 +31,22 @@ export const airDropAbi = [
     inputs: [
       { internalType: "address[]", name: "_recipients", type: "address[]" },
     ],
-    name: "TokensDrop",
-    outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    name: "airDrop",
+    outputs: [],
     stateMutability: "nonpayable",
     type: "function",
   },
   {
     inputs: [{ internalType: "address", name: "user", type: "address" }],
+    name: "calcTime",
+    outputs: [{ internalType: "uint256", name: "time_", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "address", name: "user", type: "address" }],
     name: "calculateReward",
-    outputs: [{ internalType: "uint256", name: "reward", type: "uint256" }],
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
   },
@@ -55,6 +62,20 @@ export const airDropAbi = [
     name: "getStakeHolders",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getTokens",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "uint256", name: "claimAble", type: "uint256" }],
+    name: "getTokensWithAmount",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -79,6 +100,13 @@ export const airDropAbi = [
     type: "function",
   },
   {
+    inputs: [],
+    name: "taxAddress",
+    outputs: [{ internalType: "address", name: "", type: "address" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [{ internalType: "address", name: "newOwner", type: "address" }],
     name: "transferOwnership",
     outputs: [],
@@ -87,7 +115,7 @@ export const airDropAbi = [
   },
   {
     inputs: [],
-    name: "unstake",
+    name: "unStake",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -99,13 +127,14 @@ export const airDropAbi = [
       { internalType: "uint256", name: "stakedAmount", type: "uint256" },
       { internalType: "uint256", name: "claimedReward", type: "uint256" },
       { internalType: "uint256", name: "stakingTime", type: "uint256" },
+      { internalType: "uint256", name: "unstakeTime", type: "uint256" },
       { internalType: "uint256", name: "withdrawlAmount", type: "uint256" },
     ],
     stateMutability: "view",
     type: "function",
   },
 ];
-export const airDropTokenAddress = "0x8296Db56059BC3c8296f1b3B7093aB8448750643";
+export const airDropTokenAddress = "0x4E21B912AbB4E3B32f7f6409fBF372Bc2232b305";
 export const airDropTokenAbi = [
   { inputs: [], stateMutability: "nonpayable", type: "constructor" },
   {
@@ -136,38 +165,6 @@ export const airDropTokenAbi = [
   {
     anonymous: false,
     inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "previousOwner",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "newOwner",
-        type: "address",
-      },
-    ],
-    name: "OwnershipTransferred",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "Paused",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
       { indexed: true, internalType: "address", name: "from", type: "address" },
       { indexed: true, internalType: "address", name: "to", type: "address" },
       {
@@ -178,19 +175,6 @@ export const airDropTokenAbi = [
       },
     ],
     name: "Transfer",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "Unpaused",
     type: "event",
   },
   {
@@ -206,7 +190,7 @@ export const airDropTokenAbi = [
   {
     inputs: [
       { internalType: "address", name: "spender", type: "address" },
-      { internalType: "uint256", name: "amount", type: "uint256" },
+      { internalType: "uint256", name: "value", type: "uint256" },
     ],
     name: "approve",
     outputs: [{ internalType: "bool", name: "", type: "bool" }],
@@ -214,14 +198,14 @@ export const airDropTokenAbi = [
     type: "function",
   },
   {
-    inputs: [{ internalType: "address", name: "account", type: "address" }],
+    inputs: [{ internalType: "address", name: "owner", type: "address" }],
     name: "balanceOf",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
   },
   {
-    inputs: [{ internalType: "uint256", name: "amount", type: "uint256" }],
+    inputs: [{ internalType: "uint256", name: "value", type: "uint256" }],
     name: "burn",
     outputs: [],
     stateMutability: "nonpayable",
@@ -229,8 +213,8 @@ export const airDropTokenAbi = [
   },
   {
     inputs: [
-      { internalType: "address", name: "account", type: "address" },
-      { internalType: "uint256", name: "amount", type: "uint256" },
+      { internalType: "address", name: "from", type: "address" },
+      { internalType: "uint256", name: "value", type: "uint256" },
     ],
     name: "burnFrom",
     outputs: [],
@@ -265,48 +249,10 @@ export const airDropTokenAbi = [
     type: "function",
   },
   {
-    inputs: [
-      { internalType: "address", name: "to", type: "address" },
-      { internalType: "uint256", name: "amount", type: "uint256" },
-    ],
-    name: "mint",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
     inputs: [],
     name: "name",
     outputs: [{ internalType: "string", name: "", type: "string" }],
     stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "owner",
-    outputs: [{ internalType: "address", name: "", type: "address" }],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "pause",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "paused",
-    outputs: [{ internalType: "bool", name: "", type: "bool" }],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "renounceOwnership",
-    outputs: [],
-    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -326,7 +272,7 @@ export const airDropTokenAbi = [
   {
     inputs: [
       { internalType: "address", name: "to", type: "address" },
-      { internalType: "uint256", name: "amount", type: "uint256" },
+      { internalType: "uint256", name: "value", type: "uint256" },
     ],
     name: "transfer",
     outputs: [{ internalType: "bool", name: "", type: "bool" }],
@@ -337,24 +283,10 @@ export const airDropTokenAbi = [
     inputs: [
       { internalType: "address", name: "from", type: "address" },
       { internalType: "address", name: "to", type: "address" },
-      { internalType: "uint256", name: "amount", type: "uint256" },
+      { internalType: "uint256", name: "value", type: "uint256" },
     ],
     name: "transferFrom",
     outputs: [{ internalType: "bool", name: "", type: "bool" }],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [{ internalType: "address", name: "newOwner", type: "address" }],
-    name: "transferOwnership",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "unpause",
-    outputs: [],
     stateMutability: "nonpayable",
     type: "function",
   },

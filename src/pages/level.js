@@ -7,7 +7,7 @@ import { FiArrowRight } from "react-icons/fi";
 import { FiArrowLeft } from "react-icons/fi";
 import { HashLink } from "react-router-hash-link";
 
-import { IoMdArrowBack} from "react-icons/io";
+import { IoMdArrowBack } from "react-icons/io";
 
 function LevelPage(props) {
   const account = props?.account;
@@ -40,7 +40,6 @@ function LevelPage(props) {
           .userCount(account, levelNumber)
           .call();
         setUserCount(users);
-
         let roi = await stakingContract.methods
           .UpdateROIInfo(account, levelNumber)
           .call();
@@ -79,16 +78,12 @@ function LevelPage(props) {
             res = await stakingContract.methods
               .userReferral(account, levelNumber, i)
               .call();
-
             depo = await stakingContract.methods.totalDeposite(res).call();
             depo = web3.utils.fromWei(depo);
-
             totalDepo = await stakingContract.methods.userInfo(res).call();
             totalDepo = web3.utils.fromWei(totalDepo.totalDepositAmount);
-
             reward = await stakingContract.methods.rewardInfo(res).call();
             reward = web3.utils.fromWei(reward.total_Rewards);
-            ////populate array
             newArray.push({
               address: res,
               currentDeposit: depo,
@@ -102,13 +97,10 @@ function LevelPage(props) {
             .call();
           depo = await stakingContract.methods.totalDeposite(res).call();
           depo = web3.utils.fromWei(depo);
-
           totalDepo = await stakingContract.methods.userInfo(res).call();
           totalDepo = web3.utils.fromWei(totalDepo.totalDepositAmount);
-
           reward = await stakingContract.methods.rewardInfo(res).call();
           reward = web3.utils.fromWei(reward.total_Rewards);
-          ////populate array
           newArray.push({
             address: res,
             currentDeposit: depo,
@@ -126,105 +118,99 @@ function LevelPage(props) {
   };
 
   useEffect(() => {
-    // setTimeout(() => {
     handleRoiAndTotalUser();
-    // usersDetails();
-    // }, 1000);
   }, [account, levelNumber]);
   return (
-    <div >
+    <div>
       <div>
         <LevelDetail />
       </div>
       <div style={{ background: "linear-gradient(311deg, #121212, #0c0c0c)" }}>
-      <div className="container" >
-        {/* <Level
+        <div className="container">
+          {/* <Level
           levelNumber={levelNumber}
           decrement={decrement}
           increment={increment}
         /> */}
-        <div className="row level-overflow">
-          <div className="col-md-12 mt-5 ">
-            <div className="row d-flex justify-content-center">
-              <div className="col-md-12  mb-5">
-                <h3 className="text-level">level</h3>
-                <div className="button-left">
-                  <HashLink className="arrow-color btn-arrow p-3" to="/">
-                  <IoMdArrowBack />
-                  </HashLink>
-                </div>
-                <div className="d-flex justify-content-center gap-2">
-               
-                  <button
-                    className="btn-arrow"
-                    onClick={() => {
-                      decrement();
-                    }}
-                  >
-                    <FiArrowLeft />
-                  </button>
-                  <span className="level-input">{levelNumber}</span>
-                  <button
-                    className="btn-arrow"
-                    onClick={() => {
-                      increment();
-                    }}
-                  >
-                    <FiArrowRight />
-                  </button>
-
-                  
+          <div className="row level-overflow">
+            <div className="col-md-12 mt-5 ">
+              <div className="row d-flex justify-content-center">
+                <div className="col-md-12  mb-5">
+                  <h3 className="text-level">level</h3>
+                  <div className="button-left">
+                    <HashLink className="arrow-color btn-arrow p-2" to="/">
+                      <IoMdArrowBack />
+                    </HashLink>
+                  </div>
+                  <div className="d-flex justify-content-center gap-2">
+                    <button
+                      className="btn-arrow"
+                      onClick={() => {
+                        decrement();
+                      }}
+                    >
+                      <FiArrowLeft />
+                    </button>
+                    <span className="level-input">{levelNumber}</span>
+                    <button
+                      className="btn-arrow"
+                      onClick={() => {
+                        increment();
+                      }}
+                    >
+                      <FiArrowRight />
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        {/* <LevelPlace userCount={userCount} totalRoi={totalRoi} /> */}
-        <div className="container staked-container ">
-          <div className="row d-flex justify-content-center boxLevel mb-5">
+          {/* <LevelPlace userCount={userCount} totalRoi={totalRoi} /> */}
+          <div className="container staked-container ">
+            <div className="row d-flex justify-content-center boxLevel mb-5">
+              <div className="col-sm-12 col-lg-6 staked-column">
+                <span className="d-flex text-captilize staked-heading sub">
+                  Total User
+                </span>
+                <span className="d-flex  staked-subheading">{userCount}</span>
+              </div>
 
-            <div className="col-sm-12 col-lg-6 staked-column">
-              <span className="d-flex text-captilize staked-heading sub">
-                Total User
-              </span>
-              <span className="d-flex  staked-subheading">{userCount}</span>
-            </div>
-
-            <div className="col-sm-12 col-lg-6 staked-column">
-              <span className="d-flex text-captilize staked-heading sub">
-                Your Affiliate Reward
-              </span>
-              <span className="d-flex  staked-subheading">{totalRoi} HPG</span>
+              <div className="col-sm-12 col-lg-6 staked-column">
+                <span className="d-flex text-captilize staked-heading sub">
+                  Your Affiliate Reward
+                </span>
+                <span className="d-flex  staked-subheading">
+                  {totalRoi} HPG
+                </span>
+              </div>
             </div>
           </div>
+          <div className="row level-overflow mt-5 mb-5">
+            <div className="col-12 col-lg-12 col-sm-12 d-none d-xl-block">
+              <LevelCard
+                itemsPerPage={10}
+                levelAddressDetail={levelAddressDetail}
+                title={"Level Detail"}
+              />
+            </div>
+            <div className="col-12 col-lg-12 col-sm-12 d-none d-xl-none d-lg-block">
+              <LevelCard
+                itemsPerPage={10}
+                levelAddressDetail={levelAddressDetail}
+                title={"Level Detail"}
+              />
+            </div>
+            <div className="col-12 col-lg-12 col-sm-12 d-block d-lg-none d-xl-none">
+              <LevelCard
+                itemsPerPage={5}
+                levelAddressDetail={levelAddressDetail}
+                title={"Level Detail"}
+              />
+            </div>
+          </div>
+          <Footer />
         </div>
-        <div className="row level-overflow mt-5 mb-5">
-          <div className="col-12 col-lg-12 col-sm-12 d-none d-xl-block">
-            <LevelCard
-              itemsPerPage={10}
-              levelAddressDetail={levelAddressDetail}
-              title={"Level Detail"}
-            />
-          </div>
-          <div className="col-12 col-lg-12 col-sm-12 d-none d-xl-none d-lg-block">
-            <LevelCard
-              itemsPerPage={10}
-              levelAddressDetail={levelAddressDetail}
-              title={"Level Detail"}
-            />
-          </div>
-          <div className="col-12 col-lg-12 col-sm-12 d-block d-lg-none d-xl-none">
-            <LevelCard
-              itemsPerPage={5}
-              levelAddressDetail={levelAddressDetail}
-              title={"Level Detail"}
-            />
-          </div>
-        </div>
-       
-        <Footer />
       </div>
-    </div>
     </div>
   );
 }

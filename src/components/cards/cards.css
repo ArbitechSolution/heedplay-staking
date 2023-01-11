@@ -106,6 +106,14 @@ a:hover {
   display: flex;
   justify-content: start;
 }
+.value-afterStaked {
+  font-weight: 700;
+  font-size: 15px;
+  color: #ced3d9;
+  line-height: 22px;
+  display: flex;
+  justify-content: start;
+}
 .img-small {
   width: 30px;
   height: 30px;
@@ -178,9 +186,8 @@ input[type="number"]::-webkit-inner-spin-button {
   height: 38px;
 }
 
-
-@media (max-width:425px){
-  .input-field-2{
+@media (max-width: 425px) {
+  .input-field-2 {
     width: 150px !important;
   }
 }

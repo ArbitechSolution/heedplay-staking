@@ -16,8 +16,8 @@ function App() {
   const [roiReleased, setRoireleased] = useState("0.00");
   const [directs, setdirects] = useState("0.00");
   const [balance, setBalance] = useState("0.00");
+  const [contractBalance, setContractBalance] = useState("0.00");
 
-  // const []
   return (
     <div className="App">
       <ToastContainer />
@@ -43,12 +43,14 @@ function App() {
               totalStake={totalStake}
               totalEarned={totalEarned}
               roiReleased={roiReleased}
+              contractBalance={contractBalance}
               setAccount={setAccount}
               setBalance={setBalance}
               setdirects={setdirects}
               setTotalEarned={setTotalEarned}
               setTotalStaked={setTotalStaked}
               setRoireleased={setRoireleased}
+              setContractBalance={setContractBalance}
             />
           }
         />
@@ -62,12 +64,14 @@ function App() {
               totalStake={totalStake}
               totalEarned={totalEarned}
               roiReleased={roiReleased}
+              contractBalance={contractBalance}
               setAccount={setAccount}
               setBalance={setBalance}
               setdirects={setdirects}
               setTotalEarned={setTotalEarned}
               setTotalStaked={setTotalStaked}
               setRoireleased={setRoireleased}
+              setContractBalance={setContractBalance}
             />
           }
         />

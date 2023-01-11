@@ -51,8 +51,6 @@ const Staked = ({ props }) => {
         let res = await stakingContract.methods
           .withdrawDirectsandROI()
           .send({ from: account });
-        console.log("rse", res);
-
         await rewardInfo();
       }
     } catch (error) {

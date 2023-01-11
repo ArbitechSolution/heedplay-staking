@@ -2,10 +2,9 @@ import React, { useEffect, useState } from "react";
 import Footer from "../components/footer/footer";
 import { stakingAbi, stkaingAddress } from "../utils/staking";
 import PaginatedItems from "../components/level-detail/levelCardDirects";
-import "./pages.css"
+import "./pages.css";
 import { HashLink } from "react-router-hash-link";
-
-import { IoMdArrowBack} from "react-icons/io";
+import { IoMdArrowBack } from "react-icons/io";
 
 function DirectIncome(props) {
   const account = props?.account;
@@ -35,11 +34,8 @@ function DirectIncome(props) {
         if (countUser > 1) {
           for (let i = 1; i <= countUser; i++) {
             res = await stakingContract.methods.UserAdress(account, i).call();
-
             totalDepo = await stakingContract.methods.userInfo(res).call();
             totalDepo = web3.utils.fromWei(totalDepo.totalDepositAmount);
-
-            ////populate array
             newArray.push({
               address: res,
               totalDeposit: totalDepo,
@@ -49,8 +45,6 @@ function DirectIncome(props) {
           res = await stakingContract.methods.UserAdress(account, 1).call();
           totalDepo = await stakingContract.methods.userInfo(res).call();
           totalDepo = web3.utils.fromWei(totalDepo.totalDepositAmount);
-
-          ////populate array
           newArray.push({
             address: res,
             totalDeposit: totalDepo,
@@ -58,7 +52,6 @@ function DirectIncome(props) {
         } else {
           newArray.push();
         }
-        console.log("new array", newArray);
         setLevelDetail([...newArray]);
       }
     } catch (error) {
@@ -73,59 +66,55 @@ function DirectIncome(props) {
     <div style={{ background: "linear-gradient(311deg, #121212, #0c0c0c)" }}>
       <div className="container">
         <div className="row d-flex justify-content-center">
-        <div className="col-md-12 mt-5 mb-5">
-        <div className="row d-flex justify-content-center">
-
-        
-          <div className="row  d-flex justify-content-between boxDirects">
-          
-            <div className="col-sm-12 col-lg-6 staked-column ">
-              <span className="d-flex text-captilize staked-heading sub">
-                Total User
-              </span>
-              {/* <span className="d-flex  staked-subheading">{userCount}</span> */}
-            </div>
-            <div className="col-sm-12 col-lg-6 staked-column">
-              <span className="d-flex directs-subheading">{userCount}</span>
-            </div>
-          </div>
-          </div>
-        </div>
-        <div className="col-md-9">
-        <div className="button-left">
-               
-                  <HashLink className="arrow-color btn-arrow p-3" to="/">
-                  <IoMdArrowBack />
-                  </HashLink>
+          <div className="col-md-12 mt-5 mb-5">
+            <div className="row d-flex justify-content-center">
+              <div className="row  d-flex justify-content-between boxDirects">
+                <div className="col-sm-12 col-lg-6 staked-column ">
+                  <span className="d-flex text-captilize staked-heading sub">
+                    Total User
+                  </span>
+                  {/* <span className="d-flex  staked-subheading">{userCount}</span> */}
                 </div>
+                <div className="col-sm-12 col-lg-6 staked-column">
+                  <span className="d-flex directs-subheading">{userCount}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="col-md-9">
+            <div className="button-left">
+              <HashLink className="arrow-color btn-arrow p-2" to="/">
+                <IoMdArrowBack />
+              </HashLink>
+            </div>
+          </div>
+
+          <div className="row  mb-5">
+            <div className="col-12 col-lg-12 col-sm-12 d-none d-xl-block">
+              <PaginatedItems
+                itemsPerPage={10}
+                levelDetail={levelDetail}
+                title={"Directs Detail"}
+              />
+            </div>
+            <div className="col-12 col-lg-12 col-sm-12 d-none d-xl-none d-lg-block">
+              <PaginatedItems
+                itemsPerPage={10}
+                levelDetail={levelDetail}
+                title={"Directs Detail"}
+              />
+            </div>
+            <div className="col-12 col-lg-12 col-sm-12 d-block d-lg-none d-xl-none">
+              <PaginatedItems
+                itemsPerPage={5}
+                levelDetail={levelDetail}
+                title={"Directs Detail"}
+              />
+            </div>
+          </div>
+          <Footer />
         </div>
-        
-        <div className="row  mb-5">
-          <div className="col-12 col-lg-12 col-sm-12 d-none d-xl-block">
-            <PaginatedItems
-              itemsPerPage={10}
-              levelDetail={levelDetail}
-              title={"Directs Detail"}
-            />
-          </div>
-          <div className="col-12 col-lg-12 col-sm-12 d-none d-xl-none d-lg-block">
-            <PaginatedItems
-              itemsPerPage={10}
-              levelDetail={levelDetail}
-              title={"Directs Detail"}
-            />
-          </div>
-          <div className="col-12 col-lg-12 col-sm-12 d-block d-lg-none d-xl-none">
-            <PaginatedItems
-              itemsPerPage={5}
-              levelDetail={levelDetail}
-              title={"Directs Detail"}
-            />
-          </div>
-        </div>
-        <Footer />
       </div>
-    </div>
     </div>
   );
 }

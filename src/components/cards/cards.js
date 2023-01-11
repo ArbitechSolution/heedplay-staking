@@ -25,6 +25,11 @@ const Cards = ({ props: props }) => {
   const [earnedValue2, setEarnedValue2] = useState(0);
   const [earnedValue3, setEarnedValue3] = useState(0);
   const [earnedValue4, setEarnedValue4] = useState(0);
+  const [unStakedValue1, setUnStakedValue1] = useState(0);
+  const [unStakedValue2, setUnStakedValue2] = useState(0);
+  const [unStakedValue3, setUnStakedValue3] = useState(0);
+  const [unStakedValue4, setUnStakedValue4] = useState(0);
+  const [totalUsers, setTotalUsers] = useState(0);
   const [referralAddress, setReferralAddress] = useState("0");
   const handleConnect = async () => {
     let acc = await loadWeb3();
@@ -71,7 +76,7 @@ const Cards = ({ props: props }) => {
       } else if (account == "Connect") {
         toast.info("Not Connected");
       } else {
-        if (amountForplan >= 10) {
+        if (amountForplan >= 100) {
           const web3 = window.web3;
           const tokenContract = new web3.eth.Contract(tokenAbi, tokenAddress);
           let tokenBalance = await tokenContract.methods
@@ -103,7 +108,7 @@ const Cards = ({ props: props }) => {
             toast.info("Oops! your blance is low");
           }
         } else {
-          toast.info("Please enter value greater or equal to ten");
+          toast.info("Minimum HPG to stake is 100");
         }
       }
     } catch (error) {
@@ -119,19 +124,35 @@ const Cards = ({ props: props }) => {
       } else if (account == "Connect") {
         toast.info("Not Connected");
       } else {
-        if (amountToUnstake > 0) {
+        if (amountToUnstake >= 100) {
           const web3 = window.web3;
           const stakingContract = new web3.eth.Contract(
             stakingAbi,
             stkaingAddress
           );
-          await stakingContract.methods
-            .unstake(timeToUnstake)
-            .send({ from: account });
-          handleAllStake();
-          handleTotalEarned();
-          handleTotalStake();
-          handleBalance();
+          let orderLength = await stakingContract.methods
+            .getOrderLength(account)
+            .call();
+          console.log("orderLength", orderLength);
+
+          let unstakeTime = false;
+          let isUnstake = false;
+          for (let i = 0; i < orderLength; i++) {
+            let data = await stakingContract.methods
+              .orderInfos(account, i)
+              .call();
+
+            console.log("data", data);
+          }
+
+          // await stakingContract.methods
+          //   .unstake(timeToUnstake)
+          //   .send({ from: account });
+          // handleAllStake();
+          // handleAllUnStake();
+          // handleTotalEarned();
+          // handleTotalStake();
+          // handleBalance();
           toast.success("Transaction Successful");
         } else {
           toast.info("Please staked first!");
@@ -166,6 +187,39 @@ const Cards = ({ props: props }) => {
           parseFloat(web3.utils.fromWei(staked.totalStake_400)).toFixed(2)
         );
         setStakedValue4(
+          parseFloat(web3.utils.fromWei(staked.totalStake_600)).toFixed(2)
+        );
+      }
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+  const handleAllUnStake = async () => {
+    try {
+      if (account == "No Wallet") {
+        console.log("Not Connected");
+      } else if (account == "Wrong Network") {
+        console.log("Wrong Network");
+      } else if (account == "Connect") {
+        console.log("Not Connected");
+      } else {
+        const web3 = window.web3;
+        const stakingContract = new web3.eth.Contract(
+          stakingAbi,
+          stkaingAddress
+        );
+        let staked = await stakingContract.methods.userInfo(account).call();
+        console.log("unstakedStaked", staked);
+        setUnStakedValue1(
+          parseFloat(web3.utils.fromWei(staked.totalStake_100)).toFixed(2)
+        );
+        setUnStakedValue2(
+          parseFloat(web3.utils.fromWei(staked.totalStake_200)).toFixed(2)
+        );
+        setUnStakedValue3(
+          parseFloat(web3.utils.fromWei(staked.totalStake_400)).toFixed(2)
+        );
+        setUnStakedValue4(
           parseFloat(web3.utils.fromWei(staked.totalStake_600)).toFixed(2)
         );
       }
@@ -314,12 +368,10 @@ const Cards = ({ props: props }) => {
     try {
       let URL = window.location.href;
       if (URL.includes("referrallink")) {
-        // setcheckreffarl(true)
         let pathArray = URL.split("?");
         let UserID = pathArray[pathArray.length - 1];
         UserID = UserID.split("=");
         UserID = UserID[UserID.length - 1];
-        // console.log("LAST", UserID);
         setReferralAddress(UserID);
       } else {
         const stakingContract = new web3Supply.eth.Contract(
@@ -365,14 +417,60 @@ const Cards = ({ props: props }) => {
       console.log("error", error);
     }
   };
+  const handleContractBalance = async () => {
+    try {
+      if (account == "No Wallet") {
+        console.log("Not Connected");
+      } else if (account == "Wrong Network") {
+        console.log("Wrong Network");
+      } else if (account == "Connect") {
+        console.log("Not Connected");
+      } else {
+        const web3 = window.web3;
+        const tokenContract = new web3.eth.Contract(tokenAbi, tokenAddress);
+        let tokenBalance = await tokenContract.methods
+          .balanceOf(stkaingAddress)
+          .call();
+        props?.setContractBalance(
+          parseFloat(web3.utils.fromWei(tokenBalance)).toFixed(3)
+        );
+      }
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+  const handleTotalUsers = async () => {
+    try {
+      if (account == "No Wallet") {
+        console.log("Not Connected");
+      } else if (account == "Wrong Network") {
+        console.log("Wrong Network");
+      } else if (account == "Connect") {
+        console.log("Not Connected");
+      } else {
+        const web3 = window.web3;
+        const stakingContract = new web3.eth.Contract(
+          stakingAbi,
+          stkaingAddress
+        );
+        let totalUser = await stakingContract.methods.totalUser().call();
+        setTotalUsers(totalUser);
+      }
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
   useEffect(() => {
     handleAllStake();
+    handleAllUnStake();
     handleReward();
     handleTotalStake();
     handleTotalEarned();
     rewardInfo();
     handleReferralAddress();
     handleBalance();
+    handleContractBalance();
+    handleTotalUsers();
   }, [account]);
   useEffect(() => {
     setInterval(() => {
@@ -407,9 +505,17 @@ const Cards = ({ props: props }) => {
         </div>
       </div>
       <div className="row d-flex justify-content-space mt-4">
-        <div className="col-12 d-flex justify-content-center align-items-center">
-          <span className="card-title text-">Balance</span>
+        <div className="col-lg-4 col-md-12 d-flex justify-content-center align-items-center">
+          <span className="card-title text-">Contract Balance</span>
+          <span className="value-staked ms-5">{props?.contractBalance}</span>
+        </div>
+        <div className="col-lg-4 col-md-12 d-flex justify-content-center align-items-center">
+          <span className="card-title text-">User Balance</span>
           <span className="value-staked ms-5">{props?.balance}</span>
+        </div>
+        <div className="col-lg-4 col-md-12 d-flex justify-content-center align-items-center">
+          <span className="card-title text-">Total Users</span>
+          <span className="value-staked ms-5">{totalUsers}</span>
         </div>
       </div>
       <div className="row d-flex justify-content-center">
@@ -429,11 +535,11 @@ const Cards = ({ props: props }) => {
                           <span className="text-staked">Staked</span>
                         </div>
                         <div className="col mt-2">
-                          <span className="value-staked">100 Days</span>
+                          <span className="value-staked">99 Days</span>
                         </div>
                         <div className="col mt-2">
                           <span className="doller-staked">
-                            Reward 0.2 % per day
+                            Reward 0.5 % per day
                           </span>
                         </div>
                       </div>
@@ -482,9 +588,14 @@ const Cards = ({ props: props }) => {
                         <img src={Tlogosmall} alt="" className="img-small" />
                         <span className="value-afterPool">{stakedValue1}</span>
                       </div>
+                      <div className="col mt-2 d-flex">
+                        <span className="value-afterStaked">
+                          {unStakedValue1}
+                        </span>
+                      </div>
                     </div>
                   </div>
-                  <div className="col-6 d-flex justify-content-center align-items-end">
+                  <div className="col-6 d-flex justify-content-center align-items-center">
                     <button
                       className=" btn-inner"
                       onClick={() => {
@@ -547,11 +658,11 @@ const Cards = ({ props: props }) => {
                           <span className="text-staked">Staked</span>
                         </div>
                         <div className="col mt-2">
-                          <span className="value-staked">200 Days</span>
+                          <span className="value-staked">195 Days</span>
                         </div>
                         <div className="col mt-2">
                           <span className="doller-staked">
-                            Reward 0.35 % per day
+                            Reward 0.7 % per day
                           </span>
                         </div>
                       </div>
@@ -600,9 +711,14 @@ const Cards = ({ props: props }) => {
                         <img src={Tlogosmall} alt="" className="img-small" />
                         <span className="value-afterPool">{stakedValue2}</span>
                       </div>
+                      <div className="col mt-2 d-flex">
+                        <span className="value-afterStaked">
+                          {unStakedValue2}
+                        </span>
+                      </div>
                     </div>
                   </div>
-                  <div className="col-6 d-flex justify-content-center align-items-end">
+                  <div className="col-6 d-flex justify-content-center align-items-center">
                     <button
                       className=" btn-inner"
                       onClick={() => {
@@ -665,11 +781,11 @@ const Cards = ({ props: props }) => {
                           <span className="text-staked">Staked</span>
                         </div>
                         <div className="col mt-2">
-                          <span className="value-staked">400 Days</span>
+                          <span className="value-staked">390 Days</span>
                         </div>
                         <div className="col mt-2">
                           <span className="doller-staked">
-                            Reward 0.45 % per day
+                            Reward 0.8 % per day
                           </span>
                         </div>
                       </div>
@@ -718,9 +834,14 @@ const Cards = ({ props: props }) => {
                         <img src={Tlogosmall} alt="" className="img-small" />
                         <span className="value-afterPool">{stakedValue3}</span>
                       </div>
+                      <div className="col mt-2 d-flex">
+                        <span className="value-afterStaked">
+                          {unStakedValue3}
+                        </span>
+                      </div>
                     </div>
                   </div>
-                  <div className="col-6 d-flex justify-content-center align-items-end">
+                  <div className="col-6 d-flex justify-content-center align-items-center">
                     <button
                       className=" btn-inner"
                       onClick={() => {
@@ -783,11 +904,11 @@ const Cards = ({ props: props }) => {
                           <span className="text-staked">Staked</span>
                         </div>
                         <div className="col mt-2">
-                          <span className="value-staked">600 Days</span>
+                          <span className="value-staked">585 Days</span>
                         </div>
                         <div className="col mt-2">
                           <span className="doller-staked">
-                            Reward 0.55 % per day
+                            Reward 1.0 % per day
                           </span>
                         </div>
                       </div>
@@ -836,9 +957,14 @@ const Cards = ({ props: props }) => {
                         <img src={Tlogosmall} alt="" className="img-small" />
                         <span className="value-afterPool">{stakedValue4}</span>
                       </div>
+                      <div className="col mt-2 d-flex">
+                        <span className="value-afterStaked">
+                          {unStakedValue4}
+                        </span>
+                      </div>
                     </div>
                   </div>
-                  <div className="col-6 d-flex justify-content-center align-items-end">
+                  <div className="col-6 d-flex justify-content-center align-items-center">
                     <button
                       className=" btn-inner"
                       onClick={() => {
