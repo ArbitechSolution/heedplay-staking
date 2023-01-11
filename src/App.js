@@ -33,7 +33,7 @@ function App() {
           element={<AirDrop account={account} balance={balance} />}
         />
         <Route path="/directs" element={<DirectIncome account={account} />} />
-        <Route
+        {/* <Route
           path="/staking"
           element={
             <Staking
@@ -53,8 +53,11 @@ function App() {
               setContractBalance={setContractBalance}
             />
           }
-        />
-        <Route
+        /> */}
+        <Route path="/staking" element={<CommingPage />} />
+        <Route path="/" element={<CommingPage />} />
+
+        {/* <Route
           path="/"
           element={
             <Staking
@@ -74,7 +77,7 @@ function App() {
               setContractBalance={setContractBalance}
             />
           }
-        />
+        /> */}
       </Routes>
     </div>
   );
