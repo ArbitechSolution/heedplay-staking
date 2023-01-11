@@ -93,11 +93,10 @@ function DirectIncome(props) {
         </div>
         <div className="col-md-9">
         <div className="button-left">
-                  <button className="btn-arrow">
-                  <HashLink className="arrow-color" to="/">
+               
+                  <HashLink className="arrow-color btn-arrow p-3" to="/">
                   <IoMdArrowBack />
                   </HashLink>
-                  </button>
                 </div>
         </div>
         

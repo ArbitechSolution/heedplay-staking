@@ -179,11 +179,10 @@ const AirDrop = ({ props: props }) => {
       </div>
       <div className="col-md-10">
         <div className="button-left">
-                  <button className="btn-arrow">
-                  <HashLink className="arrow-color" to="/">
+
+                  <HashLink className="arrow-color btn-arrow p-3" to="/">
                   <IoMdArrowBack />
                   </HashLink>
-                  </button>
                 </div>
         </div>
       <div className="row boxStakedDetail1 d-flex justify-content-center my-5">

@@ -149,11 +149,9 @@ function LevelPage(props) {
               <div className="col-md-12  mb-5">
                 <h3 className="text-level">level</h3>
                 <div className="button-left">
-                  <button className="btn-arrow">
-                  <HashLink className="arrow-color" to="/">
+                  <HashLink className="arrow-color btn-arrow p-3" to="/">
                   <IoMdArrowBack />
                   </HashLink>
-                  </button>
                 </div>
                 <div className="d-flex justify-content-center gap-2">
                
