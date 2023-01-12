@@ -27,10 +27,38 @@ const Footer = () => {
               <span className="footer-text-headeing">Social</span>
             </div>
             <div className="col-12 footer-col ">
-              <span className="footer-text">Telegram</span>
-              <span className="footer-text">Twitter</span>
-              <span className="footer-text">Discord</span>
-              <span className="footer-text">Medium</span>
+              <a
+                href="https://t.me/Heed2play"
+                target="_blank"
+                rel="noreferrer"
+                className="telegram footer-text"
+              >
+                Telegram
+              </a>
+              <a
+                href="https://twitter.com/Heed2play"
+                target="_blank"
+                rel="noreferrer"
+                className="twitter footer-text"
+              >
+                Twitter
+              </a>
+              <a
+                href="https://discord.gg/xYexCvXy"
+                target="_blank"
+                rel="noreferrer"
+                className="discord footer-text"
+              >
+                Discord
+              </a>
+              <a
+                href="https://medium.com/@heed2play"
+                target="_blank"
+                rel="noreferrer"
+                className="discord pe-1 footer-text"
+              >
+                Medium
+              </a>
             </div>
           </div>
         </div>

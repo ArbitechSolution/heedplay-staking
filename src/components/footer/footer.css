@@ -17,6 +17,7 @@
   letter-spacing: 0.52px;
   color: #dbdada;
   font-size: 14px;
+  text-decoration: none;
 }
 .footer-col {
   display: flex;
