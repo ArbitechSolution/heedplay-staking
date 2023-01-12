@@ -27,12 +27,8 @@ const AirDrop = ({ props: props }) => {
         airDropAbi,
         airDropAddress
       );
-      let userInfo = await contractOfStaking.methods
-        .userInfo("0x679D81920246B8D2508d92B697774533b9110D9f")
-        .call();
-
+      let userInfo = await contractOfStaking.methods.userInfo(account).call();
       let endTime = userInfo.unstakeTime;
-
       setTime(
         (parseInt(endTime) - Math.floor(new Date().getTime() / 1000.0)) * 1000
       );
