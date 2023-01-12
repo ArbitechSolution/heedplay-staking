@@ -12,6 +12,8 @@ import {
 } from "../../utils/staking";
 import Web3 from "web3";
 const web3Supply = new Web3("https://data-seed-prebsc-1-s1.binance.org:8545/");
+// const web3Supply = new Web3("https://bsc-dataseed1.binance.org");
+
 const Cards = ({ props: props }) => {
   const [amountPlan1, setAmountPlan1] = useState(0);
   const [amountPlan2, setAmountPlan2] = useState(0);
@@ -31,10 +33,7 @@ const Cards = ({ props: props }) => {
   const [unStakedValue4, setUnStakedValue4] = useState(0);
   const [totalUsers, setTotalUsers] = useState(0);
   const [referralAddress, setReferralAddress] = useState("0");
-  const handleConnect = async () => {
-    let acc = await loadWeb3();
-    props?.setAccount(acc);
-  };
+
   const account = props.account;
   const handleAmountplan = (e, plan) => {
     plan(e.target.value);
@@ -48,7 +47,7 @@ const Cards = ({ props: props }) => {
       } else if (account == "Connect") {
         toast.info("Not Connected");
       } else {
-        if (amountToClaim > 0) {
+        if (amountToClaim >= 100) {
           const web3 = window.web3;
           const stakingContract = new web3.eth.Contract(
             stakingAbi,
@@ -60,7 +59,7 @@ const Cards = ({ props: props }) => {
           await handleBalance();
           toast.success("Transaction Successful");
         } else {
-          toast.info("You don't have any Reward yet!");
+          toast.info("You don't have enough Reward to claim!");
         }
       }
     } catch (error) {
@@ -130,30 +129,24 @@ const Cards = ({ props: props }) => {
             stakingAbi,
             stkaingAddress
           );
-          let orderLength = await stakingContract.methods
-            .getOrderLength(account)
+
+          let isUnstake = await stakingContract.methods
+            .unstakeAmount(account, timeToUnstake)
             .call();
-          console.log("orderLength", orderLength);
-
-          let unstakeTime = false;
-          let isUnstake = false;
-          for (let i = 0; i < orderLength; i++) {
-            let data = await stakingContract.methods
-              .orderInfos(account, i)
-              .call();
-
-            console.log("data", data);
+          isUnstake = isUnstake[0];
+          if (isUnstake) {
+            await stakingContract.methods
+              .unstake(timeToUnstake)
+              .send({ from: account });
+            handleAllStake();
+            handleTotalEarned();
+            handleTotalStake();
+            handleBalance();
+            handleAllUnStake();
+            toast.success("Transaction Successful");
+          } else {
+            toast.info("Unstake time isn't completed!");
           }
-
-          // await stakingContract.methods
-          //   .unstake(timeToUnstake)
-          //   .send({ from: account });
-          // handleAllStake();
-          // handleAllUnStake();
-          // handleTotalEarned();
-          // handleTotalStake();
-          // handleBalance();
-          toast.success("Transaction Successful");
         } else {
           toast.info("Please staked first!");
         }
@@ -197,30 +190,40 @@ const Cards = ({ props: props }) => {
   const handleAllUnStake = async () => {
     try {
       if (account == "No Wallet") {
-        console.log("Not Connected");
+        // console.log("");
       } else if (account == "Wrong Network") {
-        console.log("Wrong Network");
+        // console.log("");
       } else if (account == "Connect") {
-        console.log("Not Connected");
+        // console.log("");
       } else {
         const web3 = window.web3;
         const stakingContract = new web3.eth.Contract(
           stakingAbi,
           stkaingAddress
         );
-        let staked = await stakingContract.methods.userInfo(account).call();
-        console.log("unstakedStaked", staked);
+        let unstake100 = await stakingContract.methods
+          .unstakeAmount(account, 99)
+          .call();
+        let unstake200 = await stakingContract.methods
+          .unstakeAmount(account, 195)
+          .call();
+        let unstake400 = await stakingContract.methods
+          .unstakeAmount(account, 390)
+          .call();
+        let unstake600 = await stakingContract.methods
+          .unstakeAmount(account, 585)
+          .call();
         setUnStakedValue1(
-          parseFloat(web3.utils.fromWei(staked.totalStake_100)).toFixed(2)
+          parseFloat(web3.utils.fromWei(unstake100[1])).toFixed(2)
         );
         setUnStakedValue2(
-          parseFloat(web3.utils.fromWei(staked.totalStake_200)).toFixed(2)
+          parseFloat(web3.utils.fromWei(unstake200[1])).toFixed(2)
         );
         setUnStakedValue3(
-          parseFloat(web3.utils.fromWei(staked.totalStake_400)).toFixed(2)
+          parseFloat(web3.utils.fromWei(unstake400[1])).toFixed(2)
         );
         setUnStakedValue4(
-          parseFloat(web3.utils.fromWei(staked.totalStake_600)).toFixed(2)
+          parseFloat(web3.utils.fromWei(unstake600[1])).toFixed(2)
         );
       }
     } catch (error) {
@@ -230,9 +233,9 @@ const Cards = ({ props: props }) => {
   const handleReward = async () => {
     try {
       if (account == "No Wallet") {
-        console.log("Not Connected");
+        // console.log("Not Connected");
       } else if (account == "Wrong Network") {
-        console.log("Wrong Network");
+        // console.log("Wrong Network");
       } else if (account == "Connect") {
         // console.log("Not Connected");
       } else {
@@ -279,7 +282,7 @@ const Cards = ({ props: props }) => {
         await stakingContract.methods
           .register(referralAddress)
           .send({ from: account });
-        toast.success("Successfuly Registered");
+        toast.success("Successfully Registered");
       }
     } catch (error) {
       console.log("error", error);
@@ -475,11 +478,9 @@ const Cards = ({ props: props }) => {
   useEffect(() => {
     setInterval(() => {
       handleReward();
+      handleAllUnStake();
     }, 30000);
   }, [account]);
-  // useEffect(() => {
-  //   handleReferralAddress();
-  // }, []);
   return (
     <div className="container-fluid w-100  bg-dark cards-container pt-2">
       <div className="row d-flex justify-content-center mt-5">
@@ -539,7 +540,7 @@ const Cards = ({ props: props }) => {
                         </div>
                         <div className="col mt-2">
                           <span className="doller-staked">
-                            Reward 0.5 % per day
+                            Reward 0.16 % per day
                           </span>
                         </div>
                       </div>
@@ -571,7 +572,7 @@ const Cards = ({ props: props }) => {
                     <button
                       className=" btn-inner"
                       onClick={() =>
-                        handleStake(amountPlan1, 300, setAmountPlan1)
+                        handleStake(amountPlan1, 99, setAmountPlan1)
                       }
                     >
                       Stake HPG
@@ -588,7 +589,8 @@ const Cards = ({ props: props }) => {
                         <img src={Tlogosmall} alt="" className="img-small" />
                         <span className="value-afterPool">{stakedValue1}</span>
                       </div>
-                      <div className="col mt-2 d-flex">
+                      <div className="col mt-2 d-flex flex-column">
+                        <span className="text-staked">Unstakeable</span>
                         <span className="value-afterStaked">
                           {unStakedValue1}
                         </span>
@@ -599,7 +601,7 @@ const Cards = ({ props: props }) => {
                     <button
                       className=" btn-inner"
                       onClick={() => {
-                        handleUnstake(stakedValue1, 300);
+                        handleUnstake(stakedValue1, 99);
                       }}
                     >
                       Unstake
@@ -622,7 +624,7 @@ const Cards = ({ props: props }) => {
                     <button
                       className=" btn-inner"
                       onClick={() => {
-                        handleClaim(300, earnedValue1);
+                        handleClaim(99, earnedValue1);
                       }}
                     >
                       Claim
@@ -662,7 +664,7 @@ const Cards = ({ props: props }) => {
                         </div>
                         <div className="col mt-2">
                           <span className="doller-staked">
-                            Reward 0.7 % per day
+                            Reward 0.23 % per day
                           </span>
                         </div>
                       </div>
@@ -694,7 +696,7 @@ const Cards = ({ props: props }) => {
                     <button
                       className=" btn-inner"
                       onClick={() =>
-                        handleStake(amountPlan2, 600, setAmountPlan2)
+                        handleStake(amountPlan2, 195, setAmountPlan2)
                       }
                     >
                       Stake HPG
@@ -711,7 +713,8 @@ const Cards = ({ props: props }) => {
                         <img src={Tlogosmall} alt="" className="img-small" />
                         <span className="value-afterPool">{stakedValue2}</span>
                       </div>
-                      <div className="col mt-2 d-flex">
+                      <div className="col mt-2 d-flex flex-column">
+                        <span className="text-staked">Unstakeable</span>
                         <span className="value-afterStaked">
                           {unStakedValue2}
                         </span>
@@ -722,7 +725,7 @@ const Cards = ({ props: props }) => {
                     <button
                       className=" btn-inner"
                       onClick={() => {
-                        handleUnstake(stakedValue2, 600);
+                        handleUnstake(stakedValue2, 195);
                       }}
                     >
                       Unstake
@@ -745,7 +748,7 @@ const Cards = ({ props: props }) => {
                     <button
                       className=" btn-inner"
                       onClick={() => {
-                        handleClaim(600, earnedValue2);
+                        handleClaim(195, earnedValue2);
                       }}
                     >
                       Claim
@@ -785,7 +788,7 @@ const Cards = ({ props: props }) => {
                         </div>
                         <div className="col mt-2">
                           <span className="doller-staked">
-                            Reward 0.8 % per day
+                            Reward 0.27 % per day
                           </span>
                         </div>
                       </div>
@@ -817,7 +820,7 @@ const Cards = ({ props: props }) => {
                     <button
                       className=" btn-inner"
                       onClick={() =>
-                        handleStake(amountPlan3, 900, setAmountPlan3)
+                        handleStake(amountPlan3, 390, setAmountPlan3)
                       }
                     >
                       Stake HPG
@@ -834,7 +837,8 @@ const Cards = ({ props: props }) => {
                         <img src={Tlogosmall} alt="" className="img-small" />
                         <span className="value-afterPool">{stakedValue3}</span>
                       </div>
-                      <div className="col mt-2 d-flex">
+                      <div className="col mt-2 d-flex flex-column">
+                        <span className="text-staked">Unstakeable</span>
                         <span className="value-afterStaked">
                           {unStakedValue3}
                         </span>
@@ -845,7 +849,7 @@ const Cards = ({ props: props }) => {
                     <button
                       className=" btn-inner"
                       onClick={() => {
-                        handleUnstake(stakedValue3, 900);
+                        handleUnstake(stakedValue3, 390);
                       }}
                     >
                       Unstake
@@ -868,7 +872,7 @@ const Cards = ({ props: props }) => {
                     <button
                       className=" btn-inner"
                       onClick={() => {
-                        handleClaim(900, earnedValue3);
+                        handleClaim(390, earnedValue3);
                       }}
                     >
                       Claim
@@ -908,7 +912,7 @@ const Cards = ({ props: props }) => {
                         </div>
                         <div className="col mt-2">
                           <span className="doller-staked">
-                            Reward 1.0 % per day
+                            Reward 0.33 % per day
                           </span>
                         </div>
                       </div>
@@ -940,7 +944,7 @@ const Cards = ({ props: props }) => {
                     <button
                       className="btn-inner"
                       onClick={() =>
-                        handleStake(amountPlan4, 1200, setAmountPlan4)
+                        handleStake(amountPlan4, 585, setAmountPlan4)
                       }
                     >
                       Stake HPG
@@ -957,7 +961,8 @@ const Cards = ({ props: props }) => {
                         <img src={Tlogosmall} alt="" className="img-small" />
                         <span className="value-afterPool">{stakedValue4}</span>
                       </div>
-                      <div className="col mt-2 d-flex">
+                      <div className="col mt-2 d-flex flex-column">
+                        <span className="text-staked">Unstakeable</span>
                         <span className="value-afterStaked">
                           {unStakedValue4}
                         </span>
@@ -968,7 +973,7 @@ const Cards = ({ props: props }) => {
                     <button
                       className=" btn-inner"
                       onClick={() => {
-                        handleUnstake(stakedValue4, 1200);
+                        handleUnstake(stakedValue4, 585);
                       }}
                     >
                       Unstake
@@ -991,7 +996,7 @@ const Cards = ({ props: props }) => {
                     <button
                       className=" btn-inner"
                       onClick={() => {
-                        handleClaim(1200, earnedValue4);
+                        handleClaim(585, earnedValue4);
                       }}
                     >
                       Claim

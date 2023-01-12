@@ -121,17 +121,17 @@ const AirDrop = ({ props: props }) => {
         const stakedAmount = await airDropContract.methods
           .userInfo(account)
           .call();
-        let res = web3.utils.fromWei(stakedAmount?.claimedReward);
-        res = parseFloat(res).toFixed(5);
-        setClaimed(res);
+        let claimedReward = web3.utils.fromWei(stakedAmount?.claimedReward);
+        claimedReward = parseFloat(claimedReward).toFixed(5);
+        setClaimed(claimedReward);
 
-        res = web3.utils.fromWei(stakedAmount?.stakedAmount);
-        res = parseFloat(res).toFixed(2);
-        setStaked(res);
+        let staked = web3.utils.fromWei(stakedAmount?.stakedAmount);
+        staked = parseFloat(staked).toFixed(2);
+        setStaked(staked);
 
-        res = web3.utils.fromWei(stakedAmount?.withdrawlAmount);
-        res = parseFloat(res).toFixed(2);
-        setWithdrawl(res);
+        let withdrawl = web3.utils.fromWei(stakedAmount?.withdrawlAmount);
+        withdrawl = parseFloat(withdrawl).toFixed(2);
+        setWithdrawl(withdrawl);
       }
     } catch (err) {
       console.log("error while getting values");
@@ -151,10 +151,11 @@ const AirDrop = ({ props: props }) => {
           airDropAbi,
           airDropAddress
         );
-        const claimAmount = await airDropContract.methods
+        let claimAmount = await airDropContract.methods
           .calculateReward(account)
           .call();
-        if (claimAmount > 0) {
+        claimAmount = web3.utils.fromWei(claimAmount);
+        if (parseFloat(claimAmount) > 50) {
           await airDropContract.methods.claimReward(account).send({
             from: account,
           });
@@ -183,42 +184,21 @@ const AirDrop = ({ props: props }) => {
           airDropAbi,
           airDropAddress
         );
-        if (staked > 0) {
-          await airDropContract.methods.unstake().send({ from: account });
-          toast.success("Transaction Successful");
-          handleGetValues();
-          getBalance();
+        if (newTime) {
+          toast.info("Unstake time not reached");
         } else {
-          toast.info("You dont have any staked amount");
+          if (staked > 0) {
+            await airDropContract.methods.unstake().send({ from: account });
+            toast.success("Transaction Successful");
+            handleGetValues();
+            getBalance();
+          } else {
+            toast.info("You dont have any staked amount");
+          }
         }
       }
     } catch (err) {
       console.log("error while claiming Reward");
-    }
-  };
-  const getOwner = async () => {
-    try {
-      if (account == "No Wallet") {
-        console.log("Not Connected");
-      } else if (account == "Wrong Network") {
-        console.log("Wrong Network");
-      } else if (account == "Connect") {
-        console.log("Not Connected");
-      } else {
-        const web3 = window.web3;
-        const airDropContract = new web3.eth.Contract(
-          airDropAbi,
-          airDropAddress
-        );
-        let ownerAcc = await airDropContract.methods.owner().call();
-        if (ownerAcc == account) {
-          setOwner(true);
-        } else {
-          setOwner(false);
-        }
-      }
-    } catch (err) {
-      console.log("error while getting Owner");
     }
   };
   const getBalance = async () => {
@@ -247,7 +227,6 @@ const AirDrop = ({ props: props }) => {
   useEffect(() => {
     handleGetValues();
     getBalance();
-    getOwner();
     getTime();
   }, [account]);
 
@@ -303,24 +282,6 @@ const AirDrop = ({ props: props }) => {
           </div>
         </div>
         <div className="col-12 align-items-center mt-5">
-          {/* {owner && (
-            <div className="row d-flex justify-content-around ">
-              <div className=" col-4 ">
-                <input type="text" className="input-field-2"></input>
-              </div>
-              <div className=" col-4 ">
-                <button
-                  className="btn-inner-air1"
-                  onClick={() => {
-                    handleAirDrop();
-                  }}
-                >
-                  AirDrop
-                </button>
-              </div>
-            </div>
-          )} */}
-
           <div className="row d-flex justify-content-around mt-5">
             <div className=" col-4 ">
               <button

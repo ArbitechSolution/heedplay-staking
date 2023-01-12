@@ -7,7 +7,7 @@ const StakedDetails = () => {
         <div className="col-lg-12 ">
           <p className=" text-captilize stakedDetail-heading mt-3">
             Total income: based on your tarrif plan (
-            <b className="boldText">from 0.2% to 0.55% daily</b>)
+            <b className="boldText">from 0.16% to 0.33% daily</b>)
           </p>
           <p className="  stakedDetail-heading mt-3">
             Basic interest rate:

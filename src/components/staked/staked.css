@@ -56,7 +56,7 @@
   padding: 5px 15px;
   color: #ced3d9 !important;
 }
-.btnLInk{
+.btnLInk {
   text-decoration: none !important;
   color: #ced3d9;
 }
@@ -77,11 +77,18 @@
   color: #ced3d9;
 }
 
-@media(max-width:425px){
-  .input-field-3{
+@media (max-width: 425px) {
+  .input-field-3 {
     width: 200px !important;
   }
-  .btnDetails{
+  .btnDetails {
     margin-top: 20px !important;
   }
+}
+.cappingPara {
+  font-size: 16px;
+  /* max-width: 40vw; */
+  font-weight: 500;
+  color: #ced3d9;
+  line-height: 22px;
 }

@@ -25,7 +25,7 @@
   );
 }
 .card-title {
-  width: 135px;
+  width: 140px;
   height: 31px;
   background: linear-gradient(311deg, rgba(242, 215, 140, 0), #f3da92);
   -webkit-backdrop-filter: blur(0);

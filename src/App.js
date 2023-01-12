@@ -17,6 +17,8 @@ function App() {
   const [directs, setdirects] = useState("0.00");
   const [balance, setBalance] = useState("0.00");
   const [contractBalance, setContractBalance] = useState("0.00");
+  const [withdrawCapValue, setWithdrawCapValue] = useState("0.00");
+  const [flushValue, setFlushValue] = useState("0.00");
 
   return (
     <div className="App">
@@ -54,8 +56,6 @@ function App() {
             />
           }
         /> */}
-        <Route path="/staking" element={<CommingPage />} />
-        <Route path="/" element={<CommingPage />} />
 
         {/* <Route
           path="/"
@@ -64,20 +64,26 @@ function App() {
               directs={directs}
               account={account}
               balance={balance}
+              flushValue={flushValue}
               totalStake={totalStake}
               totalEarned={totalEarned}
               roiReleased={roiReleased}
               contractBalance={contractBalance}
+              withdrawCapValue={withdrawCapValue}
               setAccount={setAccount}
               setBalance={setBalance}
               setdirects={setdirects}
+              setFlushValue={setFlushValue}
               setTotalEarned={setTotalEarned}
               setTotalStaked={setTotalStaked}
               setRoireleased={setRoireleased}
+              setWithdrawCapValue={setWithdrawCapValue}
               setContractBalance={setContractBalance}
             />
           }
         /> */}
+        <Route path="/staking" element={<CommingPage />} />
+        <Route path="/" element={<CommingPage />} />
       </Routes>
     </div>
   );

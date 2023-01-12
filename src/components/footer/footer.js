@@ -1,6 +1,8 @@
 import React from "react";
 import logoGolden from "../../Assets/images/LogoGolden-01.png";
 import "./footer.css";
+import Whitepaperone from "../documment/HEEDPLAYWHITEPAPER.pdf";
+
 const Footer = () => {
   return (
     <div className="container-fluid w-100 footer-container ">
@@ -14,7 +16,9 @@ const Footer = () => {
               <span className="footer-text-headeing">About</span>
             </div>
             <div className="col-12 footer-col">
-              <span className="footer-text">White Paper</span>
+              <a href={Whitepaperone} target="_blank" className="footer-text">
+                <span>White Paper</span>
+              </a>
               <span className="footer-text">Project Overview</span>
               <span className="footer-text">Faq</span>
               <span className="footer-text">Tokenomics</span>

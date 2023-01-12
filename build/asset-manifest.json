@@ -1,8 +1,9 @@
 {
   "files": {
-    "main.css": "/static/css/main.58b801d6.css",
-    "main.js": "/static/js/main.a9190c5b.js",
+    "main.css": "/static/css/main.67e9495d.css",
+    "main.js": "/static/js/main.62fc3178.js",
     "static/js/787.1309feee.chunk.js": "/static/js/787.1309feee.chunk.js",
+    "static/media/HEEDPLAYWHITEPAPER.pdf": "/static/media/HEEDPLAYWHITEPAPER.1f785b61c0ef0223170a.pdf",
     "static/media/BackgroundTlogo-01.png": "/static/media/BackgroundTlogo-01.30bcfbb89df016746770.png",
     "static/media/LogoGolden-01.png": "/static/media/LogoGolden-01.1e7b25902b4f0cc6703d.png",
     "static/media/PenCake_logo.png": "/static/media/PenCake_logo.caaabc72b5350befa1dc.png",
@@ -11,12 +12,12 @@
     "static/media/footer.ca581494.png": "/static/media/footer.ca581494.ca581494fb47e71a326f.png",
     "static/media/Coinbase_logo.png": "/static/media/Coinbase_logo.f8e6c7b9100d0af7651d.png",
     "index.html": "/index.html",
-    "main.58b801d6.css.map": "/static/css/main.58b801d6.css.map",
-    "main.a9190c5b.js.map": "/static/js/main.a9190c5b.js.map",
+    "main.67e9495d.css.map": "/static/css/main.67e9495d.css.map",
+    "main.62fc3178.js.map": "/static/js/main.62fc3178.js.map",
     "787.1309feee.chunk.js.map": "/static/js/787.1309feee.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.58b801d6.css",
-    "static/js/main.a9190c5b.js"
+    "static/css/main.67e9495d.css",
+    "static/js/main.62fc3178.js"
   ]
 }
