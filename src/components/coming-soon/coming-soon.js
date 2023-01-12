@@ -5,7 +5,7 @@ const CommingSoon = () => {
     <div className="container-fluid bg-dark comming-soon-container pt-5 d-flex justify-content-center align-items-center">
       <div className="row ">
         <div className="col-12 ">
-          <span className="text-comming">Comming Soon</span>
+          <span className="text-comming">Coming Soon</span>
         </div>
       </div>
     </div>
