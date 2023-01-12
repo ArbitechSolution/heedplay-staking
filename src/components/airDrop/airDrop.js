@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./airDrop.css";
 import { HashLink } from "react-router-hash-link";
-// import Web3 from "web3";
 import { IoMdArrowBack } from "react-icons/io";
-// import { accounts } from "../../utils/airDrop";
 import { toast } from "react-toastify";
 import {
   airDropAddress,
@@ -12,10 +10,6 @@ import {
   airDropTokenAddress,
 } from "../../utils/airDropContract";
 import Countdown from "react-countdown";
-import { stakingAbi, stkaingAddress } from "../../utils/staking";
-import moment from "moment";
-// const webSupply = new Web3("https://bsc-dataseed1.binance.org");
-// const webSupply = new Web3("https://data-seed-prebsc-1-s1.binance.org:8545/");
 
 const AirDrop = ({ props: props }) => {
   const account = props?.account;
@@ -24,7 +18,8 @@ const AirDrop = ({ props: props }) => {
   const [withdrawl, setWithdrawl] = useState("0.00");
   const [owner, setOwner] = useState(false);
   const [balance, setBalance] = useState(0);
-  const [startTime, setStartTime] = useState(Date.now());
+  const [time, setTime] = useState(Date.now());
+  const [newTime, setNewTime] = useState(false);
   const getTime = async () => {
     try {
       const web3 = window.web3;
@@ -36,26 +31,12 @@ const AirDrop = ({ props: props }) => {
         .userInfo("0x679D81920246B8D2508d92B697774533b9110D9f")
         .call();
 
-      // let time = Date.now() + 86400;
-      userInfo = userInfo.unstakeTime;
-      // userInfo = new Date(parseFloat(userInfo));
-      console.log("time", userInfo);
-      // Careful, the string output here can vary by implementation...
-      // var utcSeconds = 1639876543;
-      var d = new Date(userInfo * 1000); // The 0 there is the key, which sets the date to the epoch
-      console.log(d);
-      const date = new Date(d);
+      let endTime = userInfo.unstakeTime;
 
-      const seconds = Math.floor(date.getTime() / 1000);
-
-      console.log(Date.now() - parseInt(seconds), "fff");
-      // const seconds = Math.floor(userInfo.getTime() / 1000);
-      // console.log("seconds", seconds);
-      // var timestamp = moment.unix(userInfo);
-      // console.log(timestamp.format("HH/mm/ss"));
-      // console.log("time", time, Date.now() + 23 * 60 * 60 * 1000);
-      // console.log("time", parseInt(time) + 60 * 60 * 1000);
-      // setStartTime(parseInt(userInfo));
+      setTime(
+        (parseInt(endTime) - Math.floor(new Date().getTime() / 1000.0)) * 1000
+      );
+      setNewTime(true);
     } catch (error) {
       console.error("error while get time", error);
     }
@@ -93,8 +74,7 @@ const AirDrop = ({ props: props }) => {
 
   // Renderer callback with condition
   const renderer = ({ days, hours, minutes, seconds, completed }) => {
-    console.log(days, hours, minutes, seconds, completed);
-    if (completed) {
+    if (newTime == false || completed) {
       // Render a completed state
       return <Completionist />;
     } else {
@@ -272,11 +252,9 @@ const AirDrop = ({ props: props }) => {
     handleGetValues();
     getBalance();
     getOwner();
-    // getTime();
+    getTime();
   }, [account]);
-  // useEffect(() => {
-  //   getTime();
-  // }, []);
+
   return (
     <div className="container-fluid bg-dark airDrop-contianer d-flex justify-content-center align-items-center flex-column">
       <div className="row">
@@ -298,11 +276,7 @@ const AirDrop = ({ props: props }) => {
           </HashLink>
         </div>
       </div>
-      {/* <Countdown date={parseInt(startTime)} renderer={renderer} /> */}
-      {/* <Countdown
-        date={Date.now() + (parseInt(startTime) - Date.now())}
-        renderer={renderer}
-      /> */}
+      <Countdown date={Date.now() + time} renderer={renderer} />
       <div className="row boxStakedDetail1 d-flex justify-content-center my-5">
         <div className="col-12 align-items-center mt-5">
           <div className="row d-flex justify-content-around ">
