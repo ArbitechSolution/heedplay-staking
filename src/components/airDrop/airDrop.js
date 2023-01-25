@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./airDrop.css";
 import { HashLink } from "react-router-hash-link";
 import { IoMdArrowBack } from "react-icons/io";
 import { toast } from "react-toastify";
@@ -10,13 +9,13 @@ import {
   airDropTokenAddress,
 } from "../../utils/airDropContract";
 import Countdown from "react-countdown";
+import "./airDrop.css";
 
 const AirDrop = ({ props: props }) => {
   const account = props?.account;
   const [staked, setStaked] = useState("0.00");
   const [claimed, setClaimed] = useState("0.00");
   const [withdrawl, setWithdrawl] = useState("0.00");
-  const [owner, setOwner] = useState(false);
   const [balance, setBalance] = useState(0);
   const [time, setTime] = useState(Date.now());
   const [newTime, setNewTime] = useState(false);

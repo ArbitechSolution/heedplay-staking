@@ -53,15 +53,15 @@
   height: 100vh;
 }
 
-  .boxDirects {
-    border: 1px solid green;
-    width: 40%;
-    background: linear-gradient(311deg, #121212, #0c0c0c);
-    box-shadow: 0 20px 20px 0 rgb(0 0 0 / 39%);
-    border-radius: 12px;
-    border: 1px solid rgba(68, 67, 67, 0.47);
-    padding: 30px;
-  }
+.boxDirects {
+  border: 1px solid green;
+  width: 60%;
+  background: linear-gradient(311deg, #121212, #0c0c0c);
+  box-shadow: 0 20px 20px 0 rgb(0 0 0 / 39%);
+  border-radius: 12px;
+  border: 1px solid rgba(68, 67, 67, 0.47);
+  padding: 30px;
+}
 .directs-subheading {
   font-weight: 800;
   color: #ced3d9;

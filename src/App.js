@@ -1,14 +1,14 @@
 import { useState } from "react";
-import "./App.css";
-import CustomNavbar from "./components/navbar/navbar";
-import Staking from "./pages/staking";
 import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import CustomNavbar from "./components/navbar/navbar";
+import Staking from "./pages/staking";
 import CommingPage from "./pages/comming-soon";
 import AirDrop from "./pages/AirDrop";
 import Level from "./pages/level";
 import DirectIncome from "./pages/directIncome";
+import "./App.css";
+import "react-toastify/dist/ReactToastify.css";
 function App() {
   const [account, setAccount] = useState("Connect");
   const [totalStake, setTotalStaked] = useState("0.00");
@@ -19,6 +19,8 @@ function App() {
   const [contractBalance, setContractBalance] = useState("0.00");
   const [withdrawCapValue, setWithdrawCapValue] = useState("0.00");
   const [flushValue, setFlushValue] = useState("0.00");
+  const [reaminingCap, setReaminingCap] = useState("0.00");
+  const [directAffiliate, setDirectAffiliate] = useState("0.00");
 
   return (
     <div className="App">
@@ -35,29 +37,37 @@ function App() {
           element={<AirDrop account={account} balance={balance} />}
         />
         <Route path="/directs" element={<DirectIncome account={account} />} />
-        {/* <Route
+        <Route
           path="/staking"
           element={
             <Staking
               directs={directs}
               account={account}
               balance={balance}
+              flushValue={flushValue}
               totalStake={totalStake}
               totalEarned={totalEarned}
               roiReleased={roiReleased}
+              reaminingCap={reaminingCap}
               contractBalance={contractBalance}
+              withdrawCapValue={withdrawCapValue}
               setAccount={setAccount}
               setBalance={setBalance}
               setdirects={setdirects}
+              setFlushValue={setFlushValue}
               setTotalEarned={setTotalEarned}
               setTotalStaked={setTotalStaked}
               setRoireleased={setRoireleased}
+              setReaminingCap={setReaminingCap}
+              setWithdrawCapValue={setWithdrawCapValue}
               setContractBalance={setContractBalance}
+              setDirectAffiliate={setDirectAffiliate}
+              directAffiliate={directAffiliate}
             />
           }
-        /> */}
+        />
 
-        {/* <Route
+        <Route
           path="/"
           element={
             <Staking
@@ -68,6 +78,7 @@ function App() {
               totalStake={totalStake}
               totalEarned={totalEarned}
               roiReleased={roiReleased}
+              reaminingCap={reaminingCap}
               contractBalance={contractBalance}
               withdrawCapValue={withdrawCapValue}
               setAccount={setAccount}
@@ -77,13 +88,16 @@ function App() {
               setTotalEarned={setTotalEarned}
               setTotalStaked={setTotalStaked}
               setRoireleased={setRoireleased}
+              setReaminingCap={setReaminingCap}
               setWithdrawCapValue={setWithdrawCapValue}
               setContractBalance={setContractBalance}
+              setDirectAffiliate={setDirectAffiliate}
+              directAffiliate={directAffiliate}
             />
           }
-        /> */}
-        <Route path="/staking" element={<CommingPage />} />
-        <Route path="/" element={<CommingPage />} />
+        />
+        {/* <Route path="/staking" element={<CommingPage />} />
+        <Route path="/" element={<CommingPage />} /> */}
       </Routes>
     </div>
   );

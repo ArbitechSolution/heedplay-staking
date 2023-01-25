@@ -74,10 +74,10 @@ export const loadWeb3 = async () => {
       await window.ethereum.enable();
       await window.web3.eth.getChainId((err, netId) => {
         switch (netId.toString()) {
-          case "97":
-            isItConnected = true;
-            net_id = netId;
-            break;
+          // case "97":
+          //   isItConnected = true;
+          //   net_id = netId;
+          //   break;
           case "56":
             isItConnected = true;
             net_id = netId;

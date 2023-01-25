@@ -1,7 +1,7 @@
 import React from "react";
 import logoGolden from "../../Assets/images/LogoGolden-01.png";
-import "./footer.css";
 import Whitepaperone from "../documment/HEEDPLAYWHITEPAPER.pdf";
+import "./footer.css";
 
 const Footer = () => {
   return (

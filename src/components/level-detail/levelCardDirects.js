@@ -16,12 +16,15 @@ function Items({ currentItems, title }) {
                 <div className="col-md-2">
                   <div className=" text-level mb-2">No</div>
                 </div>
-                <div className="col-md-5">
+                <div className="col-md-3">
                   <div className=" text-level mb-2">Address</div>
                 </div>
 
-                <div className="col-md-5">
+                <div className="col-md-3">
                   <div className=" text-level mb-2">Total Deposit</div>
+                </div>
+                <div className="col-md-4">
+                  <div className=" text-level mb-2">Generated Directs</div>
                 </div>
               </div>
               {currentItems?.length != 0 ? (
@@ -34,7 +37,7 @@ function Items({ currentItems, title }) {
                       <div className="col-md-2">
                         <span className="text-details mb-2">{index + 1}</span>
                       </div>
-                      <div className="col-md-5">
+                      <div className="col-md-3">
                         <span className="text-details mb-2">
                           {item?.address &&
                             item?.address.substring(0, 4) +
@@ -43,9 +46,14 @@ function Items({ currentItems, title }) {
                         </span>
                       </div>
 
-                      <div className="col-md-5">
+                      <div className="col-md-3">
                         <div className=" text-details mb-2">
                           {item?.totalDeposit}
+                        </div>
+                      </div>
+                      <div className="col-md-4">
+                        <div className=" text-details mb-2">
+                          {item?.totalDirectAmount}
                         </div>
                       </div>
                     </div>
@@ -62,23 +70,23 @@ function Items({ currentItems, title }) {
   );
 }
 
-function PaginatedItems({ itemsPerPage, levelDetail, title }) {
+function PaginatedItems({ itemsPerPage, directsDetail, title }) {
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
     let sliced;
-    for (var i = 0; i < levelDetail?.length; i++) {
-      sliced = levelDetail.slice(itemOffset, endOffset);
+    for (var i = 0; i < directsDetail?.length; i++) {
+      sliced = directsDetail.slice(itemOffset, endOffset);
     }
 
     setCurrentItems(sliced);
-    setPageCount(Math.ceil(levelDetail?.length / itemsPerPage));
-  }, [itemOffset, itemsPerPage, levelDetail]);
+    setPageCount(Math.ceil(directsDetail?.length / itemsPerPage));
+  }, [itemOffset, itemsPerPage, directsDetail]);
 
   const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % levelDetail?.length;
+    const newOffset = (event.selected * itemsPerPage) % directsDetail?.length;
 
     setItemOffset(newOffset);
   };

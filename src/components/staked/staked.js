@@ -6,8 +6,8 @@ import { AiOutlineCopy } from "react-icons/ai";
 import { toast } from "react-toastify";
 import { stakingAbi, stkaingAddress } from "../../utils/staking";
 import { HashLink } from "react-router-hash-link";
-const web3Supply = new Web3("https://data-seed-prebsc-1-s1.binance.org:8545/");
-// const web3Supply = new Web3("https://bsc-dataseed1.binance.org");
+// const web3Supply = new Web3("https://data-seed-prebsc-1-s1.binance.org:8545/");
+const web3Supply = new Web3("https://bsc-dataseed1.binance.org");
 
 const Staked = ({ props }) => {
   const [copyTest, setcopyTest] = useState(false);
@@ -52,7 +52,7 @@ const Staked = ({ props }) => {
           stkaingAddress
         );
         let res = await stakingContract.methods
-          .checkWithdrawDirectsandROI(account)
+          .withdrawDirectsandROI1(account)
           .call();
         let remainingValue = parseFloat(web3.utils.fromWei(res[1]));
         remainingValue = remainingValue.toFixed(2);
@@ -90,10 +90,15 @@ const Staked = ({ props }) => {
         let res = await stakingContract.methods.rewardInfo(account).call();
         props?.setdirects(parseFloat(web3.utils.fromWei(res.directs)));
         let total = parseFloat(web3.utils.fromWei(res.total_Rewards));
+
         total = total.toFixed(2);
         props?.setTotalEarned(total);
         let affiliate = await stakingContract.methods.UpdateROI(account).call();
         props?.setRoireleased(parseFloat(web3.utils.fromWei(affiliate)));
+        let dirrrr = parseFloat(
+          web3.utils.fromWei(res.claimedDirectsandAffiliate)
+        ).toFixed(2);
+        props?.setDirectAffiliate(dirrrr);
       }
     } catch (error) {
       console.log("error", error);
@@ -113,18 +118,30 @@ const Staked = ({ props }) => {
           stakingAbi,
           stkaingAddress
         );
-        let res = await stakingContract.methods
-          .checkWithdrawDirectsandROI(account)
-          .call();
 
         const multiply = await stakingContract.methods.multiplier().call();
         let userInfo = await stakingContract.methods.userInfo(account).call();
         userInfo = parseFloat(web3.utils.fromWei(userInfo.totalDepositAmount));
         props?.setWithdrawCapValue(userInfo * multiply);
 
-        let flush = parseFloat(web3.utils.fromWei(res[2]));
+        let res = await stakingContract.methods.getFlushAmount(account).call();
+        let flush = parseFloat(web3.utils.fromWei(res));
         flush = flush.toFixed(2);
         props?.setFlushValue(flush);
+
+        let res1 = await stakingContract.methods.rewardInfo(account).call();
+        let total = parseFloat(
+          web3.utils.fromWei(res1.claimedDirectsandAffiliate)
+        );
+        total = total.toFixed(2);
+        let rem = userInfo * multiply - total;
+        rem = rem.toFixed(2);
+        props?.setReaminingCap(rem);
+
+        let dirrrr = parseFloat(
+          web3.utils.fromWei(res1.claimedDirectsandAffiliate)
+        ).toFixed(2);
+        props?.setDirectAffiliate(dirrrr);
       }
     } catch (error) {
       console.log("error", error);
@@ -192,18 +209,26 @@ const Staked = ({ props }) => {
 
                 <div className="col-sm-12 col-lg-3 staked-column ">
                   <span className="d-flex text-captilize staked-heading">
-                    Your Total Earned
+                    Claimed staking reward
                   </span>
                   <span className="d-flex  staked-subheading">
                     {props?.totalEarned} HPG
                   </span>
                 </div>
-                <div className="col-sm-12 col-lg-3 staked-column">
+                <div className="col-sm-12 col-lg-3  staked-column">
                   <span className="d-flex text-captilize staked-heading ">
                     Withdraw Cap
                   </span>
                   <span className="d-flex  staked-subheading">
                     {props?.withdrawCapValue} HPG
+                  </span>
+                </div>
+                <div className="col-sm-12 col-lg-3 staked-column">
+                  <span className="d-flex text-captilize staked-heading ">
+                    Remaining Cap
+                  </span>
+                  <span className="d-flex  staked-subheading">
+                    {props?.reaminingCap} HPG
                   </span>
                 </div>
                 <div className="col-sm-12 col-lg-3 staked-column">
@@ -214,6 +239,16 @@ const Staked = ({ props }) => {
                     {props?.flushValue} HPG
                   </span>
                 </div>
+
+                <div className="col-sm-12 col-lg-3 staked-column">
+                  <span className="d-flex text-captilize staked-heading ">
+                    Claimed Directs & Affiliate
+                  </span>
+                  <span className="d-flex  staked-subheading">
+                    {props?.directAffiliate} HPG
+                  </span>
+                </div>
+
                 <div className="col-12 d-flex justify-content-center align-items-end mt-5 ">
                   <span className="text-captilize staked-heading">
                     Withdraw Directs and Affiliate Reward

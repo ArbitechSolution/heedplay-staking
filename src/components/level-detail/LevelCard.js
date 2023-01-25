@@ -6,7 +6,7 @@ function Items({ currentItems, title }) {
   return (
     <div className="container">
       <div className="row d-flex justify-content-center">
-        <div className="col-xl-10 col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center mt-5">
+        <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center mt-5">
           <div className="card outbox w-100">
             <div className="card-body onebox">
               <h5 className="card-titleWith text-uppercase text-start ps-1">
@@ -16,18 +16,21 @@ function Items({ currentItems, title }) {
                 <div className="col-md-1">
                   <div className=" text-level mb-2">No</div>
                 </div>
-                <div className="col-md-3">
+                <div className="col-md-2">
                   <div className=" text-level mb-2">Address</div>
                 </div>
                 <div className="col-md-2">
                   <div className=" text-level mb-2">Reward </div>
                 </div>
 
-                <div className="col-md-3">
+                <div className="col-md-2">
                   <div className=" text-level mb-2">Current Deposit</div>
                 </div>
-                <div className="col-md-3">
+                <div className="col-md-2">
                   <div className=" text-level mb-2">Total Deposit</div>
+                </div>
+                <div className="col-md-2">
+                  <div className=" text-level mb-2">Affiliate Generated</div>
                 </div>
               </div>
               {currentItems?.length != 0 ? (
@@ -40,7 +43,7 @@ function Items({ currentItems, title }) {
                       <div className="col-md-1">
                         <span className="text-details mb-2">{index + 1}</span>
                       </div>
-                      <div className="col-md-3">
+                      <div className="col-md-2">
                         <span className="text-details mb-2">
                           {item?.address &&
                             item?.address.substring(0, 4) +
@@ -53,14 +56,19 @@ function Items({ currentItems, title }) {
                           {item?.reward}
                         </span>
                       </div>
-                      <div className="col-md-3">
+                      <div className="col-md-2">
                         <div className=" text-details mb-2">
                           {item?.currentDeposit}
                         </div>
                       </div>
-                      <div className="col-md-3">
+                      <div className="col-md-2">
                         <div className=" text-details mb-2">
                           {item?.totalDeposit}
+                        </div>
+                      </div>
+                      <div className="col-md-2">
+                        <div className=" text-details mb-2">
+                          {item?.affiliateGenerated}
                         </div>
                       </div>
                     </div>
@@ -79,7 +87,7 @@ function Items({ currentItems, title }) {
 
 function PaginatedItems({ itemsPerPage, levelAddressDetail, title }) {
   const [currentItems, setCurrentItems] = useState([]);
-  const [pageCount, setPageCount] = useState(0);
+  const [pageCount, setPageCount] = useState("");
   const [itemOffset, setItemOffset] = useState(0);
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
@@ -89,7 +97,8 @@ function PaginatedItems({ itemsPerPage, levelAddressDetail, title }) {
     }
 
     setCurrentItems(sliced);
-    setPageCount(Math.ceil(levelAddressDetail?.length / itemsPerPage));
+
+    setPageCount([Math.ceil(levelAddressDetail?.length / itemsPerPage)]);
   }, [itemOffset, itemsPerPage, levelAddressDetail]);
 
   const handlePageClick = (event) => {
@@ -98,6 +107,7 @@ function PaginatedItems({ itemsPerPage, levelAddressDetail, title }) {
 
     setItemOffset(newOffset);
   };
+  // let newArray = ["go", "went", "gone"];
 
   return (
     <>
@@ -121,6 +131,9 @@ function PaginatedItems({ itemsPerPage, levelAddressDetail, title }) {
         containerClassName="pagination"
         activeClassName="active"
         renderOnZeroPageCount={null}
+        // pageLabelBuilder={(page) => {
+        //   return newArray[page - 1];
+        // }}
       />
     </>
   );

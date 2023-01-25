@@ -6,7 +6,6 @@ import { stakingAbi, stkaingAddress } from "../utils/staking";
 import { FiArrowRight } from "react-icons/fi";
 import { FiArrowLeft } from "react-icons/fi";
 import { HashLink } from "react-router-hash-link";
-
 import { IoMdArrowBack } from "react-icons/io";
 
 function LevelPage(props) {
@@ -15,6 +14,8 @@ function LevelPage(props) {
   const [levelAddressDetail, setlevelAddressDetails] = useState([]);
   const [userCount, setUserCount] = useState(0);
   const [totalRoi, setTotalRoi] = useState(0);
+  const [userTotalDeposit, setUserTotalDeposit] = useState(0);
+  const [userTotalClaim, setUserTotalClaim] = useState(0);
   const increment = () => {
     if (levelNumber < 10) setLevelNumber(levelNumber + 1);
   };
@@ -41,10 +42,10 @@ function LevelPage(props) {
           .call();
         setUserCount(users);
         let roi = await stakingContract.methods
-          .UpdateROIInfo(account, levelNumber)
+          .UpdateROIInfo1(account, levelNumber)
           .call();
         roi = web3.utils.fromWei(roi);
-        roi = parseFloat(roi).toFixed(3);
+        roi = parseFloat(roi).toFixed(4);
         setTotalRoi(roi);
         await usersDetails(users);
       }
@@ -73,6 +74,9 @@ function LevelPage(props) {
         let res;
         let totalDepo;
         let reward;
+        let affiliateGenerated;
+        let userDeposit = 0;
+        let userClaim = 0;
         if (usersCounted > 1) {
           for (let i = 1; i <= usersCounted; i++) {
             res = await stakingContract.methods
@@ -82,13 +86,28 @@ function LevelPage(props) {
             depo = web3.utils.fromWei(depo);
             totalDepo = await stakingContract.methods.userInfo(res).call();
             totalDepo = web3.utils.fromWei(totalDepo.totalDepositAmount);
+            userDeposit = parseInt(userDeposit) + parseInt(totalDepo);
+            setUserTotalDeposit(userDeposit);
+
             reward = await stakingContract.methods.rewardInfo(res).call();
             reward = web3.utils.fromWei(reward.total_Rewards);
+            reward = parseFloat(reward).toFixed(4);
+            userClaim = parseFloat(userClaim) + parseFloat(reward);
+            userClaim = parseFloat(userClaim).toFixed(4);
+
+            setUserTotalClaim(userClaim);
+
+            affiliateGenerated = await stakingContract.methods
+              .UpdateROIInfo(account, levelNumber, i)
+              .call();
+            affiliateGenerated = web3.utils.fromWei(affiliateGenerated);
+            affiliateGenerated = parseFloat(affiliateGenerated).toFixed(4);
             newArray.push({
               address: res,
               currentDeposit: depo,
               totalDeposit: totalDepo,
               reward: reward,
+              affiliateGenerated: affiliateGenerated,
             });
           }
         } else if (usersCounted == 1) {
@@ -99,13 +118,27 @@ function LevelPage(props) {
           depo = web3.utils.fromWei(depo);
           totalDepo = await stakingContract.methods.userInfo(res).call();
           totalDepo = web3.utils.fromWei(totalDepo.totalDepositAmount);
+          userDeposit = parseInt(userDeposit) + parseInt(totalDepo);
+          setUserTotalDeposit(userDeposit);
+
           reward = await stakingContract.methods.rewardInfo(res).call();
           reward = web3.utils.fromWei(reward.total_Rewards);
+          reward = parseFloat(reward).toFixed(4);
+
+          userClaim = parseFloat(userClaim) + parseFloat(reward);
+          userClaim = parseFloat(userClaim).toFixed(4);
+          setUserTotalClaim(userClaim);
+          affiliateGenerated = await stakingContract.methods
+            .UpdateROIInfo(account, levelNumber, 1)
+            .call();
+          affiliateGenerated = web3.utils.fromWei(affiliateGenerated);
+          affiliateGenerated = parseFloat(affiliateGenerated).toFixed(4);
           newArray.push({
             address: res,
             currentDeposit: depo,
             totalDeposit: totalDepo,
             reward: reward,
+            affiliateGenerated: affiliateGenerated,
           });
         } else {
           newArray.push();
@@ -127,11 +160,6 @@ function LevelPage(props) {
       </div>
       <div style={{ background: "linear-gradient(311deg, #121212, #0c0c0c)" }}>
         <div className="container">
-          {/* <Level
-          levelNumber={levelNumber}
-          decrement={decrement}
-          increment={increment}
-        /> */}
           <div className="row level-overflow">
             <div className="col-md-12 mt-5 ">
               <div className="row d-flex justify-content-center">
@@ -165,19 +193,33 @@ function LevelPage(props) {
               </div>
             </div>
           </div>
-          {/* <LevelPlace userCount={userCount} totalRoi={totalRoi} /> */}
           <div className="container staked-container ">
             <div className="row d-flex justify-content-center boxLevel mb-5">
-              <div className="col-sm-12 col-lg-6 staked-column">
+              <div className="col-sm-12 col-lg-3 staked-column">
                 <span className="d-flex text-captilize staked-heading sub">
                   Total User
                 </span>
                 <span className="d-flex  staked-subheading">{userCount}</span>
               </div>
-
-              <div className="col-sm-12 col-lg-6 staked-column">
+              <div className="col-sm-12 col-lg-3 staked-column">
                 <span className="d-flex text-captilize staked-heading sub">
-                  Your Affiliate Reward
+                  Total Deposit
+                </span>
+                <span className="d-flex  staked-subheading">
+                  {userTotalDeposit} HPG
+                </span>
+              </div>
+              <div className="col-sm-12 col-lg-3 staked-column">
+                <span className="d-flex text-captilize staked-heading sub">
+                  Total Claim
+                </span>
+                <span className="d-flex  staked-subheading">
+                  {userTotalClaim} HPG
+                </span>
+              </div>
+              <div className="col-sm-12 col-lg-3 staked-column">
+                <span className="d-flex text-captilize staked-heading sub">
+                  Total Affiliate Reward
                 </span>
                 <span className="d-flex  staked-subheading">
                   {totalRoi} HPG

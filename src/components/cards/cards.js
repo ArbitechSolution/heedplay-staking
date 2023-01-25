@@ -1,8 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import "./cards.css";
-import Tlogo from "../../Assets/images/Tlogo-01.png";
-import Tlogosmall from "../../Assets/images/Tlogosmall-01.png";
-import { loadWeb3 } from "../../Api/connectivity";
 import { toast } from "react-toastify";
 import {
   stakingAbi,
@@ -10,9 +7,11 @@ import {
   tokenAddress,
   tokenAbi,
 } from "../../utils/staking";
+import Tlogo from "../../Assets/images/Tlogo-01.png";
+import Tlogosmall from "../../Assets/images/Tlogosmall-01.png";
 import Web3 from "web3";
-const web3Supply = new Web3("https://data-seed-prebsc-1-s1.binance.org:8545/");
-// const web3Supply = new Web3("https://bsc-dataseed1.binance.org");
+// const web3Supply = new Web3("https://data-seed-prebsc-1-s1.binance.org:8545/");
+const web3Supply = new Web3("https://bsc-dataseed1.binance.org");
 
 const Cards = ({ props: props }) => {
   const [amountPlan1, setAmountPlan1] = useState(0);
@@ -131,7 +130,7 @@ const Cards = ({ props: props }) => {
           );
 
           let isUnstake = await stakingContract.methods
-            .unstakeAmount(account, timeToUnstake)
+            .unstakeAmount(timeToUnstake, account)
             .call();
           isUnstake = isUnstake[0];
           if (isUnstake) {
@@ -202,17 +201,18 @@ const Cards = ({ props: props }) => {
           stkaingAddress
         );
         let unstake100 = await stakingContract.methods
-          .unstakeAmount(account, 99)
+          .unstakeAmount(99, account)
           .call();
         let unstake200 = await stakingContract.methods
-          .unstakeAmount(account, 195)
+          .unstakeAmount(195, account)
           .call();
         let unstake400 = await stakingContract.methods
-          .unstakeAmount(account, 390)
+          .unstakeAmount(390, account)
           .call();
         let unstake600 = await stakingContract.methods
-          .unstakeAmount(account, 585)
+          .unstakeAmount(585, account)
           .call();
+
         setUnStakedValue1(
           parseFloat(web3.utils.fromWei(unstake100[1])).toFixed(2)
         );
@@ -246,16 +246,16 @@ const Cards = ({ props: props }) => {
         );
         let earned = await stakingContract.methods.getRewards(account).call();
         setEarnedValue1(
-          parseFloat(web3.utils.fromWei(earned._reward_100)).toFixed(2)
+          parseFloat(web3.utils.fromWei(earned._reward_100)).toFixed(4)
         );
         setEarnedValue2(
-          parseFloat(web3.utils.fromWei(earned._reward_200)).toFixed(2)
+          parseFloat(web3.utils.fromWei(earned._reward_200)).toFixed(4)
         );
         setEarnedValue3(
-          parseFloat(web3.utils.fromWei(earned._reward_400)).toFixed(2)
+          parseFloat(web3.utils.fromWei(earned._reward_400)).toFixed(4)
         );
         setEarnedValue4(
-          parseFloat(web3.utils.fromWei(earned._reward_600)).toFixed(2)
+          parseFloat(web3.utils.fromWei(earned._reward_600)).toFixed(4)
         );
       }
     } catch (error) {
@@ -506,15 +506,15 @@ const Cards = ({ props: props }) => {
         </div>
       </div>
       <div className="row d-flex justify-content-space mt-4">
-        <div className="col-lg-4 col-md-12 d-flex justify-content-center align-items-center">
+        <div className="col-lg-4 col-md-12 d-flex justify-content-center align-items-center mt-2">
           <span className="card-title text-">Contract Balance</span>
           <span className="value-staked ms-5">{props?.contractBalance}</span>
         </div>
-        <div className="col-lg-4 col-md-12 d-flex justify-content-center align-items-center">
+        <div className="col-lg-4 col-md-12 d-flex justify-content-center align-items-center mt-2">
           <span className="card-title text-">User Balance</span>
           <span className="value-staked ms-5">{props?.balance}</span>
         </div>
-        <div className="col-lg-4 col-md-12 d-flex justify-content-center align-items-center">
+        <div className="col-lg-4 col-md-12 d-flex justify-content-center align-items-center mt-2">
           <span className="card-title text-">Total Users</span>
           <span className="value-staked ms-5">{totalUsers}</span>
         </div>
@@ -634,7 +634,7 @@ const Cards = ({ props: props }) => {
 
                 <div className="row d-flex mt-3">
                   <div className="col-6 d-flex">
-                    <span className="sr-para2">Minimal deposit</span>
+                    <span className="sr-para2">Minimum deposit</span>
                   </div>
                   <div className="col-6 d-flex">
                     <span className="sr-para2">100 HPG</span>
@@ -758,7 +758,7 @@ const Cards = ({ props: props }) => {
 
                 <div className="row d-flex mt-3">
                   <div className="col-6 d-flex">
-                    <span className="sr-para2">Minimal deposit</span>
+                    <span className="sr-para2">Minimum deposit</span>
                   </div>
                   <div className="col-6 d-flex">
                     <span className="sr-para2">100 HPG</span>
@@ -788,7 +788,7 @@ const Cards = ({ props: props }) => {
                         </div>
                         <div className="col mt-2">
                           <span className="doller-staked">
-                            Reward 0.27 % per day
+                            Reward 0.26 % per day
                           </span>
                         </div>
                       </div>
@@ -882,7 +882,7 @@ const Cards = ({ props: props }) => {
 
                 <div className="row d-flex mt-3">
                   <div className="col-6 d-flex">
-                    <span className="sr-para2">Minimal deposit</span>
+                    <span className="sr-para2">Minimum deposit</span>
                   </div>
                   <div className="col-6 d-flex">
                     <span className="sr-para2">100 HPG</span>
@@ -1006,7 +1006,7 @@ const Cards = ({ props: props }) => {
 
                 <div className="row d-flex mt-3">
                   <div className="col-6 d-flex">
-                    <span className="sr-para2">Minimal deposit</span>
+                    <span className="sr-para2">Minimum deposit</span>
                   </div>
                   <div className="col-6 d-flex">
                     <span className="sr-para2">100 HPG</span>

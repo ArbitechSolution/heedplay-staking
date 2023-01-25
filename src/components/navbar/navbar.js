@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import logoGolden from "../../Assets/images/LogoGolden-01.png";
 import { HashLink } from "react-router-hash-link";
-import "./navbar.css";
 import { loadWeb3 } from "../../Api/connectivity";
+import logoGolden from "../../Assets/images/LogoGolden-01.png";
+import "./navbar.css";
 const CustomNavbar = (props) => {
   const [iscolor, setIsColor] = useState("Create Accounts");
   const { pathname } = useLocation();
@@ -79,27 +79,8 @@ const CustomNavbar = (props) => {
                     >
                       Staking
                     </HashLink>
-                    {/* <ul className="dropdown-menu">
-                      <li>
-                        <HashLink className="dropdown-item" to="">
-                          Info
-                        </HashLink>
-                      </li>
-                      <li>
-                        <HashLink className="dropdown-item" to="">
-                          IFO
-                        </HashLink>
-                      </li>
-                    </ul> */}
                   </li>
-                  {/* <li className="nav-item font18">
-                    <HashLink
-                      className={`nav-link ${iscolor == "level" ? "active" : ""}`}
-                      to="/level"
-                    >
-                      Level Detail
-                    </HashLink>
-                  </li> */}
+
                   <li className="nav-item font18">
                     <HashLink
                       className={`nav-link ${iscolor == "nft" ? "active" : ""}`}
