@@ -47,6 +47,7 @@ function LevelPage(props) {
         roi = web3.utils.fromWei(roi);
         roi = parseFloat(roi).toFixed(4);
         setTotalRoi(roi);
+        setTotalRoi(5);
         await usersDetails(users);
       }
     } catch (error) {
@@ -100,9 +101,11 @@ function LevelPage(props) {
             affiliateGenerated = await stakingContract.methods
               .UpdateROIInfo(account, levelNumber, i)
               .call();
+
             affiliateGenerated = web3.utils.fromWei(affiliateGenerated);
             affiliateGenerated = parseFloat(affiliateGenerated).toFixed(4);
             newArray.push({
+              index: i,
               address: res,
               currentDeposit: depo,
               totalDeposit: totalDepo,
@@ -134,6 +137,7 @@ function LevelPage(props) {
           affiliateGenerated = web3.utils.fromWei(affiliateGenerated);
           affiliateGenerated = parseFloat(affiliateGenerated).toFixed(4);
           newArray.push({
+            index: 1,
             address: res,
             currentDeposit: depo,
             totalDeposit: totalDepo,
@@ -230,7 +234,7 @@ function LevelPage(props) {
           <div className="row level-overflow mt-5 mb-5">
             <div className="col-12 col-lg-12 col-sm-12 d-none d-xl-block">
               <LevelCard
-                itemsPerPage={10}
+                itemsPerPage={12}
                 levelAddressDetail={levelAddressDetail}
                 title={"Level Detail"}
               />

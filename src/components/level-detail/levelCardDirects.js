@@ -35,7 +35,7 @@ function Items({ currentItems, title }) {
                       key={index}
                     >
                       <div className="col-md-2">
-                        <span className="text-details mb-2">{index + 1}</span>
+                        <span className="text-details mb-2">{item?.index}</span>
                       </div>
                       <div className="col-md-3">
                         <span className="text-details mb-2">
