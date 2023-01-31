@@ -137,7 +137,7 @@ function DirectIncome(props) {
           <div className="row  mb-5">
             <div className="col-12 col-lg-12 col-sm-12 d-none d-xl-block">
               <PaginatedItems
-                itemsPerPage={2}
+                itemsPerPage={10}
                 directsDetail={directsDetail}
                 title={"Directs Detail"}
               />

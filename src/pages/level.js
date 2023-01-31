@@ -234,7 +234,7 @@ function LevelPage(props) {
           <div className="row level-overflow mt-5 mb-5">
             <div className="col-12 col-lg-12 col-sm-12 d-none d-xl-block">
               <LevelCard
-                itemsPerPage={12}
+                itemsPerPage={10}
                 levelAddressDetail={levelAddressDetail}
                 title={"Level Detail"}
               />
