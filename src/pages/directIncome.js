@@ -44,12 +44,11 @@ function DirectIncome(props) {
             userTotalDeposit =
               parseFloat(totalDepo) + parseFloat(userTotalDeposit);
             setTotalDeposit(userTotalDeposit);
-            // totalDirectAmount = await stakingContract.methods
-            //   .getDirectsamount(res)
-            //   .call();
-            totalDirectAmount = 0;
-            // totalDirectAmount = web3.utils.fromWei(totalDirectAmount);
-            // totalDirectAmount = parseFloat(totalDirectAmount).toFixed(2);
+            totalDirectAmount = await stakingContract.methods
+              .getDirectsamount(res)
+              .call();
+            totalDirectAmount = web3.utils.fromWei(totalDirectAmount);
+            totalDirectAmount = parseFloat(totalDirectAmount).toFixed(2);
             directs = parseFloat(totalDirectAmount) + parseFloat(directs);
             setTotalDirects(directs);
             newArray.push({
