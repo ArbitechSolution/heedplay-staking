@@ -41,13 +41,17 @@ function LevelPage(props) {
           .userCount(account, levelNumber)
           .call();
         setUserCount(users);
-        let roi = await stakingContract.methods
-          .UpdateROIInfo1(account, levelNumber)
-          .call();
-        roi = web3.utils.fromWei(roi);
-        roi = parseFloat(roi).toFixed(4);
-        setTotalRoi(roi);
-        setTotalRoi(5);
+        if (users >= 1) {
+          let roi = await stakingContract.methods
+            .UpdateROIInfo1(account, levelNumber)
+            .call();
+          roi = web3.utils.fromWei(roi);
+          roi = parseFloat(roi).toFixed(4);
+          setTotalRoi(roi);
+        } else {
+          setTotalRoi(0);
+        }
+
         await usersDetails(users);
       }
     } catch (error) {
@@ -134,6 +138,7 @@ function LevelPage(props) {
           affiliateGenerated = await stakingContract.methods
             .UpdateROIInfo(account, levelNumber, 1)
             .call();
+
           affiliateGenerated = web3.utils.fromWei(affiliateGenerated);
           affiliateGenerated = parseFloat(affiliateGenerated).toFixed(4);
           newArray.push({
@@ -145,7 +150,11 @@ function LevelPage(props) {
             affiliateGenerated: affiliateGenerated,
           });
         } else {
+          affiliateGenerated = 0;
+
           newArray.push();
+          setUserTotalDeposit(0);
+          setUserTotalClaim(0);
         }
         setlevelAddressDetails([...newArray]);
       }
