@@ -24,6 +24,8 @@ const CustomNavbar = (props) => {
         setIsColor("user");
       } else if (pathname == "/level") {
         setIsColor("level");
+      } else if (pathname == "/diamondUser") {
+        setIsColor("diamondUser");
       }
     }
   };
@@ -117,6 +119,16 @@ const CustomNavbar = (props) => {
                       to="/airdrop"
                     >
                       Air Drop
+                    </HashLink>
+                  </li>
+                  <li className="nav-item font18">
+                    <HashLink
+                      className={`nav-link ${
+                        iscolor == "diamondUser" ? "active" : ""
+                      }`}
+                      to="/diamondUser"
+                    >
+                      Diamond User
                     </HashLink>
                   </li>
                 </ul>

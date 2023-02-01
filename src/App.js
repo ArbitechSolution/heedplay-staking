@@ -7,6 +7,8 @@ import CommingPage from "./pages/comming-soon";
 import AirDrop from "./pages/AirDrop";
 import Level from "./pages/level";
 import DirectIncome from "./pages/directIncome";
+import DiamondUser from "./pages/diamonduser";
+
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
 function App() {
@@ -32,6 +34,7 @@ function App() {
         <Route path="/market" element={<CommingPage />} />
         <Route path="/game" element={<CommingPage />} />
         <Route path="/level" element={<Level account={account} />} />
+
         <Route
           path="/airdrop"
           element={<AirDrop account={account} balance={balance} />}
@@ -98,6 +101,7 @@ function App() {
         />
         {/* <Route path="/staking" element={<CommingPage />} />
         <Route path="/" element={<CommingPage />} /> */}
+        <Route path="/diamondUser" element={<DiamondUser />} />
       </Routes>
     </div>
   );
