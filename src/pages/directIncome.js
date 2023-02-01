@@ -108,7 +108,7 @@ function DirectIncome(props) {
                 </div>
                 <div className="col-sm-12 col-lg-4 staked-column">
                   <span className="d-flex text-captilize staked-heading sub">
-                    Total Directs
+                    Total Direct Bonus
                   </span>
                   <span className="d-flex directs-subheading mt-2">
                     {totalDirects}
