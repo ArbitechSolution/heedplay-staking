@@ -14,14 +14,11 @@ import "./diamond.css";
 const Diamonduser = ({ props: props }) => {
   const account = props?.account;
   const [staked, setStaked] = useState("0.00");
-  const [claimed, setClaimed] = useState("0.00");
-  const [withdrawl, setWithdrawl] = useState("0.00");
-  const [balance, setBalance] = useState(0);
   const [time, setTime] = useState(Date.now());
   const [newTime, setNewTime] = useState(false);
   const [dailyReward, setDailyreward] = useState("0.00");
-  const [totalStakeReward, setTotalStakereward] = useState("0.00");
   const [totalWithdrawReward, setTotalWithdrawreward] = useState("0.00");
+  const [lockedAmount, setLockedAmount] = useState("0.00");
   const getTime = async () => {
     try {
       if (account == "No Wallet") {
@@ -38,7 +35,7 @@ const Diamonduser = ({ props: props }) => {
         );
 
         let userInfo = await contractOfStaking.methods.userInfo(account).call();
-        let endTime = userInfo.unstakeTime;
+        let endTime = userInfo?.unstakeTime;
         setTime(
           (parseInt(endTime) - Math.floor(new Date().getTime() / 1000.0)) * 1000
         );
@@ -124,6 +121,7 @@ const Diamonduser = ({ props: props }) => {
       } else if (account == "Connect") {
         console.log("Not Connected");
       } else {
+
         const web3 = window.web3;
         const diamondContract = new web3.eth.Contract(
           diamondAbi,
@@ -132,24 +130,23 @@ const Diamonduser = ({ props: props }) => {
         const stakedAmount = await diamondContract.methods
           .userInfo(account)
           .call();
-        let claimedReward = web3.utils.fromWei(stakedAmount?.claimedReward);
-        claimedReward = parseFloat(claimedReward).toFixed(5);
-        setClaimed(claimedReward);
-
-        let staked = web3.utils.fromWei(stakedAmount?.stakedAmount);
-        staked = parseFloat(staked).toFixed(2);
-        setStaked(staked);
-
-        let withdrawl = web3.utils.fromWei(stakedAmount?.withdrawlAmount);
-        withdrawl = parseFloat(withdrawl).toFixed(2);
-        setWithdrawl(withdrawl);
-
+        let total = web3.utils.fromWei(stakedAmount?.claimedReward);
+        total = parseFloat(total).toFixed(2);
+        setTotalWithdrawreward(total)
         let claimAmount = await diamondContract.methods
           .calculateReward(account)
           .call();
-        claimAmount = web3.utils.fromWei(claimAmount);
-        setDailyreward(claimAmount);
-        let claim;
+        let lockedAmount = web3.utils.fromWei(claimAmount?.lockedAmount);
+        lockedAmount = parseFloat(lockedAmount).toFixed(2);
+        setLockedAmount(lockedAmount);
+
+        let staked = web3.utils.fromWei(claimAmount?.stakedAmounts);
+        staked = parseFloat(staked).toFixed(2);
+        setStaked(staked);
+
+        let Daily = web3.utils.fromWei(claimAmount?.rewards);
+        staked = parseFloat(Daily).toFixed(2);
+        setDailyreward(Daily);
       }
     } catch (err) {
       console.log("error while getting values");
@@ -164,22 +161,23 @@ const Diamonduser = ({ props: props }) => {
       } else if (account == "Connect") {
         toast.info("Not Connected");
       } else {
+
         const web3 = window.web3;
         const diamondContract = new web3.eth.Contract(
           diamondAbi,
           diamondAddress
         );
+
         let claimAmount = await diamondContract.methods
           .calculateReward(account)
           .call();
-        claimAmount = web3.utils.fromWei(claimAmount);
-        if (parseFloat(claimAmount) > 200) {
+        claimAmount = web3.utils.fromWei(claimAmount?.rewards);
+        if (parseFloat(claimAmount) >= 300) {
           await diamondContract.methods.claimReward(account).send({
             from: account,
           });
           toast.success("Transaction Successful");
           handleGetValues();
-          getBalance();
         } else {
           toast.info("You don't have any Reward yet!");
         }
@@ -209,7 +207,6 @@ const Diamonduser = ({ props: props }) => {
             await airDropContract.methods.unstake().send({ from: account });
             toast.success("Transaction Successful");
             handleGetValues();
-            getBalance();
           } else {
             toast.info("You dont have any staked amount");
           }
@@ -219,33 +216,15 @@ const Diamonduser = ({ props: props }) => {
       console.log("error while claiming Reward");
     }
   };
-  const getBalance = async () => {
-    try {
-      if (account == "No Wallet") {
-        console.log("Not Connected");
-      } else if (account == "Wrong Network") {
-        console.log("Wrong Network");
-      } else if (account == "Connect") {
-        console.log("Not Connected");
-      } else {
-        const web3 = window.web3;
-        const airDropContract = new web3.eth.Contract(
-          diamondTokenAbi,
-          diamondTokenAddress
-        );
-        let bal = await airDropContract.methods.balanceOf(account).call();
-        bal = web3.utils.fromWei(bal);
-        bal = parseFloat(bal).toFixed(4);
-        setBalance(bal);
-      }
-    } catch (err) {
-      console.log("error while getting balance");
-    }
-  };
+
   useEffect(() => {
-    handleGetValues();
-    getBalance();
+    setInterval(() => {
+      handleGetValues();
+      getTime();
+    }, 30000);
     getTime();
+    handleGetValues();
+
   }, [account]);
 
   return (
@@ -258,7 +237,7 @@ const Diamonduser = ({ props: props }) => {
       <div className="row d-flex flex-column  g-0">
         <div className="col mt-2 g-0">
           <span className="text-staked text-white">
-            Diamond User for 365 Days Staking Reward is 0.8 % per day
+            Diamond User for 365 Days Staking Reward is 0.25 % per day
           </span>
         </div>
       </div>
@@ -273,18 +252,13 @@ const Diamonduser = ({ props: props }) => {
       <div className="row boxStakedDetail2 d-flex justify-content-center my-5">
         <div className="col-12 align-items-center mt-5">
           <div className="row d-flex justify-content-around ">
-            <div className="col-sm-12 col-md-3  d-flex flex-column">
-              <span className="text-pool">
-                <b>Account Balance</b>
-              </span>
-              <span className="text-pool text-white">{balance}</span>
-            </div>
             <div className="col-sm-12 col-md-3 d-flex flex-column">
               <span className="text-pool">
-                <b>Daily Reward</b>
+                <b>Lock Amount</b>
               </span>
-              <span className="text-pool text-white">{dailyReward}</span>
+              <span className="text-pool text-white">{lockedAmount}</span>
             </div>
+
             <div className="col-sm-12 col-md-3 d-flex flex-column">
               <span className="text-pool">
                 <b> Total Staked </b>
@@ -293,15 +267,9 @@ const Diamonduser = ({ props: props }) => {
             </div>
             <div className="col-sm-12 col-md-3 d-flex flex-column">
               <span className="text-pool">
-                <b>Total Staking Reward</b>
+                <b>Daily Reward</b>
               </span>
-              <span className="text-pool text-white">{totalStakeReward}</span>
-            </div>
-            <div className="col-sm-12 col-md-3 d-flex flex-column">
-              <span className="text-pool">
-                <b>Lock Amount</b>
-              </span>
-              <span className="text-pool text-white">{balance}</span>
+              <span className="text-pool text-white">{dailyReward}</span>
             </div>
             <div className="col-sm-12 col-md-3 d-flex flex-column">
               <span className="text-pool">
