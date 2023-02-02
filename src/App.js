@@ -101,7 +101,10 @@ function App() {
         />
         {/* <Route path="/staking" element={<CommingPage />} />
         <Route path="/" element={<CommingPage />} /> */}
-        <Route path="/diamondUser" element={<DiamondUser />} />
+        <Route
+          path="/diamondUser"
+          element={<DiamondUser account={account} balance={balance} />}
+        />
       </Routes>
     </div>
   );

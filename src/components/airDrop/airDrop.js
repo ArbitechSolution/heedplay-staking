@@ -21,17 +21,25 @@ const AirDrop = ({ props: props }) => {
   const [newTime, setNewTime] = useState(false);
   const getTime = async () => {
     try {
-      const web3 = window.web3;
-      const contractOfStaking = new web3.eth.Contract(
-        airDropAbi,
-        airDropAddress
-      );
-      let userInfo = await contractOfStaking.methods.userInfo(account).call();
-      let endTime = userInfo.unstakeTime;
-      setTime(
-        (parseInt(endTime) - Math.floor(new Date().getTime() / 1000.0)) * 1000
-      );
-      setNewTime(true);
+      if (account == "No Wallet") {
+        console.log("Not Connected");
+      } else if (account == "Wrong Network") {
+        console.log("Wrong Network");
+      } else if (account == "Connect") {
+        console.log("Not Connected");
+      } else {
+        const web3 = window.web3;
+        const contractOfStaking = new web3.eth.Contract(
+          airDropAbi,
+          airDropAddress
+        );
+        let userInfo = await contractOfStaking.methods.userInfo(account).call();
+        let endTime = userInfo.unstakeTime;
+        setTime(
+          (parseInt(endTime) - Math.floor(new Date().getTime() / 1000.0)) * 1000
+        );
+        setNewTime(true);
+      }
     } catch (error) {
       console.error("error while get time", error);
     }

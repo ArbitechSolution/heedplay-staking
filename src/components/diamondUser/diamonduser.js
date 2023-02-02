@@ -3,11 +3,11 @@ import { HashLink } from "react-router-hash-link";
 import { IoMdArrowBack } from "react-icons/io";
 import { toast } from "react-toastify";
 import {
-  airDropAddress,
-  airDropAbi,
-  airDropTokenAbi,
-  airDropTokenAddress,
-} from "../../utils/airDropContract";
+  diamondAbi,
+  diamondAddress,
+  diamondTokenAbi,
+  diamondTokenAddress,
+} from "../../utils/diamond";
 import Countdown from "react-countdown";
 import "./diamond.css";
 
@@ -19,19 +19,31 @@ const Diamonduser = ({ props: props }) => {
   const [balance, setBalance] = useState(0);
   const [time, setTime] = useState(Date.now());
   const [newTime, setNewTime] = useState(false);
+  const [dailyReward, setDailyreward] = useState("0.00");
+  const [totalStakeReward, setTotalStakereward] = useState("0.00");
+  const [totalWithdrawReward, setTotalWithdrawreward] = useState("0.00");
   const getTime = async () => {
     try {
-      const web3 = window.web3;
-      const contractOfStaking = new web3.eth.Contract(
-        airDropAbi,
-        airDropAddress
-      );
-      let userInfo = await contractOfStaking.methods.userInfo(account).call();
-      let endTime = userInfo.unstakeTime;
-      setTime(
-        (parseInt(endTime) - Math.floor(new Date().getTime() / 1000.0)) * 1000
-      );
-      setNewTime(true);
+      if (account == "No Wallet") {
+        console.log("Not Connected");
+      } else if (account == "Wrong Network") {
+        console.log("Wrong Network");
+      } else if (account == "Connect") {
+        console.log("Not Connected");
+      } else {
+        const web3 = window.web3;
+        const contractOfStaking = new web3.eth.Contract(
+          diamondAbi,
+          diamondAddress
+        );
+
+        let userInfo = await contractOfStaking.methods.userInfo(account).call();
+        let endTime = userInfo.unstakeTime;
+        setTime(
+          (parseInt(endTime) - Math.floor(new Date().getTime() / 1000.0)) * 1000
+        );
+        setNewTime(true);
+      }
     } catch (error) {
       console.error("error while get time", error);
     }
@@ -113,11 +125,11 @@ const Diamonduser = ({ props: props }) => {
         console.log("Not Connected");
       } else {
         const web3 = window.web3;
-        const airDropContract = new web3.eth.Contract(
-          airDropAbi,
-          airDropAddress
+        const diamondContract = new web3.eth.Contract(
+          diamondAbi,
+          diamondAddress
         );
-        const stakedAmount = await airDropContract.methods
+        const stakedAmount = await diamondContract.methods
           .userInfo(account)
           .call();
         let claimedReward = web3.utils.fromWei(stakedAmount?.claimedReward);
@@ -131,6 +143,13 @@ const Diamonduser = ({ props: props }) => {
         let withdrawl = web3.utils.fromWei(stakedAmount?.withdrawlAmount);
         withdrawl = parseFloat(withdrawl).toFixed(2);
         setWithdrawl(withdrawl);
+
+        let claimAmount = await diamondContract.methods
+          .calculateReward(account)
+          .call();
+        claimAmount = web3.utils.fromWei(claimAmount);
+        setDailyreward(claimAmount);
+        let claim;
       }
     } catch (err) {
       console.log("error while getting values");
@@ -146,16 +165,16 @@ const Diamonduser = ({ props: props }) => {
         toast.info("Not Connected");
       } else {
         const web3 = window.web3;
-        const airDropContract = new web3.eth.Contract(
-          airDropAbi,
-          airDropAddress
+        const diamondContract = new web3.eth.Contract(
+          diamondAbi,
+          diamondAddress
         );
-        let claimAmount = await airDropContract.methods
+        let claimAmount = await diamondContract.methods
           .calculateReward(account)
           .call();
         claimAmount = web3.utils.fromWei(claimAmount);
-        if (parseFloat(claimAmount) > 50) {
-          await airDropContract.methods.claimReward(account).send({
+        if (parseFloat(claimAmount) > 200) {
+          await diamondContract.methods.claimReward(account).send({
             from: account,
           });
           toast.success("Transaction Successful");
@@ -180,8 +199,8 @@ const Diamonduser = ({ props: props }) => {
       } else {
         const web3 = window.web3;
         const airDropContract = new web3.eth.Contract(
-          airDropAbi,
-          airDropAddress
+          diamondAbi,
+          diamondAddress
         );
         if (newTime) {
           toast.info("Unstake time not reached");
@@ -211,12 +230,12 @@ const Diamonduser = ({ props: props }) => {
       } else {
         const web3 = window.web3;
         const airDropContract = new web3.eth.Contract(
-          airDropTokenAbi,
-          airDropTokenAddress
+          diamondTokenAbi,
+          diamondTokenAddress
         );
         let bal = await airDropContract.methods.balanceOf(account).call();
         bal = web3.utils.fromWei(bal);
-        bal = parseFloat(bal).toFixed(5);
+        bal = parseFloat(bal).toFixed(4);
         setBalance(bal);
       }
     } catch (err) {
@@ -258,25 +277,25 @@ const Diamonduser = ({ props: props }) => {
               <span className="text-pool">
                 <b>Account Balance</b>
               </span>
-              <span className="text-pool text-white">{staked}</span>
+              <span className="text-pool text-white">{balance}</span>
             </div>
             <div className="col-sm-12 col-md-3 d-flex flex-column">
               <span className="text-pool">
                 <b>Daily Reward</b>
               </span>
-              <span className="text-pool text-white">{claimed}</span>
+              <span className="text-pool text-white">{dailyReward}</span>
             </div>
             <div className="col-sm-12 col-md-3 d-flex flex-column">
               <span className="text-pool">
                 <b> Total Staked </b>
               </span>
-              <span className="text-pool text-white">{withdrawl}</span>
+              <span className="text-pool text-white">{staked}</span>
             </div>
             <div className="col-sm-12 col-md-3 d-flex flex-column">
               <span className="text-pool">
                 <b>Total Staking Reward</b>
               </span>
-              <span className="text-pool text-white">{balance}</span>
+              <span className="text-pool text-white">{totalStakeReward}</span>
             </div>
             <div className="col-sm-12 col-md-3 d-flex flex-column">
               <span className="text-pool">
@@ -288,7 +307,9 @@ const Diamonduser = ({ props: props }) => {
               <span className="text-pool">
                 <b> Total Staking WithDraw</b>
               </span>
-              <span className="text-pool text-white">{balance}</span>
+              <span className="text-pool text-white">
+                {totalWithdrawReward}
+              </span>
             </div>
           </div>
         </div>
