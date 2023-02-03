@@ -19,6 +19,7 @@ const Diamonduser = ({ props: props }) => {
   const [dailyReward, setDailyreward] = useState("0.00");
   const [totalWithdrawReward, setTotalWithdrawreward] = useState("0.00");
   const [lockedAmount, setLockedAmount] = useState("0.00");
+  const [blackList, setBlackList] = useState(false)
   const getTime = async () => {
     try {
       if (account == "No Wallet") {
@@ -127,26 +128,39 @@ const Diamonduser = ({ props: props }) => {
           diamondAbi,
           diamondAddress
         );
-        const stakedAmount = await diamondContract.methods
-          .userInfo(account)
-          .call();
-        let total = web3.utils.fromWei(stakedAmount?.claimedReward);
-        total = parseFloat(total).toFixed(2);
-        setTotalWithdrawreward(total)
-        let claimAmount = await diamondContract.methods
-          .calculateReward(account)
-          .call();
-        let lockedAmount = web3.utils.fromWei(claimAmount?.lockedAmount);
-        lockedAmount = parseFloat(lockedAmount).toFixed(2);
-        setLockedAmount(lockedAmount);
+        const checkBlackList = await diamondContract.methods.blacklist(account).call()
+        setBlackList(checkBlackList)
+        if (!checkBlackList) {
+          const stakedAmount = await diamondContract.methods
+            .userInfo(account)
+            .call();
+          console.log("stakedAmount", stakedAmount)
+          let total = web3.utils.fromWei(stakedAmount?.claimedReward);
+          total = parseFloat(total).toFixed(2);
+          setTotalWithdrawreward(total)
+          let claimAmount = await diamondContract.methods
+            .calculateReward(account)
+            .call();
+          console.log("claimAmount", claimAmount)
 
-        let staked = web3.utils.fromWei(claimAmount?.stakedAmounts);
-        staked = parseFloat(staked).toFixed(2);
-        setStaked(staked);
+          let lockedAmount = web3.utils.fromWei(claimAmount?.lockedAmount);
+          lockedAmount = parseFloat(lockedAmount).toFixed(2);
+          setLockedAmount(lockedAmount);
 
-        let Daily = web3.utils.fromWei(claimAmount?.rewards);
-        staked = parseFloat(Daily).toFixed(2);
-        setDailyreward(Daily);
+          let staked = web3.utils.fromWei(claimAmount?.stakedAmounts);
+          staked = parseFloat(staked).toFixed(2);
+          setStaked(staked);
+
+          let Daily = web3.utils.fromWei(claimAmount?.rewards);
+          staked = parseFloat(Daily).toFixed(2);
+          setDailyreward(Daily);
+        } else {
+          setTotalWithdrawreward(0)
+          setLockedAmount(0)
+          setStaked(0)
+          setDailyreward(0)
+        }
+
       }
     } catch (err) {
       console.log("error while getting values");
@@ -250,6 +264,7 @@ const Diamonduser = ({ props: props }) => {
       </div>
       <Countdown date={Date.now() + time} renderer={renderer} />
       <div className="row boxStakedDetail2 d-flex justify-content-center my-5">
+
         <div className="col-12 align-items-center mt-5">
           <div className="row d-flex justify-content-around ">
             <div className="col-sm-12 col-md-3 d-flex flex-column">
@@ -291,6 +306,7 @@ const Diamonduser = ({ props: props }) => {
                 }}
               >
                 Withdraw
+                {blackList && <b>!</b>}
               </button>
             </div>
             {/* <div className=" col-4 ">
