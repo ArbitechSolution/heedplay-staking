@@ -27,7 +27,7 @@ const Diamonduser = ({ props: props }) => {
       } else if (account == "Wrong Network") {
         console.log("Wrong Network");
       } else if (account == "Connect") {
-        console.log("Not Connected");
+        // console.log("Not Connected");
       } else {
         const web3 = window.web3;
         const contractOfStaking = new web3.eth.Contract(
@@ -36,10 +36,18 @@ const Diamonduser = ({ props: props }) => {
         );
 
         let userInfo = await contractOfStaking.methods.userInfo(account).call();
-        let endTime = userInfo?.unstakeTime;
+        let endTime = userInfo?.userlockTime;
+        if (((parseInt(endTime) > Math.floor(new Date().getTime() / 1000.0)) * 1000)>0){
+          setTime(
+            (parseInt(endTime) - Math.floor(new Date().getTime() / 1000.0)) * 1000
+          );
+        }
+      else{
+         endTime = userInfo?.unstakeTime
         setTime(
           (parseInt(endTime) - Math.floor(new Date().getTime() / 1000.0)) * 1000
         );
+      }
         setNewTime(true);
       }
     } catch (error) {
@@ -120,7 +128,7 @@ const Diamonduser = ({ props: props }) => {
       } else if (account == "Wrong Network") {
         console.log("Wrong Network");
       } else if (account == "Connect") {
-        console.log("Not Connected");
+        // console.log("Not Connected");
       } else {
 
         const web3 = window.web3;
@@ -134,14 +142,12 @@ const Diamonduser = ({ props: props }) => {
           const stakedAmount = await diamondContract.methods
             .userInfo(account)
             .call();
-          console.log("stakedAmount", stakedAmount)
           let total = web3.utils.fromWei(stakedAmount?.claimedReward);
           total = parseFloat(total).toFixed(2);
           setTotalWithdrawreward(total)
           let claimAmount = await diamondContract.methods
             .calculateReward(account)
             .call();
-          console.log("claimAmount", claimAmount)
 
           let lockedAmount = web3.utils.fromWei(claimAmount?.lockedAmount);
           lockedAmount = parseFloat(lockedAmount).toFixed(2);

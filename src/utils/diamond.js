@@ -1,4 +1,4 @@
-export const diamondAddress = '0x643846dB2b78D050a3aD34Ef9cFd0337dc648156';
+export const diamondAddress = '0xF69f24fcFaFC36234fB48C6Db0cd0Fce864Cd383'
 export const diamondAbi = [
   { inputs: [], stateMutability: 'nonpayable', type: 'constructor' },
   {
@@ -197,20 +197,28 @@ export const diamondAbi = [
     type: 'function',
   },
   {
+    inputs: [{ internalType: 'uint256', name: 'amount', type: 'uint256' }],
+    name: 'updateMinimumWithdraw',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
     inputs: [{ internalType: 'address', name: '', type: 'address' }],
     name: 'userInfo',
     outputs: [
       { internalType: 'uint256', name: 'stakedAmount', type: 'uint256' },
       { internalType: 'uint256', name: 'claimedReward', type: 'uint256' },
+      { internalType: 'uint256', name: 'userlockTime', type: 'uint256' },
       { internalType: 'uint256', name: 'stakingTime', type: 'uint256' },
       { internalType: 'uint256', name: 'unstakeTime', type: 'uint256' },
     ],
     stateMutability: 'view',
     type: 'function',
   },
-];
+]
 
-export const diamondTokenAddress = '0x42CB5042b9973C22fc8E6799151243fAB34041dc';
+export const diamondTokenAddress = '0x42CB5042b9973C22fc8E6799151243fAB34041dc'
 export const diamondTokenAbi = [
   { inputs: [], stateMutability: 'nonpayable', type: 'constructor' },
   {
@@ -463,4 +471,4 @@ export const diamondTokenAbi = [
     stateMutability: 'nonpayable',
     type: 'function',
   },
-];
+]
