@@ -267,6 +267,12 @@ const Diamonduser = ({ props: props }) => {
             Diamond User for 365 Days Staking Reward is {rewardPercent} % per day
           </span>
         </div>
+
+        <div className="col mt-2 g-0 d-flex justify-content-center">
+          <span className="text-staked text-white text-center">
+            Amount is locked for 90 days
+          </span>
+        </div>
       </div>
       <div className="col-md-10">
         <div className="button-left">
