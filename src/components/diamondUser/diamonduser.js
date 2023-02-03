@@ -20,6 +20,7 @@ const Diamonduser = ({ props: props }) => {
   const [totalWithdrawReward, setTotalWithdrawreward] = useState("0.00");
   const [lockedAmount, setLockedAmount] = useState("0.00");
   const [blackList, setBlackList] = useState(false)
+  const [rewardPercent,setPercentage]=useState(0)
   const getTime = async () => {
     try {
       if (account == "No Wallet") {
@@ -54,6 +55,7 @@ const Diamonduser = ({ props: props }) => {
       console.error("error while get time", error);
     }
   };
+  
   const Completionist = () => {
     return (
       <div className="countdown d-flex justify-content-center align-items-center">
@@ -137,6 +139,10 @@ const Diamonduser = ({ props: props }) => {
           diamondAddress
         );
         const checkBlackList = await diamondContract.methods.blacklist(account).call()
+        let getRewardPerCent=await diamondContract.methods.rewardPercentage().call()
+        getRewardPerCent=  web3.utils.fromWei(getRewardPerCent)
+        getRewardPerCent= parseFloat(getRewardPerCent).toFixed(2);
+        setPercentage(getRewardPerCent)
         setBlackList(checkBlackList)
         if (!checkBlackList) {
           const stakedAmount = await diamondContract.methods
@@ -206,6 +212,7 @@ const Diamonduser = ({ props: props }) => {
       console.log("error while claiming Reward");
     }
   };
+  
   const handleUnstake = async () => {
     try {
       if (account == "No Wallet") {
@@ -257,7 +264,7 @@ const Diamonduser = ({ props: props }) => {
       <div className="row d-flex flex-column  g-0">
         <div className="col mt-2 g-0">
           <span className="text-staked text-white">
-            Diamond User for 365 Days Staking Reward is 0.25 % per day
+            Diamond User for 365 Days Staking Reward is {rewardPercent} % per day
           </span>
         </div>
       </div>

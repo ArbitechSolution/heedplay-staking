@@ -9,8 +9,6 @@ const networks = {
       decimals: 18,
     },
     rpcUrls: [
-      "https://rpc-mumbai.maticvigil.com/",
-      "https://polygon-rpc.com/",
       "https://bsc-dataseed1.binance.org",
       "https://bsc-dataseed2.binance.org",
       "https://bsc-dataseed3.binance.org",
@@ -24,7 +22,6 @@ const networks = {
       "https://bsc-dataseed3.ninicoin.io",
       "https://bsc-dataseed4.ninicoin.io",
       "wss://bsc-ws-node.nariox.org",
-      // "https://data-seed-prebsc-1-s1.binance.org:8545/"
     ],
     blockExplorerUrls: ["https://bscscan.com"],
   },
@@ -74,10 +71,6 @@ export const loadWeb3 = async () => {
       await window.ethereum.enable();
       await window.web3.eth.getChainId((err, netId) => {
         switch (netId.toString()) {
-          case "97":
-            isItConnected = true;
-            net_id = netId;
-            break;
           case "56":
             isItConnected = true;
             net_id = netId;

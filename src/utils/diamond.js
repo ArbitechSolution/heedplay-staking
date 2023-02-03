@@ -1,4 +1,4 @@
-export const diamondAddress = '0xF69f24fcFaFC36234fB48C6Db0cd0Fce864Cd383'
+export const diamondAddress = '0x2A565571fe5A623e2C7B89B4aa3aB4A0Aa4c0d58'
 export const diamondAbi = [
   { inputs: [], stateMutability: 'nonpayable', type: 'constructor' },
   {
@@ -141,20 +141,6 @@ export const diamondAbi = [
     type: 'function',
   },
   {
-    inputs: [{ internalType: 'uint256', name: 'feeAmount', type: 'uint256' }],
-    name: 'setFee',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [{ internalType: 'uint256', name: 'percent', type: 'uint256' }],
-    name: 'setRewardPercent',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
     inputs: [],
     name: 'slotTime',
     outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
@@ -197,8 +183,22 @@ export const diamondAbi = [
     type: 'function',
   },
   {
+    inputs: [{ internalType: 'uint256', name: 'feeAmount', type: 'uint256' }],
+    name: 'updateFee',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
     inputs: [{ internalType: 'uint256', name: 'amount', type: 'uint256' }],
     name: 'updateMinimumWithdraw',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [{ internalType: 'uint256', name: 'percent', type: 'uint256' }],
+    name: 'updateRewardPercent',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
@@ -218,7 +218,7 @@ export const diamondAbi = [
   },
 ]
 
-export const diamondTokenAddress = '0x42CB5042b9973C22fc8E6799151243fAB34041dc'
+export const diamondTokenAddress = '0x4E21B912AbB4E3B32f7f6409fBF372Bc2232b305'
 export const diamondTokenAbi = [
   { inputs: [], stateMutability: 'nonpayable', type: 'constructor' },
   {
@@ -249,38 +249,6 @@ export const diamondTokenAbi = [
   {
     anonymous: false,
     inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'previousOwner',
-        type: 'address',
-      },
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'newOwner',
-        type: 'address',
-      },
-    ],
-    name: 'OwnershipTransferred',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'address',
-        name: 'account',
-        type: 'address',
-      },
-    ],
-    name: 'Paused',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
       { indexed: true, internalType: 'address', name: 'from', type: 'address' },
       { indexed: true, internalType: 'address', name: 'to', type: 'address' },
       {
@@ -291,19 +259,6 @@ export const diamondTokenAbi = [
       },
     ],
     name: 'Transfer',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'address',
-        name: 'account',
-        type: 'address',
-      },
-    ],
-    name: 'Unpaused',
     type: 'event',
   },
   {
@@ -319,7 +274,7 @@ export const diamondTokenAbi = [
   {
     inputs: [
       { internalType: 'address', name: 'spender', type: 'address' },
-      { internalType: 'uint256', name: 'amount', type: 'uint256' },
+      { internalType: 'uint256', name: 'value', type: 'uint256' },
     ],
     name: 'approve',
     outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
@@ -327,14 +282,14 @@ export const diamondTokenAbi = [
     type: 'function',
   },
   {
-    inputs: [{ internalType: 'address', name: 'account', type: 'address' }],
+    inputs: [{ internalType: 'address', name: 'owner', type: 'address' }],
     name: 'balanceOf',
     outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function',
   },
   {
-    inputs: [{ internalType: 'uint256', name: 'amount', type: 'uint256' }],
+    inputs: [{ internalType: 'uint256', name: 'value', type: 'uint256' }],
     name: 'burn',
     outputs: [],
     stateMutability: 'nonpayable',
@@ -342,8 +297,8 @@ export const diamondTokenAbi = [
   },
   {
     inputs: [
-      { internalType: 'address', name: 'account', type: 'address' },
-      { internalType: 'uint256', name: 'amount', type: 'uint256' },
+      { internalType: 'address', name: 'from', type: 'address' },
+      { internalType: 'uint256', name: 'value', type: 'uint256' },
     ],
     name: 'burnFrom',
     outputs: [],
@@ -378,48 +333,10 @@ export const diamondTokenAbi = [
     type: 'function',
   },
   {
-    inputs: [
-      { internalType: 'address', name: 'to', type: 'address' },
-      { internalType: 'uint256', name: 'amount', type: 'uint256' },
-    ],
-    name: 'mint',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
     inputs: [],
     name: 'name',
     outputs: [{ internalType: 'string', name: '', type: 'string' }],
     stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'owner',
-    outputs: [{ internalType: 'address', name: '', type: 'address' }],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'pause',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'paused',
-    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'renounceOwnership',
-    outputs: [],
-    stateMutability: 'nonpayable',
     type: 'function',
   },
   {
@@ -439,7 +356,7 @@ export const diamondTokenAbi = [
   {
     inputs: [
       { internalType: 'address', name: 'to', type: 'address' },
-      { internalType: 'uint256', name: 'amount', type: 'uint256' },
+      { internalType: 'uint256', name: 'value', type: 'uint256' },
     ],
     name: 'transfer',
     outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
@@ -450,24 +367,10 @@ export const diamondTokenAbi = [
     inputs: [
       { internalType: 'address', name: 'from', type: 'address' },
       { internalType: 'address', name: 'to', type: 'address' },
-      { internalType: 'uint256', name: 'amount', type: 'uint256' },
+      { internalType: 'uint256', name: 'value', type: 'uint256' },
     ],
     name: 'transferFrom',
     outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [{ internalType: 'address', name: 'newOwner', type: 'address' }],
-    name: 'transferOwnership',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'unpause',
-    outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
   },
