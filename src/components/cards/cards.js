@@ -505,19 +505,19 @@ const Cards = ({ props: props }) => {
           </button>
         </div>
       </div>
-      <div className="row d-flex justify-content-space mt-4">
-        <div className="col-lg-4 col-md-12 d-flex justify-content-center align-items-center mt-2">
+      <div className="row d-flex justify-content-center mt-4">
+        {/* <div className="col-lg-4 col-md-12 d-flex justify-content-center align-items-center mt-2">
           <span className="card-title text-">Contract Balance</span>
           <span className="value-staked ms-5">{props?.contractBalance}</span>
-        </div>
+        </div> */}
         <div className="col-lg-4 col-md-12 d-flex justify-content-center align-items-center mt-2">
           <span className="card-title text-">User Balance</span>
           <span className="value-staked ms-5">{props?.balance}</span>
         </div>
-        <div className="col-lg-4 col-md-12 d-flex justify-content-center align-items-center mt-2">
+        {/* <div className="col-lg-4 col-md-12 d-flex justify-content-center align-items-center mt-2">
           <span className="card-title text-">Total Users</span>
           <span className="value-staked ms-5">{totalUsers}</span>
-        </div>
+        </div> */}
       </div>
       <div className="row d-flex justify-content-center">
         <div className="col-xl-3 col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center mt-5">
